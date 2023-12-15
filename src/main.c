@@ -3,14 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sanghupa <sanghupa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sanghupa <sanghupa@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 14:22:52 by sanghupa          #+#    #+#             */
-/*   Updated: 2023/12/15 20:08:55 by sanghupa         ###   ########.fr       */
+/*   Updated: 2023/12/16 00:32:32 by sanghupa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
+
+void	write_color(t_vec3 color_vec)
+{
+	printf("%d %d %d\n", (int)color_vec.x, (int)color_vec.y, (int)color_vec.z);
+}
 
 void	render(t_camera camera, t_container *container)
 {
@@ -25,6 +30,7 @@ void	render(t_camera camera, t_container *container)
 
 	intensity = init_interval(0.000, 0.999);
 	j = 0;
+	printf("P3\n%d %d\n255\n", camera.image_width, camera.image_height);
 	while (j < camera.image_height)
 	{
 		i = 0;
@@ -35,15 +41,16 @@ void	render(t_camera camera, t_container *container)
 			while (sample < camera.samples_per_pixel)
 			{
 				ray = get_ray(camera, i, j);
-				col_v = add(col_v, ray_color(ray, single_rsc()->objs));
+				col_v = vadd(col_v, ray_color(ray, single_rsc()->objs));
 				sample++;
 			}
 			scalev = 1.0 / camera.samples_per_pixel;
-			col_v = scale(col_v, scalev);
+			col_v = vscale(col_v, scalev);
 			col_v.x = clamp(intensity, col_v.x);
 			col_v.y = clamp(intensity, col_v.y);
 			col_v.z = clamp(intensity, col_v.z);
 			col_v = get_rgb(col_v.x, col_v.y, col_v.z);
+			write_color(col_v);
 			color = get_trgb(0, (int)col_v.x, (int)col_v.y, (int)col_v.z);
 			put_pixel_data(container, i, j, color);
 			i++;
@@ -65,6 +72,7 @@ int	main(int argc, char *argv[])
 	cam.samples_per_pixel = 100;
 
 	rsc = new_resource(2);
+	(void)rsc;
 	t_obj		*obj;
 	t_sphere	*sphere;
 	sphere = init_sphere(init_vector(0, -100.5, -1), 100);

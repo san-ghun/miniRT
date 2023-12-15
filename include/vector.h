@@ -6,7 +6,7 @@
 /*   By: sanghupa <sanghupa@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 00:18:53 by sanghupa          #+#    #+#             */
-/*   Updated: 2023/12/12 01:13:19 by sanghupa         ###   ########.fr       */
+/*   Updated: 2023/12/16 00:15:17 by sanghupa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,36 +51,36 @@ t_vec3	init_vector(double x, double y, double z);
 /// @param u vector
 /// @param v vector
 /// @return a vector
-t_vec3	add(t_vec3 u, t_vec3 v);
+t_vec3	vadd(t_vec3 u, t_vec3 v);
 
 /// @brief subtraction of two vectors
 /// @param u vector
 /// @param v vector
 /// @return a vector
-t_vec3	subtract(t_vec3 u, t_vec3 v);
+t_vec3	vsubtract(t_vec3 u, t_vec3 v);
 
 /// @brief scale (scalar multiplication) of a vector
 /// @param v vector
 /// @param s scalar
 /// @return a vector
-t_vec3	scale(t_vec3 v, double s);
+t_vec3	vscale(t_vec3 v, double s);
 
 /// @brief dot (inner) product of two vectors
 /// @param u vector
 /// @param v vector
 /// @return (double) a scalar
-double	dot(t_vec3 u, t_vec3 v);
+double	vdot(t_vec3 u, t_vec3 v);
 
 /// @brief cross product of two vectors
 /// @param u vector
 /// @param v vector
 /// @return a vector
-t_vec3	cross(t_vec3 u, t_vec3 v);
+t_vec3	vcross(t_vec3 u, t_vec3 v);
 
-t_vec3	flip(t_vec3 v);
-double	len_pow(t_vec3 v);
-double	len_sqrt(t_vec3 v);
-t_vec3	unit(t_vec3 v);
-t_bool	near_zero(t_vec3 v);
+t_vec3	vflip(t_vec3 v);
+double	vlen_pow(t_vec3 v);
+double	vlen_sqrt(t_vec3 v);
+t_vec3	vunit(t_vec3 v);
+t_bool	vnear_zero(t_vec3 v);
 
 #endif

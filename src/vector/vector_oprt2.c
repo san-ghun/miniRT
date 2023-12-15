@@ -6,33 +6,33 @@
 /*   By: sanghupa <sanghupa@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/10 16:44:26 by sanghupa          #+#    #+#             */
-/*   Updated: 2023/12/11 00:29:05 by sanghupa         ###   ########.fr       */
+/*   Updated: 2023/12/16 00:15:17 by sanghupa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vector.h"
 
-t_vec3	flip(t_vec3 v)
+t_vec3	vflip(t_vec3 v)
 {
-	return (scale(v, -1));
+	return (vscale(v, -1));
 }
 
-double	len_pow(t_vec3 v)
+double	vlen_pow(t_vec3 v)
 {
 	return ((v.x * v.x) + (v.y * v.y) + (v.z * v.z));
 }
 
-double	len_sqrt(t_vec3 v)
+double	vlen_sqrt(t_vec3 v)
 {
-	return (sqrt(len_pow(v)));
+	return (sqrt(vlen_pow(v)));
 }
 
-t_vec3	unit(t_vec3 v)
+t_vec3	vunit(t_vec3 v)
 {
-	return (scale(v, (1.0 / len_sqrt(v))));
+	return (vscale(v, (1.0 / vlen_sqrt(v))));
 }
 
-t_bool	near_zero(t_vec3 v)
+t_bool	vnear_zero(t_vec3 v)
 {
 	double	e;
 

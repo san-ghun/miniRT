@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hit_record.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sanghupa <sanghupa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sanghupa <sanghupa@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 01:25:50 by sanghupa          #+#    #+#             */
-/*   Updated: 2023/12/15 20:14:41 by sanghupa         ###   ########.fr       */
+/*   Updated: 2023/12/16 00:14:46 by sanghupa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,11 @@ t_hit	init_rec(void)
 
 void	set_face_normal(t_hit *rec, t_ray ray, t_vec3 outward_normal)
 {
-	rec->front_face = dot(ray.direction, outward_normal) < 0;
+	rec->front_face = vdot(ray.direction, outward_normal) < 0;
 	if (rec->front_face)
 		rec->normal = outward_normal;
 	else
-		rec->normal = flip(outward_normal);
+		rec->normal = vflip(outward_normal);
 }
 
 t_bool	hit_objs(t_obj *objs[], t_ray ray, t_interval interval, t_hit *rec)

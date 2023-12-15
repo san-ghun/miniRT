@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sphere.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sanghupa <sanghupa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sanghupa <sanghupa@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 01:00:50 by sanghupa          #+#    #+#             */
-/*   Updated: 2023/12/15 20:06:26 by sanghupa         ###   ########.fr       */
+/*   Updated: 2023/12/16 00:15:12 by sanghupa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,11 @@ t_bool	hit_sphere(void *data, t_ray ray, t_interval interval, t_hit *rec)
 	t_sphere	*sp;
 
 	sp = (t_sphere *)data;
-	t_vec3	oc = subtract(ray.origin, sp->center);
+	t_vec3	oc = vsubtract(ray.origin, sp->center);
 
-	double 	a = len_pow(ray.direction);
-	double	half_b = dot(oc, ray.direction);
-	double	c = len_pow(oc) - (sp->radius * sp->radius);
+	double 	a = vlen_pow(ray.direction);
+	double	half_b = vdot(oc, ray.direction);
+	double	c = vlen_pow(oc) - (sp->radius * sp->radius);
 	double	discriminant = half_b * half_b - a * c;
 
 	if (discriminant < 0)
@@ -48,7 +48,7 @@ t_bool	hit_sphere(void *data, t_ray ray, t_interval interval, t_hit *rec)
 
 	rec->t = root;
 	rec->point = ray_at(ray, root);
-	t_vec3	outward_normal = scale(subtract(rec->point, sp->center), 1.0 / sp->radius);
+	t_vec3	outward_normal = vscale(vsubtract(rec->point, sp->center), 1.0 / sp->radius);
 	set_face_normal(rec, ray, outward_normal);
 
 	return (1);

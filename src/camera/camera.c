@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   camera.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sanghupa <sanghupa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sanghupa <sanghupa@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/15 15:29:44 by sanghupa          #+#    #+#             */
-/*   Updated: 2023/12/15 20:11:40 by sanghupa         ###   ########.fr       */
+/*   Updated: 2023/12/16 00:14:58 by sanghupa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,15 +34,15 @@ t_camera	init_camera(double aspect_ratio, int image_width)
 	t_vec3	viewport_v = init_vector(0, -viewport_h, 0);
 
 	// Calculate the horizontal and vertical delta vectors from pixel to pixel.
-	this.pixel_delta_u = scale(viewport_u, 1.0 / this.image_width);
-	this.pixel_delta_v = scale(viewport_v, 1.0 / this.image_height);
+	this.pixel_delta_u = vscale(viewport_u, 1.0 / this.image_width);
+	this.pixel_delta_v = vscale(viewport_v, 1.0 / this.image_height);
 
 	t_vec3	viewport_upper_left = init_vector(
 			this.center.x - 0, this.center.y - 0,
 			this.center.z - focal_len
 			);
-	viewport_upper_left = subtract(viewport_upper_left, scale(viewport_u, 0.5));
-	viewport_upper_left = subtract(viewport_upper_left, scale(viewport_v, 0.5));
+	viewport_upper_left = vsubtract(viewport_upper_left, vscale(viewport_u, 0.5));
+	viewport_upper_left = vsubtract(viewport_upper_left, vscale(viewport_v, 0.5));
 
 	this.pixel00_loc = (t_vec3){
 		viewport_upper_left.x + 0.5 * \
@@ -71,8 +71,8 @@ t_vec3	pixel_sample_square(t_camera camera)
 
 	px = -0.5 + ft_random(0.0, 1.0);
 	py = -0.5 + ft_random(0.0, 1.0);
-	res = scale(camera.pixel_delta_u, px);
-	res = add(res, scale(camera.pixel_delta_v, py));
+	res = vscale(camera.pixel_delta_u, px);
+	res = vadd(res, vscale(camera.pixel_delta_v, py));
 	return (res);
 }
 
@@ -84,13 +84,13 @@ t_ray	get_ray(t_camera camera, int i, int j)
 	t_vec3	ray_direction;
 	t_ray	ray;
 
-	pixel_center = add(camera.pixel00_loc, \
-			scale(camera.pixel_delta_u, (double)i));
-	pixel_center = add(pixel_center, \
-			scale(camera.pixel_delta_v, (double)j));
-	pixel_sample = add(pixel_center, pixel_sample_square(camera));
+	pixel_center = vadd(camera.pixel00_loc, \
+			vscale(camera.pixel_delta_u, (double)i));
+	pixel_center = vadd(pixel_center, \
+			vscale(camera.pixel_delta_v, (double)j));
+	pixel_sample = vadd(pixel_center, pixel_sample_square(camera));
 	ray_origin = camera.center;
-	ray_direction = subtract(pixel_sample, ray_origin);
+	ray_direction = vsubtract(pixel_sample, ray_origin);
 	ray = init_ray(ray_origin, ray_direction);
 	return (ray);
 }
@@ -108,14 +108,14 @@ t_vec3	ray_color(t_ray ray, t_obj *objs[])
 	{
 		color = init_vector(rec.normal.x + 1.0, \
 				rec.normal.y + 1.0, rec.normal.z + 1.0);
-		color = scale(color, 0.5);
+		color = vscale(color, 0.5);
 	}
 	else
 	{
-		unit_direction = unit(ray.direction);
+		unit_direction = vunit(ray.direction);
 		a = 0.5 * (unit_direction.y + 1.0);
-		color = scale(init_vector(1.0, 1.0, 1.0), 1.0 - a);
-		color = add(color, scale(init_vector(0.5, 0.7, 1.0), a));
+		color = vscale(init_vector(1.0, 1.0, 1.0), 1.0 - a);
+		color = vadd(color, vscale(init_vector(0.5, 0.7, 1.0), a));
 	}
 	return (color);
 }

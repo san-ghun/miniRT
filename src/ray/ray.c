@@ -6,7 +6,7 @@
 /*   By: sanghupa <sanghupa@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 00:28:34 by sanghupa          #+#    #+#             */
-/*   Updated: 2023/12/11 00:31:44 by sanghupa         ###   ########.fr       */
+/*   Updated: 2023/12/16 00:14:21 by sanghupa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,5 @@ t_ray	init_ray(t_vec3 origin, t_vec3 direction)
 
 t_vec3	ray_at(t_ray r, double t)
 {
-	return (add(r.origin, scale(r.direction, t)));
+	return (vadd(r.origin, vscale(r.direction, t)));
 }
