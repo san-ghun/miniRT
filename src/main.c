@@ -6,7 +6,7 @@
 /*   By: sanghupa <sanghupa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 14:22:52 by sanghupa          #+#    #+#             */
-/*   Updated: 2023/12/16 17:04:12 by sanghupa         ###   ########.fr       */
+/*   Updated: 2023/12/16 17:27:35 by sanghupa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	render(t_camera camera, t_container *container)
 	int		color;
 
 	j = 0;
-	printf("P3\n%d %d\n255\n", camera.image_width, camera.image_height);
+	ft_printf("P3\n%d %d\n255\n", camera.image_width, camera.image_height);
 	while (j < camera.image_height)
 	{
 		i = 0;

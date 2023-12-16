@@ -6,7 +6,7 @@
 /*   By: sanghupa <sanghupa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 14:32:33 by sanghupa          #+#    #+#             */
-/*   Updated: 2023/12/16 17:17:10 by sanghupa         ###   ########.fr       */
+/*   Updated: 2023/12/16 17:21:13 by sanghupa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ t_vec3	vrefract(t_vec3 uv, t_vec3 n, double etai_over_etat)
 	t_vec3	r_out_parallel;
 
 	cos_theta = fmin(vdot(vflip(uv), n), 1.0);
-	r_out_perp = vscale(vadd(uv, vsacle(n, cos_theta)), etai_over_etat);
+	r_out_perp = vscale(vadd(uv, vscale(n, cos_theta)), etai_over_etat);
 	r_out_parallel = vscale(n, -sqrt(fabs(1.0 - vlen_sqrt(r_out_perp))));
 	return (vadd(r_out_perp, r_out_parallel));
 }

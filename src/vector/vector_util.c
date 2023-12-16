@@ -6,13 +6,12 @@
 /*   By: sanghupa <sanghupa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 00:40:18 by sanghupa          #+#    #+#             */
-/*   Updated: 2023/12/16 17:10:21 by sanghupa         ###   ########.fr       */
+/*   Updated: 2023/12/16 17:24:12 by sanghupa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vector.h"
 #include "ft_random.h"
-#include "ft_printf.h"
 
 t_vec3	vrandom(double min, double max)
 {
