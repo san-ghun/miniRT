@@ -6,7 +6,7 @@
 /*   By: sanghupa <sanghupa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 14:22:52 by sanghupa          #+#    #+#             */
-/*   Updated: 2023/12/16 16:16:21 by sanghupa         ###   ########.fr       */
+/*   Updated: 2023/12/16 17:04:12 by sanghupa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,10 +65,10 @@ int	main(int argc, char *argv[])
 	rsc = new_resource(4);
 	(void)rsc;
 
-	t_material	mat_ground = init_material(0, init_vector(0.8, 0.8, 0.0));
-	t_material	mat_center = init_material(0, init_vector(0.7, 0.3, 0.3));
-	t_material	mat_left = init_material(1, init_vector(0.8, 0.8, 0.8));
-	t_material	mat_right = init_material(1, init_vector(0.8, 0.6, 0.2));
+	t_material	mat_ground = init_material(0, init_vector(0.8, 0.8, 0.0), 0);
+	t_material	mat_center = init_material(0, init_vector(0.7, 0.3, 0.3), 0);
+	t_material	mat_left = init_material(1, init_vector(0.8, 0.8, 0.8), 0.3);
+	t_material	mat_right = init_material(1, init_vector(0.8, 0.6, 0.2), 1.0);
 
 	t_obj		*obj;
 	t_sphere	*sphere;

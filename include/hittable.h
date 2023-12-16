@@ -6,7 +6,7 @@
 /*   By: sanghupa <sanghupa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 00:47:39 by sanghupa          #+#    #+#             */
-/*   Updated: 2023/12/16 16:54:07 by sanghupa         ###   ########.fr       */
+/*   Updated: 2023/12/16 16:59:46 by sanghupa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ typedef struct s_material
 {
 	int			type;	// 0:lambertian | 1:metal | 2:dielectric | ...
 	t_vec3		albedo;
+	double		fuzz;
 }				t_material;
 
 typedef struct s_sphere
@@ -82,7 +83,7 @@ t_sphere	*init_sphere(t_vec3 center, double radius, t_material *material);
 t_bool		hit_sphere(void *data, t_ray ray, t_interval interval, t_hit *rec);
 
 /// material.c
-t_material	init_material(int type, t_vec3 color);
+t_material	init_material(int type, t_vec3 color, double fuzz);
 t_bool		scatter(t_ray *r, t_hit *rec);
 
 #endif
