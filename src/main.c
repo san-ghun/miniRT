@@ -6,7 +6,7 @@
 /*   By: sanghupa <sanghupa@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 14:22:52 by sanghupa          #+#    #+#             */
-/*   Updated: 2023/12/16 00:32:32 by sanghupa         ###   ########.fr       */
+/*   Updated: 2023/12/16 01:36:44 by sanghupa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	render(t_camera camera, t_container *container)
 			while (sample < camera.samples_per_pixel)
 			{
 				ray = get_ray(camera, i, j);
-				col_v = vadd(col_v, ray_color(ray, single_rsc()->objs));
+				col_v = vadd(col_v, ray_color(ray, camera.max_depth, single_rsc()->objs));
 				sample++;
 			}
 			scalev = 1.0 / camera.samples_per_pixel;
@@ -69,7 +69,8 @@ int	main(int argc, char *argv[])
 	double	aspect_ratio = 16.0 / 9.0;
 	int		image_w = 400;
 	cam = init_camera(aspect_ratio, image_w);
-	cam.samples_per_pixel = 100;
+	cam.samples_per_pixel = 10;
+	cam.max_depth = 10;
 
 	rsc = new_resource(2);
 	(void)rsc;

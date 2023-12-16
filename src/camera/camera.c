@@ -6,7 +6,7 @@
 /*   By: sanghupa <sanghupa@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/15 15:29:44 by sanghupa          #+#    #+#             */
-/*   Updated: 2023/12/16 00:14:58 by sanghupa         ###   ########.fr       */
+/*   Updated: 2023/12/16 01:35:13 by sanghupa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ t_camera	init_camera(double aspect_ratio, int image_width)
 	if (this.image_height < 1)
 		this.image_height = 1;
 	this.samples_per_pixel = 10;
+	this.max_depth = 10;
 	this.center = init_vector(0, 0, 0);
 
 	// Determine viewport dimensions.
@@ -95,20 +96,26 @@ t_ray	get_ray(t_camera camera, int i, int j)
 	return (ray);
 }
 
-t_vec3	ray_color(t_ray ray, t_obj *objs[])
+t_vec3	ray_color(t_ray ray, int depth, t_obj *objs[])
 {
 	t_vec3		color;
 	t_hit		rec;
 	t_interval	interval;
+	t_vec3		direction;
 	t_vec3		unit_direction;
 	double		a;
+
+	if (depth <= 0)
+		return (init_vector(0, 0, 0));
 
 	interval = init_interval(0.001, INFINITY);
 	if (hit_objs(objs, ray, interval, &rec))
 	{
-		color = init_vector(rec.normal.x + 1.0, \
-				rec.normal.y + 1.0, rec.normal.z + 1.0);
-		color = vscale(color, 0.5);
+		// color = init_vector(rec.normal.x + 1.0, \
+		// 		rec.normal.y + 1.0, rec.normal.z + 1.0);
+		// color = vscale(color, 0.5);
+		direction = vrandom_on_hemisphere(rec.normal);
+		color = vscale(ray_color(init_ray(rec.point, direction), depth - 1, objs), 0.5);
 	}
 	else
 	{

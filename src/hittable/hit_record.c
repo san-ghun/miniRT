@@ -6,7 +6,7 @@
 /*   By: sanghupa <sanghupa@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 01:25:50 by sanghupa          #+#    #+#             */
-/*   Updated: 2023/12/16 00:14:46 by sanghupa         ###   ########.fr       */
+/*   Updated: 2023/12/16 01:25:57 by sanghupa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ t_bool	hit_objs(t_obj *objs[], t_ray ray, t_interval interval, t_hit *rec)
 	double		closest_so_far;
 	t_interval	ray_t;
 	int			i;
-	// t_hit	temp_rec;
+	t_hit		temp_rec;
 
 	hit_anything = 0;
 	closest_so_far = interval.max;
@@ -46,15 +46,11 @@ t_bool	hit_objs(t_obj *objs[], t_ray ray, t_interval interval, t_hit *rec)
 	while (objs[i] != NULL)
 	{
 		ray_t = init_interval(interval.min, closest_so_far);
-		if (hit_sphere((void *)(objs[i]->data), ray, ray_t, rec))
+		if (hit_sphere((void *)(objs[i]->data), ray, ray_t, &temp_rec))
 		{
 			hit_anything = 1;
-			closest_so_far = rec->t;
-			// temp_rec.t;
-			// rec->front_face = temp_rec.front_face;
-			// rec->normal = temp_rec.normal;
-			// rec->point = temp_rec.point;
-			// rec->t = temp_rec.t;
+			closest_so_far = temp_rec.t;
+			*rec = temp_rec;
 		}
 		i++;
 	}
