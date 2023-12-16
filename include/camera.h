@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   camera.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sanghupa <sanghupa@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: sanghupa <sanghupa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/15 15:26:36 by sanghupa          #+#    #+#             */
-/*   Updated: 2023/12/16 01:34:02 by sanghupa         ###   ########.fr       */
+/*   Updated: 2023/12/16 13:18:17 by sanghupa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ typedef struct s_camera
 */
 
 t_camera	init_camera(double aspect_ratio, int image_width);
-t_vec3		get_rgb(double red, double green, double blue);
 t_ray		get_ray(t_camera camera, int i, int j);
 t_vec3		ray_color(t_ray ray, int depth, t_obj *objs[]);
 

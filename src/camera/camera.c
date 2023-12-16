@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   camera.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sanghupa <sanghupa@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: sanghupa <sanghupa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/15 15:29:44 by sanghupa          #+#    #+#             */
-/*   Updated: 2023/12/16 01:35:13 by sanghupa         ###   ########.fr       */
+/*   Updated: 2023/12/16 13:26:59 by sanghupa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,14 +56,6 @@ t_camera	init_camera(double aspect_ratio, int image_width)
 	return (this);
 }
 
-t_vec3	get_rgb(double red, double green, double blue)
-{
-	red *= 255.999;
-	green *= 255.999;
-	blue *= 255.999;
-	return ((t_vec3){red, green, blue});
-}
-
 t_vec3	pixel_sample_square(t_camera camera)
 {
 	double	px;
@@ -111,10 +103,8 @@ t_vec3	ray_color(t_ray ray, int depth, t_obj *objs[])
 	interval = init_interval(0.001, INFINITY);
 	if (hit_objs(objs, ray, interval, &rec))
 	{
-		// color = init_vector(rec.normal.x + 1.0, \
-		// 		rec.normal.y + 1.0, rec.normal.z + 1.0);
-		// color = vscale(color, 0.5);
-		direction = vrandom_on_hemisphere(rec.normal);
+		// direction = vrandom_on_hemisphere(rec.normal);
+		direction = vadd(rec.normal, vrandom_unit_vector());
 		color = vscale(ray_color(init_ray(rec.point, direction), depth - 1, objs), 0.5);
 	}
 	else
