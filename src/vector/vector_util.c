@@ -6,7 +6,7 @@
 /*   By: sanghupa <sanghupa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 00:40:18 by sanghupa          #+#    #+#             */
-/*   Updated: 2023/12/16 16:28:33 by sanghupa         ###   ########.fr       */
+/*   Updated: 2023/12/16 17:10:21 by sanghupa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,4 @@ t_vec3	vrandom_on_hemisphere(t_vec3 normal)
 		return (on_unit_sphere);
 	else
 		return (vflip(on_unit_sphere));
-}
-
-t_vec3	vreflect(t_vec3 v, t_vec3 n)
-{
-	t_vec3	ret;
-
-	ret = vscale(n, 2 * vdot(v, n));
-	ret = vsubtract(v, ret);
-	return (ret);
 }
