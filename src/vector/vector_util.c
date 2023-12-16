@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vector_util.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sanghupa <sanghupa@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: sanghupa <sanghupa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 00:40:18 by sanghupa          #+#    #+#             */
-/*   Updated: 2023/12/16 00:59:46 by sanghupa         ###   ########.fr       */
+/*   Updated: 2023/12/16 16:28:33 by sanghupa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,6 @@ t_vec3	vrandom_in_unit_sphere(void)
 		if (vlen_sqrt(p) < 1)
 			return (p);
 	}
-	ft_printf("Warning: random vector in unit sphere unavailable!\n");
-	return (init_vector(0, 0, 0));
 }
 
 t_vec3	vrandom_unit_vector(void)
@@ -47,4 +45,13 @@ t_vec3	vrandom_on_hemisphere(t_vec3 normal)
 		return (on_unit_sphere);
 	else
 		return (vflip(on_unit_sphere));
+}
+
+t_vec3	vreflect(t_vec3 v, t_vec3 n)
+{
+	t_vec3	ret;
+
+	ret = vscale(n, 2 * vdot(v, n));
+	ret = vsubtract(v, ret);
+	return (ret);
 }

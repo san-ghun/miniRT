@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   close.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sanghupa <sanghupa@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: sanghupa <sanghupa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 21:17:42 by sanghupa          #+#    #+#             */
-/*   Updated: 2023/12/16 00:05:22 by sanghupa         ###   ########.fr       */
+/*   Updated: 2023/12/16 14:37:33 by sanghupa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	close_mlx(t_container *img)
 
 	/// NOT available in MacOS
 	/// Un-comment following if you are compiling on Linux
-	// mlx_destroy_display(vars->mlx);
+	mlx_destroy_display(vars->mlx);
 
 	i = -1;
 	while (rsc->objs[++i])

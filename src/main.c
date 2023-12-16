@@ -6,7 +6,7 @@
 /*   By: sanghupa <sanghupa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 14:22:52 by sanghupa          #+#    #+#             */
-/*   Updated: 2023/12/16 13:26:33 by sanghupa         ###   ########.fr       */
+/*   Updated: 2023/12/16 17:04:12 by sanghupa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,8 @@ void	render(t_camera camera, t_container *container)
 	t_ray	ray;
 	t_vec3	col_v;
 	double	scalev;
-	t_interval	intensity;
 	int		color;
 
-	intensity = init_interval(0.000, 0.999);
 	j = 0;
 	printf("P3\n%d %d\n255\n", camera.image_width, camera.image_height);
 	while (j < camera.image_height)
@@ -41,9 +39,6 @@ void	render(t_camera camera, t_container *container)
 			}
 			scalev = 1.0 / camera.samples_per_pixel;
 			col_v = vscale(col_v, scalev);
-			col_v.x = clamp(intensity, col_v.x);
-			col_v.y = clamp(intensity, col_v.y);
-			col_v.z = clamp(intensity, col_v.z);
 			col_v = get_rgb(col_v.x, col_v.y, col_v.z);
 			write_color(col_v);
 			color = get_trgb(0, (int)col_v.x, (int)col_v.y, (int)col_v.z);
@@ -64,17 +59,29 @@ int	main(int argc, char *argv[])
 	double	aspect_ratio = 16.0 / 9.0;
 	int		image_w = 400;
 	cam = init_camera(aspect_ratio, image_w);
-	cam.samples_per_pixel = 10;
-	cam.max_depth = 10;
+	cam.samples_per_pixel = 100;
+	cam.max_depth = 50;
 
-	rsc = new_resource(2);
+	rsc = new_resource(4);
 	(void)rsc;
+
+	t_material	mat_ground = init_material(0, init_vector(0.8, 0.8, 0.0), 0);
+	t_material	mat_center = init_material(0, init_vector(0.7, 0.3, 0.3), 0);
+	t_material	mat_left = init_material(1, init_vector(0.8, 0.8, 0.8), 0.3);
+	t_material	mat_right = init_material(1, init_vector(0.8, 0.6, 0.2), 1.0);
+
 	t_obj		*obj;
 	t_sphere	*sphere;
-	sphere = init_sphere(init_vector(0, -100.5, -1), 100);
+	sphere = init_sphere(init_vector(0.0, -100.5, -1.0), 100.0, &mat_ground);
 	obj = init_obj((void *)sphere, SPHERE);
 	append_obj(obj);
-	sphere = init_sphere(init_vector(0.0, 0.0, -1.0), 0.5);
+	sphere = init_sphere(init_vector(0.0, 0.0, -1.0), 0.5, &mat_center);
+	obj = init_obj((void *)sphere, SPHERE);
+	append_obj(obj);
+	sphere = init_sphere(init_vector(-1.0, 0.0, -1.0), 0.5, &mat_left);
+	obj = init_obj((void *)sphere, SPHERE);
+	append_obj(obj);
+	sphere = init_sphere(init_vector(1.0, 0.0, -1.0), 0.5, &mat_right);
 	obj = init_obj((void *)sphere, SPHERE);
 	append_obj(obj);
 

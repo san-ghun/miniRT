@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hit_record.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sanghupa <sanghupa@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: sanghupa <sanghupa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 01:25:50 by sanghupa          #+#    #+#             */
-/*   Updated: 2023/12/16 01:25:57 by sanghupa         ###   ########.fr       */
+/*   Updated: 2023/12/16 15:15:53 by sanghupa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ t_hit	init_rec(void)
 	this.front_face = 0;
 	this.normal = init_vector(0, 0, 0);
 	this.point = init_vector(0, 0, 0);
+	this.mat = NULL;
 	this.t = 0;
 	return (this);
 }

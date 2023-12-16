@@ -3,22 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   sphere.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sanghupa <sanghupa@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: sanghupa <sanghupa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 01:00:50 by sanghupa          #+#    #+#             */
-/*   Updated: 2023/12/16 00:15:12 by sanghupa         ###   ########.fr       */
+/*   Updated: 2023/12/16 13:58:37 by sanghupa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "hittable.h"
 
-t_sphere	*init_sphere(t_vec3 center, double radius)
+t_sphere	*init_sphere(t_vec3 center, double radius, t_material *material)
 {
 	t_sphere	*this;
 
 	this = malloc(sizeof(t_sphere) * 1);
 	this->center = center;
 	this->radius = radius;
+	this->mat = material;
 	return (this);
 }
 
@@ -50,6 +51,7 @@ t_bool	hit_sphere(void *data, t_ray ray, t_interval interval, t_hit *rec)
 	rec->point = ray_at(ray, root);
 	t_vec3	outward_normal = vscale(vsubtract(rec->point, sp->center), 1.0 / sp->radius);
 	set_face_normal(rec, ray, outward_normal);
+	rec->mat = sp->mat;
 
 	return (1);
 }
