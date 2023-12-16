@@ -6,11 +6,12 @@
 /*   By: sanghupa <sanghupa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/15 15:29:44 by sanghupa          #+#    #+#             */
-/*   Updated: 2023/12/16 13:26:59 by sanghupa         ###   ########.fr       */
+/*   Updated: 2023/12/16 16:55:02 by sanghupa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "camera.h"
+#include <stdio.h>
 
 t_camera	init_camera(double aspect_ratio, int image_width)
 {
@@ -92,20 +93,18 @@ t_vec3	ray_color(t_ray ray, int depth, t_obj *objs[])
 {
 	t_vec3		color;
 	t_hit		rec;
-	t_interval	interval;
-	t_vec3		direction;
 	t_vec3		unit_direction;
 	double		a;
 
 	if (depth <= 0)
 		return (init_vector(0, 0, 0));
 
-	interval = init_interval(0.001, INFINITY);
-	if (hit_objs(objs, ray, interval, &rec))
+	if (hit_objs(objs, ray, init_interval(0.001, INFINITY), &rec))
 	{
-		// direction = vrandom_on_hemisphere(rec.normal);
-		direction = vadd(rec.normal, vrandom_unit_vector());
-		color = vscale(ray_color(init_ray(rec.point, direction), depth - 1, objs), 0.5);
+		if (scatter(&ray, &rec))
+			return (vmult(ray_color(ray, depth - 1, objs), rec.mat->albedo));
+		else
+			return (init_vector(0, 0, 0));
 	}
 	else
 	{

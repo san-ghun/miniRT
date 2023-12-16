@@ -6,7 +6,7 @@
 /*   By: sanghupa <sanghupa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 00:47:39 by sanghupa          #+#    #+#             */
-/*   Updated: 2023/12/15 20:04:44 by sanghupa         ###   ########.fr       */
+/*   Updated: 2023/12/16 16:54:07 by sanghupa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@
 # include "libft.h"
 # include "ray.h"
 # include "interval.h"
+# include "vector.h"
+# include "ft_random.h"
 
 /*
 ** =============================================================================
@@ -29,10 +31,19 @@
 ** =============================================================================
 */
 
+typedef int		t_bool;
+
+typedef struct s_material
+{
+	int			type;	// 0:lambertian | 1:metal | 2:dielectric | ...
+	t_vec3		albedo;
+}				t_material;
+
 typedef struct s_sphere
 {
 	t_vec3		center;
 	double		radius;
+	t_material	*mat;
 }				t_sphere;
 
 typedef struct s_obj
@@ -48,6 +59,7 @@ typedef struct s_hit
 	t_vec3		point;
 	t_vec3		normal;
 	double		t;
+	t_material	*mat;
 	t_bool		front_face;
 }				t_hit;
 
@@ -57,13 +69,20 @@ typedef struct s_hit
 ** =============================================================================
 */
 
+/// obj.c
 t_obj		*init_obj(void *data, int type);
 
+/// hit_record.c
 t_hit		init_rec(void);
 void		set_face_normal(t_hit *rec, t_ray ray, t_vec3 outward_normal);
 t_bool		hit_objs(t_obj *objs[], t_ray ray, t_interval interval, t_hit *rec);
 
-t_sphere	*init_sphere(t_vec3 center, double radius);
+/// sphere.c
+t_sphere	*init_sphere(t_vec3 center, double radius, t_material *material);
 t_bool		hit_sphere(void *data, t_ray ray, t_interval interval, t_hit *rec);
+
+/// material.c
+t_material	init_material(int type, t_vec3 color);
+t_bool		scatter(t_ray *r, t_hit *rec);
 
 #endif

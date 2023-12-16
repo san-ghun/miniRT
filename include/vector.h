@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vector.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sanghupa <sanghupa@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: sanghupa <sanghupa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 00:18:53 by sanghupa          #+#    #+#             */
-/*   Updated: 2023/12/16 01:00:29 by sanghupa         ###   ########.fr       */
+/*   Updated: 2023/12/16 14:34:17 by sanghupa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,9 +83,12 @@ double	vlen_sqrt(t_vec3 v);
 t_vec3	vunit(t_vec3 v);
 t_bool	vnear_zero(t_vec3 v);
 
+t_vec3	vmult(t_vec3 vec, t_vec3 vec2);
+
 t_vec3	vrandom(double min, double max);
 t_vec3	vrandom_in_unit_sphere(void);
 t_vec3	vrandom_unit_vector(void);
 t_vec3	vrandom_on_hemisphere(t_vec3 normal);
+t_vec3	vreflect(t_vec3 v, t_vec3 n);
 
 #endif
