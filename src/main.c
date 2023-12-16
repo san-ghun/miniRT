@@ -3,19 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sanghupa <sanghupa@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: sanghupa <sanghupa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 14:22:52 by sanghupa          #+#    #+#             */
-/*   Updated: 2023/12/16 01:36:44 by sanghupa         ###   ########.fr       */
+/*   Updated: 2023/12/16 13:26:33 by sanghupa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
-
-void	write_color(t_vec3 color_vec)
-{
-	printf("%d %d %d\n", (int)color_vec.x, (int)color_vec.y, (int)color_vec.z);
-}
 
 void	render(t_camera camera, t_container *container)
 {

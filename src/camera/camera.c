@@ -6,7 +6,7 @@
 /*   By: sanghupa <sanghupa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/15 15:29:44 by sanghupa          #+#    #+#             */
-/*   Updated: 2023/12/16 13:02:55 by sanghupa         ###   ########.fr       */
+/*   Updated: 2023/12/16 13:26:59 by sanghupa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,14 +54,6 @@ t_camera	init_camera(double aspect_ratio, int image_width)
 			(this.pixel_delta_u.z + this.pixel_delta_v.z),
 	};
 	return (this);
-}
-
-t_vec3	get_rgb(double red, double green, double blue)
-{
-	red *= 255.999;
-	green *= 255.999;
-	blue *= 255.999;
-	return ((t_vec3){red, green, blue});
 }
 
 t_vec3	pixel_sample_square(t_camera camera)

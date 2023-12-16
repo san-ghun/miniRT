@@ -6,7 +6,7 @@
 /*   By: sanghupa <sanghupa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/15 16:12:40 by sanghupa          #+#    #+#             */
-/*   Updated: 2023/12/15 16:15:34 by sanghupa         ###   ########.fr       */
+/*   Updated: 2023/12/16 13:11:24 by sanghupa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,5 +39,9 @@ int			get_opacity(int trgb);
 int			get_r(int trgb);
 int			get_g(int trgb);
 int			get_b(int trgb);
+
+/// color_util.c
+t_vec3		get_rgb(double red, double green, double blue);
+void		write_color(t_vec3 color_vec);
 
 #endif
