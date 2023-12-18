@@ -6,12 +6,17 @@
 /*   By: sanghupa <sanghupa@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/15 15:29:44 by sanghupa          #+#    #+#             */
-/*   Updated: 2023/12/18 13:29:48 by sanghupa         ###   ########.fr       */
+/*   Updated: 2023/12/18 14:16:29 by sanghupa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "camera.h"
-#include <stdio.h>
+#include <math.h>
+
+double		degrees_to_radians(double degrees)
+{
+	return (degrees * M_PI / 180.0);
+}
 
 t_camera	init_camera(double aspect_ratio, int image_width)
 {
@@ -24,11 +29,14 @@ t_camera	init_camera(double aspect_ratio, int image_width)
 		this.image_height = 1;
 	this.samples_per_pixel = 10;
 	this.max_depth = 10;
+	this.vfov = 90;
 	this.center = init_vector(0, 0, 0);
 
 	// Determine viewport dimensions.
 	double	focal_len = 1.0;
-	double	viewport_h = 2.0;
+	double	theta = degrees_to_radians(this.vfov);
+	double	h = tan(theta / 2);
+	double	viewport_h = 2.0 * h * focal_len;
 	double	viewport_w = viewport_h * aspect_ratio;
 
 	// Calculate the vectors across the horizontal and down the verticla viewport edges.

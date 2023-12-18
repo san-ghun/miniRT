@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   camera.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sanghupa <sanghupa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sanghupa <sanghupa@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/15 15:26:36 by sanghupa          #+#    #+#             */
-/*   Updated: 2023/12/16 13:18:17 by sanghupa         ###   ########.fr       */
+/*   Updated: 2023/12/18 14:10:13 by sanghupa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ typedef struct s_camera
 	int			image_height;
 	int			samples_per_pixel;
 	int			max_depth;
+	double		vfov;
 	t_vec3		center;
 	t_vec3		pixel00_loc;	// Location of pixel 0, 0
 	t_vec3		pixel_delta_u;	// Offset to pixel to the right
