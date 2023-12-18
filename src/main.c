@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sanghupa <sanghupa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sanghupa <sanghupa@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 14:22:52 by sanghupa          #+#    #+#             */
-/*   Updated: 2023/12/16 17:27:35 by sanghupa         ###   ########.fr       */
+/*   Updated: 2023/12/18 12:00:42 by sanghupa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,16 +59,18 @@ int	main(int argc, char *argv[])
 	double	aspect_ratio = 16.0 / 9.0;
 	int		image_w = 400;
 	cam = init_camera(aspect_ratio, image_w);
-	cam.samples_per_pixel = 100;
-	cam.max_depth = 50;
+	cam.samples_per_pixel = 30;
+	cam.max_depth = 20;
 
 	rsc = new_resource(4);
 	(void)rsc;
 
-	t_material	mat_ground = init_material(0, init_vector(0.8, 0.8, 0.0), 0);
-	t_material	mat_center = init_material(0, init_vector(0.7, 0.3, 0.3), 0);
-	t_material	mat_left = init_material(1, init_vector(0.8, 0.8, 0.8), 0.3);
-	t_material	mat_right = init_material(1, init_vector(0.8, 0.6, 0.2), 1.0);
+	t_material	mat_ground = init_material(0, init_vector(0.8, 0.8, 0.0), 0, 0);
+	// t_material	mat_center = init_material(0, init_vector(0.7, 0.3, 0.3), 0, 0);
+	t_material	mat_center = init_material(2, init_vector(0.7, 0.3, 0.3), 0, 1.5);
+	// t_material	mat_left = init_material(1, init_vector(0.8, 0.8, 0.8), 0.3, 0);
+	t_material	mat_left = init_material(2, init_vector(0.8, 0.8, 0.8), 0, 1.5);
+	t_material	mat_right = init_material(1, init_vector(0.8, 0.6, 0.2), 1.0, 0);
 
 	t_obj		*obj;
 	t_sphere	*sphere;
