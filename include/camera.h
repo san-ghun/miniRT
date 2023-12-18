@@ -6,7 +6,7 @@
 /*   By: sanghupa <sanghupa@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/15 15:26:36 by sanghupa          #+#    #+#             */
-/*   Updated: 2023/12/19 00:19:36 by sanghupa         ###   ########.fr       */
+/*   Updated: 2023/12/19 00:37:42 by sanghupa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ typedef struct s_camera
 	t_vec3		lookfrom;			// Point camera is looking from
 	t_vec3		lookat;				// Point camera is looking at
 	t_vec3		vup;				// Camera-relative "up" direction
+	double		defocus_angle;		// Variation angle of rays through each pixel
+	double		focus_dist;			// Distance from camera lookfrom point to plane of perfect focus
 	t_vec3		center;				// Camera center
 	t_vec3		pixel00_loc;		// Location of pixel 0, 0
 	t_vec3		pixel_delta_u;		// Offset to pixel to the right
@@ -51,6 +53,8 @@ typedef struct s_camera
 	t_vec3		u;					// }
 	t_vec3		v;					// } Camera frame basis vectors
 	t_vec3		w;					// }
+	t_vec3		defocus_disk_u;		// Defocus disk horizontal radius
+	t_vec3		defocus_disk_v;		// Defocus disk vertical radius
 }				t_camera;
 
 /*

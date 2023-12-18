@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vector.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sanghupa <sanghupa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sanghupa <sanghupa@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 00:18:53 by sanghupa          #+#    #+#             */
-/*   Updated: 2023/12/16 17:18:26 by sanghupa         ###   ########.fr       */
+/*   Updated: 2023/12/19 00:33:18 by sanghupa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,5 +91,6 @@ t_vec3	vrandom(double min, double max);
 t_vec3	vrandom_in_unit_sphere(void);
 t_vec3	vrandom_unit_vector(void);
 t_vec3	vrandom_on_hemisphere(t_vec3 normal);
+t_vec3	random_in_unit_disk(void);
 
 #endif
