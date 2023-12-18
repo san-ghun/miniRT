@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   camera.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sanghupa <sanghupa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sanghupa <sanghupa@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/15 15:29:44 by sanghupa          #+#    #+#             */
-/*   Updated: 2023/12/16 16:55:02 by sanghupa         ###   ########.fr       */
+/*   Updated: 2023/12/18 13:29:48 by sanghupa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,14 +97,14 @@ t_vec3	ray_color(t_ray ray, int depth, t_obj *objs[])
 	double		a;
 
 	if (depth <= 0)
-		return (init_vector(0, 0, 0));
+		return (init_vector(0.0, 0.0, 0.0));
 
 	if (hit_objs(objs, ray, init_interval(0.001, INFINITY), &rec))
 	{
-		if (scatter(&ray, &rec))
-			return (vmult(ray_color(ray, depth - 1, objs), rec.mat->albedo));
+		if (scatter(&ray, &rec, &color))
+			return (vmult(ray_color(ray, depth - 1, objs), color));
 		else
-			return (init_vector(0, 0, 0));
+			return (init_vector(0.0, 0.0, 0.0));
 	}
 	else
 	{

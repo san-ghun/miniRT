@@ -6,7 +6,7 @@
 /*   By: sanghupa <sanghupa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 13:08:51 by sanghupa          #+#    #+#             */
-/*   Updated: 2023/12/16 15:58:15 by sanghupa         ###   ########.fr       */
+/*   Updated: 2023/12/16 17:23:29 by sanghupa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 #include "interval.h"
 #include "ft_printf.h"
 #include <math.h>
-#include <stdio.h>
 
 double	linear_to_gamma(double linear_component)
 {
@@ -33,8 +32,7 @@ t_vec3	get_rgb(double red, double green, double blue)
 	blue = linear_to_gamma(blue);
 	red = clamp(intensity, red);
 	green = clamp(intensity, green);
-	blue = clamp(intensity, blue);
-	// printf("%f %f %f\n", red, green, blue);
+	blue = clamp(intensity, blue);;
 	red *= 255.999;
 	green *= 255.999;
 	blue *= 255.999;

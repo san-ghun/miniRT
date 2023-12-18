@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sanghupa <sanghupa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sanghupa <sanghupa@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 14:22:52 by sanghupa          #+#    #+#             */
-/*   Updated: 2023/12/16 17:04:12 by sanghupa         ###   ########.fr       */
+/*   Updated: 2023/12/18 14:04:05 by sanghupa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,13 @@ void	render(t_camera camera, t_container *container)
 	int		color;
 
 	j = 0;
-	printf("P3\n%d %d\n255\n", camera.image_width, camera.image_height);
+	ft_printf("P3\n%d %d\n255\n", camera.image_width, camera.image_height);
 	while (j < camera.image_height)
 	{
 		i = 0;
 		while (i < camera.image_width)
 		{
-			col_v = init_vector(0, 0, 0);
+			col_v = init_vector(0.0, 0.0, 0.0);
 			sample = 0;
 			while (sample < camera.samples_per_pixel)
 			{
@@ -62,13 +62,13 @@ int	main(int argc, char *argv[])
 	cam.samples_per_pixel = 100;
 	cam.max_depth = 50;
 
-	rsc = new_resource(4);
+	rsc = new_resource(5);
 	(void)rsc;
 
-	t_material	mat_ground = init_material(0, init_vector(0.8, 0.8, 0.0), 0);
-	t_material	mat_center = init_material(0, init_vector(0.7, 0.3, 0.3), 0);
-	t_material	mat_left = init_material(1, init_vector(0.8, 0.8, 0.8), 0.3);
-	t_material	mat_right = init_material(1, init_vector(0.8, 0.6, 0.2), 1.0);
+	t_material	mat_ground = init_material(0, init_vector(0.8, 0.8, 0.0), 0, 0);
+	t_material	mat_center = init_material(0, init_vector(0.1, 0.2, 0.5), 0, 0);
+	t_material	mat_left = init_material(2, init_vector(0.0, 0.0, 0.0), 0, 1.5);
+	t_material	mat_right = init_material(1, init_vector(0.8, 0.6, 0.2), 0.0, 0);
 
 	t_obj		*obj;
 	t_sphere	*sphere;
@@ -79,6 +79,9 @@ int	main(int argc, char *argv[])
 	obj = init_obj((void *)sphere, SPHERE);
 	append_obj(obj);
 	sphere = init_sphere(init_vector(-1.0, 0.0, -1.0), 0.5, &mat_left);
+	obj = init_obj((void *)sphere, SPHERE);
+	append_obj(obj);
+	sphere = init_sphere(init_vector(-1.0, 0.0, -1.0), -0.4, &mat_left);
 	obj = init_obj((void *)sphere, SPHERE);
 	append_obj(obj);
 	sphere = init_sphere(init_vector(1.0, 0.0, -1.0), 0.5, &mat_right);
