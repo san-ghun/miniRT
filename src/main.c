@@ -6,7 +6,7 @@
 /*   By: sanghupa <sanghupa@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 14:22:52 by sanghupa          #+#    #+#             */
-/*   Updated: 2023/12/18 14:00:09 by sanghupa         ###   ########.fr       */
+/*   Updated: 2023/12/18 14:04:05 by sanghupa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,8 @@ int	main(int argc, char *argv[])
 	double	aspect_ratio = 16.0 / 9.0;
 	int		image_w = 400;
 	cam = init_camera(aspect_ratio, image_w);
-	cam.samples_per_pixel = 20;
-	cam.max_depth = 10;
+	cam.samples_per_pixel = 100;
+	cam.max_depth = 50;
 
 	rsc = new_resource(5);
 	(void)rsc;
