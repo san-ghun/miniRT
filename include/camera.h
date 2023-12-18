@@ -6,7 +6,7 @@
 /*   By: sanghupa <sanghupa@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/15 15:26:36 by sanghupa          #+#    #+#             */
-/*   Updated: 2023/12/18 14:10:13 by sanghupa         ###   ########.fr       */
+/*   Updated: 2023/12/19 00:19:36 by sanghupa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,16 +35,22 @@ typedef int		t_bool;
 
 typedef struct s_camera
 {
-	double		aspect_ratio;
-	int			image_width;
-	int			image_height;
-	int			samples_per_pixel;
-	int			max_depth;
-	double		vfov;
-	t_vec3		center;
-	t_vec3		pixel00_loc;	// Location of pixel 0, 0
-	t_vec3		pixel_delta_u;	// Offset to pixel to the right
-	t_vec3		pixel_delta_v;	// Offset to pixel below
+	double		aspect_ratio;		// Ratio of image width over height
+	int			image_width;		// Rednered image width in pixel count
+	int			image_height;		// Rendered image height
+	int			samples_per_pixel;	// Count of random samples for each pixel
+	int			max_depth;			// Maximum nuber of ray bounces into scene
+	double		vfov;				// Vertical view angle (field of view)
+	t_vec3		lookfrom;			// Point camera is looking from
+	t_vec3		lookat;				// Point camera is looking at
+	t_vec3		vup;				// Camera-relative "up" direction
+	t_vec3		center;				// Camera center
+	t_vec3		pixel00_loc;		// Location of pixel 0, 0
+	t_vec3		pixel_delta_u;		// Offset to pixel to the right
+	t_vec3		pixel_delta_v;		// Offset to pixel below
+	t_vec3		u;					// }
+	t_vec3		v;					// } Camera frame basis vectors
+	t_vec3		w;					// }
 }				t_camera;
 
 /*
@@ -54,6 +60,7 @@ typedef struct s_camera
 */
 
 t_camera	init_camera(double aspect_ratio, int image_width);
+void		setup_camera(t_camera *this, int vfov, t_vec3 lookfrom, t_vec3 lookat, t_vec3 vup);
 t_ray		get_ray(t_camera camera, int i, int j);
 t_vec3		ray_color(t_ray ray, int depth, t_obj *objs[]);
 

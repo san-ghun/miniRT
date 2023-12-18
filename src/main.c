@@ -6,7 +6,7 @@
 /*   By: sanghupa <sanghupa@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 14:22:52 by sanghupa          #+#    #+#             */
-/*   Updated: 2023/12/18 14:20:30 by sanghupa         ###   ########.fr       */
+/*   Updated: 2023/12/19 00:24:25 by sanghupa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,45 +61,47 @@ int	main(int argc, char *argv[])
 	double	aspect_ratio = 16.0 / 9.0;
 	int		image_w = 400;
 	cam = init_camera(aspect_ratio, image_w);
-	cam.samples_per_pixel = 50;
-	cam.max_depth = 20;
+	cam.samples_per_pixel = 20;
+	cam.max_depth = 10;
 
-	cam.vfov = 90;
+	setup_camera(&cam, 20, (t_vec3){-2, 2, 1}, (t_vec3){0, 0, -1}, (t_vec3){0, 1, 0});
 
-	// rsc = new_resource(5);
-	rsc = new_resource(3);
+	rsc = new_resource(5);
+	// rsc = new_resource(3);
 	(void)rsc;
 
-	// t_material	mat_ground = init_material(0, init_vector(0.8, 0.8, 0.0), 0, 0);
-	// t_material	mat_center = init_material(0, init_vector(0.1, 0.2, 0.5), 0, 0);
-	// t_material	mat_left = init_material(2, init_vector(0.0, 0.0, 0.0), 0, 1.5);
-	// t_material	mat_right = init_material(1, init_vector(0.8, 0.6, 0.2), 0.0, 0);
-	t_material	mat_left = init_material(0, init_vector(0.0, 0.0, 1.0), 0.0, 0);
-	t_material	mat_right = init_material(0, init_vector(1.0, 0.0, 0.0), 0.0, 0);
+	t_material	mat_ground = init_material(0, init_vector(0.8, 0.8, 0.0), 0, 0);
+	t_material	mat_center = init_material(0, init_vector(0.1, 0.2, 0.5), 0, 0);
+	t_material	mat_left = init_material(2, init_vector(0.0, 0.0, 0.0), 0, 1.5);
+	t_material	mat_right = init_material(1, init_vector(0.8, 0.6, 0.2), 0.0, 0);
+
+	// t_material	mat_left = init_material(0, init_vector(0.0, 0.0, 1.0), 0.0, 0);
+	// t_material	mat_right = init_material(0, init_vector(1.0, 0.0, 0.0), 0.0, 0);
 
 	t_obj		*obj;
 	t_sphere	*sphere;
-	// sphere = init_sphere(init_vector(0.0, -100.5, -1.0), 100.0, &mat_ground);
-	// obj = init_obj((void *)sphere, SPHERE);
-	// append_obj(obj);
-	// sphere = init_sphere(init_vector(0.0, 0.0, -1.0), 0.5, &mat_center);
-	// obj = init_obj((void *)sphere, SPHERE);
-	// append_obj(obj);
-	// sphere = init_sphere(init_vector(-1.0, 0.0, -1.0), 0.5, &mat_left);
-	// obj = init_obj((void *)sphere, SPHERE);
-	// append_obj(obj);
-	// sphere = init_sphere(init_vector(-1.0, 0.0, -1.0), -0.4, &mat_left);
-	// obj = init_obj((void *)sphere, SPHERE);
-	// append_obj(obj);
-	// sphere = init_sphere(init_vector(1.0, 0.0, -1.0), 0.5, &mat_right);
-	// obj = init_obj((void *)sphere, SPHERE);
-	// append_obj(obj);
-	sphere = init_sphere(init_vector(-R, 0.0, -1.0), R, &mat_left);
+	sphere = init_sphere(init_vector(0.0, -100.5, -1.0), 100.0, &mat_ground);
 	obj = init_obj((void *)sphere, SPHERE);
 	append_obj(obj);
-	sphere = init_sphere(init_vector(R, 0.0, -1.0), R, &mat_right);
+	sphere = init_sphere(init_vector(0.0, 0.0, -1.0), 0.5, &mat_center);
 	obj = init_obj((void *)sphere, SPHERE);
 	append_obj(obj);
+	sphere = init_sphere(init_vector(-1.0, 0.0, -1.0), 0.5, &mat_left);
+	obj = init_obj((void *)sphere, SPHERE);
+	append_obj(obj);
+	sphere = init_sphere(init_vector(-1.0, 0.0, -1.0), -0.4, &mat_left);
+	obj = init_obj((void *)sphere, SPHERE);
+	append_obj(obj);
+	sphere = init_sphere(init_vector(1.0, 0.0, -1.0), 0.5, &mat_right);
+	obj = init_obj((void *)sphere, SPHERE);
+	append_obj(obj);
+
+	// sphere = init_sphere(init_vector(-R, 0.0, -1.0), R, &mat_left);
+	// obj = init_obj((void *)sphere, SPHERE);
+	// append_obj(obj);
+	// sphere = init_sphere(init_vector(R, 0.0, -1.0), R, &mat_right);
+	// obj = init_obj((void *)sphere, SPHERE);
+	// append_obj(obj);
 
 	(void)argc;
 	(void)argv;
