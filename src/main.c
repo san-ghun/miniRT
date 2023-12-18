@@ -6,7 +6,7 @@
 /*   By: sanghupa <sanghupa@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 14:22:52 by sanghupa          #+#    #+#             */
-/*   Updated: 2023/12/19 00:24:25 by sanghupa         ###   ########.fr       */
+/*   Updated: 2023/12/19 00:47:38 by sanghupa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,9 @@ int	main(int argc, char *argv[])
 	cam = init_camera(aspect_ratio, image_w);
 	cam.samples_per_pixel = 20;
 	cam.max_depth = 10;
+
+	cam.defocus_angle = 10.0;
+	cam.focus_dist = 3.4;
 
 	setup_camera(&cam, 20, (t_vec3){-2, 2, 1}, (t_vec3){0, 0, -1}, (t_vec3){0, 1, 0});
 

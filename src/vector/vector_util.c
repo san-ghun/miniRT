@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vector_util.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sanghupa <sanghupa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sanghupa <sanghupa@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 00:40:18 by sanghupa          #+#    #+#             */
-/*   Updated: 2023/12/16 17:24:12 by sanghupa         ###   ########.fr       */
+/*   Updated: 2023/12/19 00:33:09 by sanghupa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,4 +44,16 @@ t_vec3	vrandom_on_hemisphere(t_vec3 normal)
 		return (on_unit_sphere);
 	else
 		return (vflip(on_unit_sphere));
+}
+
+t_vec3	random_in_unit_disk(void)
+{
+	t_vec3	p;
+
+	while (1)
+	{
+		p = init_vector(ft_random(-1, 1), ft_random(-1, 1), 0);
+		if (vlen_sqrt(p) < 1)
+			return (p);
+	}
 }
