@@ -6,23 +6,24 @@
 /*   By: sanghupa <sanghupa@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 13:36:00 by sanghupa          #+#    #+#             */
-/*   Updated: 2023/12/18 13:43:55 by sanghupa         ###   ########.fr       */
+/*   Updated: 2023/12/19 01:38:26 by sanghupa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "hittable.h"
 #include "vector.h"
 
-t_material	init_material(int type, t_vec3 color, double fuzz, double ir)
+t_material	*init_material(int type, t_vec3 color, double fuzz, double ir)
 {
-	t_material	this;
+	t_material	*this;
 
-	this.type = type;
-	this.albedo = color;
-	this.fuzz = 1;
+	this = malloc(sizeof(t_material) * 1);
+	this->type = type;
+	this->albedo = color;
+	this->fuzz = 1;
 	if (fuzz < 1)
-		this.fuzz = fuzz;
-	this.index_of_refraction = ir;
+		this->fuzz = fuzz;
+	this->index_of_refraction = ir;
 	return (this);
 }
 

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   obj.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sanghupa <sanghupa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sanghupa <sanghupa@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 21:35:29 by sanghupa          #+#    #+#             */
-/*   Updated: 2023/12/15 20:05:54 by sanghupa         ###   ########.fr       */
+/*   Updated: 2023/12/19 01:41:49 by sanghupa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "hittable.h"
 
-t_obj	*init_obj(void *data, int type)
+t_obj	*init_obj(void *data, int type, t_material *material)
 {
 	t_obj	*this;
 
@@ -21,5 +21,6 @@ t_obj	*init_obj(void *data, int type)
 	this->type = type;
 	this->id = -1;
 	this->nth = -1;
+	this->material = material;
 	return (this);
 }
