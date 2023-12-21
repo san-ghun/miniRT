@@ -107,3 +107,4 @@
   - hard shadows
   - ambiance lighting
     - (objects are never completely in the dark)
+  - diffuse lighting
