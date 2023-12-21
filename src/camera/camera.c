@@ -6,7 +6,7 @@
 /*   By: sanghupa <sanghupa@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/15 15:29:44 by sanghupa          #+#    #+#             */
-/*   Updated: 2023/12/19 00:47:08 by sanghupa         ###   ########.fr       */
+/*   Updated: 2023/12/21 17:57:41 by sanghupa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,25 +139,34 @@ t_ray	get_ray(t_camera camera, int i, int j)
 
 t_vec3	ray_color(t_ray ray, int depth, t_obj *objs[])
 {
+	t_subrt		rt_al;
 	t_vec3		color;
+	t_vec3		ambient;
 	t_hit		rec;
-	t_vec3		unit_direction;
 	double		a;
 
+	rt_al = single_rt()->a;
 	if (depth <= 0)
 		return (init_vector(0.0, 0.0, 0.0));
-
 	if (hit_objs(objs, ray, init_interval(0.001, INFINITY), &rec))
 	{
+		ambient.x = rt_al.ratio * rt_al.color.x * 0.001 * rec.mat->albedo.x;
+		ambient.y = rt_al.ratio * rt_al.color.y * 0.001 * rec.mat->albedo.y;
+		ambient.z = rt_al.ratio * rt_al.color.z * 0.001 * rec.mat->albedo.z;
+		// if (scatter(&ray, &rec, &color))
+		// 	return (vmult(ray_color(ray, depth - 1, objs), color));
 		if (scatter(&ray, &rec, &color))
-			return (vmult(ray_color(ray, depth - 1, objs), color));
+		{
+			// if (rec.mat->type == 1 || rec.mat->type == 2)
+			return (vadd(vmult(ray_color(ray, depth - 1, objs), color), ambient));
+			// return (ambient);
+		}
 		else
 			return (init_vector(0.0, 0.0, 0.0));
 	}
 	else
 	{
-		unit_direction = vunit(ray.direction);
-		a = 0.5 * (unit_direction.y + 1.0);
+		a = 0.5 * (vunit(ray.direction).y + 1.0);
 		color = vscale(init_vector(1.0, 1.0, 1.0), 1.0 - a);
 		color = vadd(color, vscale(init_vector(0.5, 0.7, 1.0), a));
 	}

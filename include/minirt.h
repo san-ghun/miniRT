@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sanghupa <sanghupa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sanghupa <sanghupa@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 14:23:17 by sanghupa          #+#    #+#             */
-/*   Updated: 2023/12/16 13:53:25 by sanghupa         ###   ########.fr       */
+/*   Updated: 2023/12/21 16:52:00 by sanghupa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@
 # include "hittable.h"
 # include "interval.h"
 # include "camera.h"
+# include "ft_readrt.h"
 
 /// key mapping
 #if __linux__
@@ -95,24 +96,6 @@
 # define SUCCESS		1
 # define END			0
 # define ERROR 			-1
-
-/*
-** =============================================================================
-** Identifier Macros
-** =============================================================================
-*/
-
-# define NOTHING		0
-# define RESOLUTION		1
-# define AMBIENT		2
-# define CAMERA			3
-# define LIGHT			4
-# define SPHERE			5
-# define PLANE			6
-# define CYLINDER		7
-// # define SQUARE			8
-// # define TRIANGLE		9
-// # define CONE			10
 
 /*
 ** =============================================================================

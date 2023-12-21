@@ -6,7 +6,7 @@
 /*   By: sanghupa <sanghupa@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 14:22:52 by sanghupa          #+#    #+#             */
-/*   Updated: 2023/12/19 02:08:22 by sanghupa         ###   ########.fr       */
+/*   Updated: 2023/12/21 17:59:14 by sanghupa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,13 @@ int	main(int argc, char *argv[])
 {
 	t_vars			*vars;
 	t_container		*container;
+	t_dotrt			*rt;
 	t_resource		*rsc;
 	t_camera		cam;
+
+	rt = new_rt();
+	rt->a.ratio = 0.2;
+	rt->a.color = init_vector(0.9, 0.9, 0.9);
 
 	double	aspect_ratio = 16.0 / 9.0;
 	int		image_w = 400;
@@ -87,6 +92,7 @@ int	main(int argc, char *argv[])
 			double	choose_mat = ft_randdouble();
 			t_vec3	center = (t_vec3){
 				j + 0.9 * ft_randdouble(),
+				// j + 0.9 * ft_random(1, 2),
 				0.2,
 				i + 0.9 * ft_randdouble(),
 				};

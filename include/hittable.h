@@ -6,7 +6,7 @@
 /*   By: sanghupa <sanghupa@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 00:47:39 by sanghupa          #+#    #+#             */
-/*   Updated: 2023/12/19 01:41:59 by sanghupa         ###   ########.fr       */
+/*   Updated: 2023/12/21 16:45:43 by sanghupa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,24 @@
 # include "interval.h"
 # include "vector.h"
 # include "ft_random.h"
+
+/*
+** =============================================================================
+** Identifier Macros
+** =============================================================================
+*/
+
+# define NOTHING		0
+# define RESOLUTION		1
+# define AMBIENT		2
+# define CAMERA			3
+# define LIGHT			4
+# define SPHERE			5
+# define PLANE			6
+# define CYLINDER		7
+// # define SQUARE			8
+// # define TRIANGLE		9
+// # define CONE			10
 
 /*
 ** =============================================================================
