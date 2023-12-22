@@ -6,7 +6,7 @@
 /*   By: sanghupa <sanghupa@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 14:22:52 by sanghupa          #+#    #+#             */
-/*   Updated: 2023/12/21 17:59:14 by sanghupa         ###   ########.fr       */
+/*   Updated: 2023/12/22 01:49:55 by sanghupa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,83 +61,80 @@ int	main(int argc, char *argv[])
 	rt->a.ratio = 0.2;
 	rt->a.color = init_vector(0.9, 0.9, 0.9);
 
-	double	aspect_ratio = 16.0 / 9.0;
-	int		image_w = 400;
-	cam = init_camera(aspect_ratio, image_w);
-	cam.samples_per_pixel = 10;
-	cam.max_depth = 10;
-
-	cam.defocus_angle = 0.6;
-	cam.focus_dist = 10.0;
-
-	setup_camera(&cam, 20, (t_vec3){13, 2, 3}, (t_vec3){0, 0, 0}, (t_vec3){0, 1, 0});
-
 	(void)rsc;
 	t_obj		*obj;
 	t_sphere	*sphere;
+	t_plane		*plane;
 
 	/// # Scene 0
-	rsc = new_resource(40);
-	t_material	*mat_ground = init_material(0, init_vector(0.5, 0.5, 0.5), 0, 0);
-	sphere = init_sphere(init_vector(0.0, -1000.0, 0.0), 1000.0, mat_ground);
-	obj = init_obj((void *)sphere, SPHERE, mat_ground);
-	append_obj(obj);
-
-	int	j = -3;
-	while (++j < 4)
-	{
-		int i = -3;
-		while (++i < 4)
-		{
-			double	choose_mat = ft_randdouble();
-			t_vec3	center = (t_vec3){
-				j + 0.9 * ft_randdouble(),
-				// j + 0.9 * ft_random(1, 2),
-				0.2,
-				i + 0.9 * ft_randdouble(),
-				};
-			if (vlen_pow(vsubtract(center, init_vector(4, 0.2, 0))) > 0.9)
-			{
-				t_material	*temp_mat;
-				if (choose_mat < 0.8)
-				{
-					t_vec3	albedo = vmult(vrandom(0, 1), vrandom(0, 1));
-					temp_mat = init_material(0, albedo, 0, 0);
-					sphere = init_sphere(center, 0.2, temp_mat);
-					obj = init_obj((void *)sphere, SPHERE, temp_mat);
-					append_obj(obj);
-				}
-				else if (choose_mat < 0.95)
-				{
-					t_vec3	albedo = vrandom(0.5, 1);
-					double	fuzz = ft_random(0, 0.5);
-					temp_mat = init_material(1, albedo, fuzz, 0);
-					sphere = init_sphere(center, 0.2, temp_mat);
-					obj = init_obj((void *)sphere, SPHERE, temp_mat);
-					append_obj(obj);
-				}
-				else
-				{
-					temp_mat = init_material(2, init_vector(0, 0, 0), 0, 1.5);
-					sphere = init_sphere(center, 0.2, temp_mat);
-					obj = init_obj((void *)sphere, SPHERE, temp_mat);
-					append_obj(obj);
-				}
-			}
-		}
-	}
-	t_material	*mat_center = init_material(2, init_vector(0.0, 0.0, 0.0), 0, 1.5);
-	sphere = init_sphere(init_vector(0, 1, 0), 1.0, mat_center);
-	obj = init_obj((void *)sphere, SPHERE, mat_center);
-	append_obj(obj);
-	t_material	*mat_left = init_material(0, init_vector(0.4, 0.2, 0.1), 0, 0);
-	sphere = init_sphere(init_vector(-4, 1, 0), 1.0, mat_left);
-	obj = init_obj((void *)sphere, SPHERE, mat_left);
-	append_obj(obj);
-	t_material	*mat_right = init_material(1, init_vector(0.7, 0.6, 0.5), 0, 0.0);
-	sphere = init_sphere(init_vector(4, 1, 0), 1.0, mat_right);
-	obj = init_obj((void *)sphere, SPHERE, mat_right);
-	append_obj(obj);
+	// double	aspect_ratio = 16.0 / 9.0;
+	// int		image_w = 400;
+	// cam = init_camera(aspect_ratio, image_w);
+	// cam.samples_per_pixel = 10;
+	// cam.max_depth = 10;
+	// cam.defocus_angle = 0.6;
+	// cam.focus_dist = 10.0;
+	// setup_camera(&cam, 20, (t_vec3){13, 2, 3}, (t_vec3){0, 0, 0}, (t_vec3){0, 1, 0});
+	// rsc = new_resource(40);
+	// t_material	*mat_ground = init_material(0, init_vector(0.5, 0.5, 0.5), 0, 0);
+	// sphere = init_sphere(init_vector(0.0, -1000.0, 0.0), 1000.0, mat_ground);
+	// obj = init_obj((void *)sphere, SPHERE, mat_ground);
+	// append_obj(obj);
+	// int	j = -3;
+	// while (++j < 4)
+	// {
+	// 	int i = -3;
+	// 	while (++i < 4)
+	// 	{
+	// 		double	choose_mat = ft_randdouble();
+	// 		t_vec3	center = (t_vec3){
+	// 			j + 0.9 * ft_randdouble(),
+	// 			// j + 0.9 * ft_random(1, 2),
+	// 			0.2,
+	// 			i + 0.9 * ft_randdouble(),
+	// 			};
+	// 		if (vlen_pow(vsubtract(center, init_vector(4, 0.2, 0))) > 0.9)
+	// 		{
+	// 			t_material	*temp_mat;
+	// 			if (choose_mat < 0.8)
+	// 			{
+	// 				t_vec3	albedo = vmult(vrandom(0, 1), vrandom(0, 1));
+	// 				temp_mat = init_material(0, albedo, 0, 0);
+	// 				sphere = init_sphere(center, 0.2, temp_mat);
+	// 				obj = init_obj((void *)sphere, SPHERE, temp_mat);
+	// 				append_obj(obj);
+	// 			}
+	// 			else if (choose_mat < 0.95)
+	// 			{
+	// 				t_vec3	albedo = vrandom(0.5, 1);
+	// 				double	fuzz = ft_random(0, 0.5);
+	// 				temp_mat = init_material(1, albedo, fuzz, 0);
+	// 				sphere = init_sphere(center, 0.2, temp_mat);
+	// 				obj = init_obj((void *)sphere, SPHERE, temp_mat);
+	// 				append_obj(obj);
+	// 			}
+	// 			else
+	// 			{
+	// 				temp_mat = init_material(2, init_vector(0, 0, 0), 0, 1.5);
+	// 				sphere = init_sphere(center, 0.2, temp_mat);
+	// 				obj = init_obj((void *)sphere, SPHERE, temp_mat);
+	// 				append_obj(obj);
+	// 			}
+	// 		}
+	// 	}
+	// }
+	// t_material	*mat_center = init_material(2, init_vector(0.0, 0.0, 0.0), 0, 1.5);
+	// sphere = init_sphere(init_vector(0, 1, 0), 1.0, mat_center);
+	// obj = init_obj((void *)sphere, SPHERE, mat_center);
+	// append_obj(obj);
+	// t_material	*mat_left = init_material(0, init_vector(0.4, 0.2, 0.1), 0, 0);
+	// sphere = init_sphere(init_vector(-4, 1, 0), 1.0, mat_left);
+	// obj = init_obj((void *)sphere, SPHERE, mat_left);
+	// append_obj(obj);
+	// t_material	*mat_right = init_material(1, init_vector(0.7, 0.6, 0.5), 0, 0.0);
+	// sphere = init_sphere(init_vector(4, 1, 0), 1.0, mat_right);
+	// obj = init_obj((void *)sphere, SPHERE, mat_right);
+	// append_obj(obj);
 
 	/// # Scene 1
 	// rsc = new_resource(5);
@@ -172,6 +169,36 @@ int	main(int argc, char *argv[])
 	// sphere = init_sphere(init_vector(R, 0.0, -1.0), R, mat_right);
 	// obj = init_obj((void *)sphere, SPHERE, mat_right);
 	// append_obj(obj);
+
+	// # Quads
+	double	aspect_ratio = 1.0;
+	int		image_w = 400;
+	cam = init_camera(aspect_ratio, image_w);
+	cam.samples_per_pixel = 10;
+	cam.max_depth = 10;
+	cam.defocus_angle = 0.0;
+	setup_camera(&cam, 80, (t_vec3){0, 0, 9}, (t_vec3){0, 0, 0}, (t_vec3){0, 1, 0});
+	rsc = new_resource(5);
+	t_material	*left_red = init_material(0, init_vector(1.0, 0.2, 0.2), 0.0, 0);
+	t_material	*back_green = init_material(0, init_vector(0.2, 1.0, 0.2), 0.0, 0);
+	t_material	*right_blue = init_material(0, init_vector(0.2, 0.2, 1.0), 0.0, 0);
+	t_material	*upper_orange = init_material(0, init_vector(1.0, 0.5, 0.0), 0.0, 0);
+	t_material	*lower_teal = init_material(0, init_vector(0.2, 0.8, 0.8), 0.0, 0);
+	plane = init_plane(init_vector(-3, -2, 5), init_vector(0, 0, -4), init_vector(0, 4, 0), left_red);
+	obj = init_obj((void *)plane, PLANE, left_red);
+	append_obj(obj);
+	plane = init_plane(init_vector(-2, -2, 0), init_vector(4, 0, 0), init_vector(0, 4, 0), back_green);
+	obj = init_obj((void *)plane, PLANE, back_green);
+	append_obj(obj);
+	plane = init_plane(init_vector(3, -2, 1), init_vector(0, 0, 4), init_vector(0, 4, 0), right_blue);
+	obj = init_obj((void *)plane, PLANE, right_blue);
+	append_obj(obj);
+	plane = init_plane(init_vector(-2, 3, 1), init_vector(4, 0, 0), init_vector(0, 0, 4), upper_orange);
+	obj = init_obj((void *)plane, PLANE, upper_orange);
+	append_obj(obj);
+	plane = init_plane(init_vector(-2, -3, 5), init_vector(4, 0, 0), init_vector(0, 0, -4), lower_teal);
+	obj = init_obj((void *)plane, PLANE, lower_teal);
+	append_obj(obj);
 
 	(void)argc;
 	(void)argv;
