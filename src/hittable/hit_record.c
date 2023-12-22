@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hit_record.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sanghupa <sanghupa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sanghupa <sanghupa@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 01:25:50 by sanghupa          #+#    #+#             */
-/*   Updated: 2023/12/16 15:15:53 by sanghupa         ###   ########.fr       */
+/*   Updated: 2023/12/22 01:02:20 by sanghupa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ t_hit	init_rec(void)
 	this.point = init_vector(0, 0, 0);
 	this.mat = NULL;
 	this.t = 0;
+	this.u = 0;
+	this.v = 0;
 	return (this);
 }
 
@@ -47,7 +49,15 @@ t_bool	hit_objs(t_obj *objs[], t_ray ray, t_interval interval, t_hit *rec)
 	while (objs[i] != NULL)
 	{
 		ray_t = init_interval(interval.min, closest_so_far);
-		if (hit_sphere((void *)(objs[i]->data), ray, ray_t, &temp_rec))
+		if (objs[i]->type == SPHERE && 
+			hit_sphere((void *)(objs[i]->data), ray, ray_t, &temp_rec))
+		{
+			hit_anything = 1;
+			closest_so_far = temp_rec.t;
+			*rec = temp_rec;
+		}
+		if (objs[i]->type == PLANE && 
+			hit_plane((void *)(objs[i]->data), ray, ray_t, &temp_rec))
 		{
 			hit_anything = 1;
 			closest_so_far = temp_rec.t;

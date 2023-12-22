@@ -6,7 +6,7 @@
 /*   By: sanghupa <sanghupa@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 00:18:53 by sanghupa          #+#    #+#             */
-/*   Updated: 2023/12/19 00:33:18 by sanghupa         ###   ########.fr       */
+/*   Updated: 2023/12/21 23:49:29 by sanghupa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ typedef struct s_vec3
 */
 
 t_vec3	init_vector(double x, double y, double z);
+double	vec_val(t_vec3	v, int n);
 
 /// @brief addition of two vectors
 /// @param u vector

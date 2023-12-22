@@ -6,7 +6,7 @@
 /*   By: sanghupa <sanghupa@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 00:47:39 by sanghupa          #+#    #+#             */
-/*   Updated: 2023/12/21 16:45:43 by sanghupa         ###   ########.fr       */
+/*   Updated: 2023/12/22 00:43:12 by sanghupa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # include "ray.h"
 # include "interval.h"
 # include "vector.h"
+# include "aabb.h"
 # include "ft_random.h"
 
 /*
@@ -66,6 +67,18 @@ typedef struct s_sphere
 	t_material	*mat;
 }				t_sphere;
 
+typedef struct s_plane
+{
+	t_vec3		point;
+	t_vec3		u;
+	t_vec3		v;
+	t_aabb		box;
+	t_vec3		normal;
+	double		d;
+	t_vec3		w;
+	t_material	*mat;
+}				t_plane;
+
 typedef struct s_obj
 {
 	int			id;
@@ -80,6 +93,8 @@ typedef struct s_hit
 	t_vec3		point;
 	t_vec3		normal;
 	double		t;
+	double		u;
+	double		v;
 	t_material	*mat;
 	t_bool		front_face;
 }				t_hit;
@@ -101,6 +116,10 @@ t_bool		hit_objs(t_obj *objs[], t_ray ray, t_interval interval, t_hit *rec);
 /// sphere.c
 t_sphere	*init_sphere(t_vec3 center, double radius, t_material *material);
 t_bool		hit_sphere(void *data, t_ray ray, t_interval interval, t_hit *rec);
+
+/// plane.c
+t_plane		*init_plane(t_vec3 point, t_vec3 u, t_vec3 v, t_material *material);
+t_bool		hit_plane(void *data, t_ray ray, t_interval interval, t_hit *rec);
 
 /// material.c
 t_material	*init_material(int type, t_vec3 color, double fuzz, double ir);
