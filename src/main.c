@@ -6,7 +6,7 @@
 /*   By: sanghupa <sanghupa@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 14:22:52 by sanghupa          #+#    #+#             */
-/*   Updated: 2023/12/24 18:34:25 by sanghupa         ###   ########.fr       */
+/*   Updated: 2023/12/24 18:52:45 by sanghupa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -198,6 +198,8 @@ int	main(int argc, char *argv[])
 	plane = init_plane(init_vector(0, 0, 555), init_vector(555, 0, 0), init_vector(0, 555, 0), find_mat("white0"));
 	obj = init_obj((void *)plane, PLANE, plane->mat);
 	append_obj(obj);
+	append_box(init_vector(130, 0, 65), init_vector(295, 165, 230), white0);
+	append_box(init_vector(265, 0, 295), init_vector(430, 330, 460), white0);
 
 	(void)argc;
 	(void)argv;

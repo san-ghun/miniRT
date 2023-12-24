@@ -6,7 +6,7 @@
 /*   By: sanghupa <sanghupa@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 14:23:17 by sanghupa          #+#    #+#             */
-/*   Updated: 2023/12/24 18:13:07 by sanghupa         ###   ########.fr       */
+/*   Updated: 2023/12/24 18:52:59 by sanghupa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,5 +177,6 @@ t_temp		*single_temp(void);
 void		append_obj(t_obj *target);
 void		append_mat(t_material *target, char *name);
 t_material	*find_mat(char *name);
+void		append_box(t_vec3 a, t_vec3 b, t_material *mat);
 
 #endif
