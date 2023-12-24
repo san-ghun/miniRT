@@ -6,7 +6,7 @@
 /*   By: sanghupa <sanghupa@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 21:33:01 by sanghupa          #+#    #+#             */
-/*   Updated: 2023/12/24 10:55:25 by sanghupa         ###   ########.fr       */
+/*   Updated: 2023/12/24 17:42:58 by sanghupa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,9 @@ t_resource	*single_rsc(void)
 		return (&this);
 	this = (t_resource){
 		.objs = {},
+		.mats = {},
+		.len_objs = 0,
+		.len_mats = 0,
 	};
 	is_init = 1;
 	return (&this);

@@ -6,7 +6,7 @@
 /*   By: sanghupa <sanghupa@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 14:23:17 by sanghupa          #+#    #+#             */
-/*   Updated: 2023/12/24 11:03:08 by sanghupa         ###   ########.fr       */
+/*   Updated: 2023/12/24 18:13:07 by sanghupa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,9 @@ typedef struct s_square {
 
 typedef struct s_resource {
 	t_obj		*objs[100];
+	t_material	*mats[100];
 	int			len_objs;
+	int			len_mats;
 }				t_resource;
 
 typedef struct s_temp {
@@ -173,5 +175,7 @@ t_temp		*single_temp(void);
 
 /// adapter.c
 void		append_obj(t_obj *target);
+void		append_mat(t_material *target, char *name);
+t_material	*find_mat(char *name);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: sanghupa <sanghupa@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 14:22:52 by sanghupa          #+#    #+#             */
-/*   Updated: 2023/12/24 11:03:21 by sanghupa         ###   ########.fr       */
+/*   Updated: 2023/12/24 18:34:25 by sanghupa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,28 +173,30 @@ int	main(int argc, char *argv[])
 	rsc = new_resource();
 	t_material	*red = init_material(0, init_vector(0.65, 0.05, 0.05), 0, 0);
 	t_material	*white0 = init_material(0, init_vector(0.73, 0.73, 0.73), 0, 0);
-	t_material	*white1 = init_material(0, init_vector(0.73, 0.73, 0.73), 0, 0);
-	t_material	*white2 = init_material(0, init_vector(0.73, 0.73, 0.73), 0, 0);
 	t_material	*green = init_material(0, init_vector(0.12, 0.45, 0.15), 0, 0);
 	t_material	*light = init_material(0, init_vector(0, 0, 0), 0, 0);
 	light->emit_color = init_vector(15, 15, 15);
-	plane = init_plane(init_vector(555, 0, 0), init_vector(0, 555, 0), init_vector(0, 0, 555), green);
-	obj = init_obj((void *)plane, PLANE, green);
+	append_mat(red, "red");
+	append_mat(white0, "white0");
+	append_mat(green, "green");
+	append_mat(light, "light");
+	plane = init_plane(init_vector(555, 0, 0), init_vector(0, 555, 0), init_vector(0, 0, 555), find_mat("green"));
+	obj = init_obj((void *)plane, PLANE, plane->mat);
 	append_obj(obj);
-	plane = init_plane(init_vector(0, 0, 0), init_vector(0, 555, 0), init_vector(0, 0, 555), red);
-	obj = init_obj((void *)plane, PLANE, red);
+	plane = init_plane(init_vector(0, 0, 0), init_vector(0, 555, 0), init_vector(0, 0, 555), find_mat("red"));
+	obj = init_obj((void *)plane, PLANE, plane->mat);
 	append_obj(obj);
-	plane = init_plane(init_vector(343, 554, 332), init_vector(-130, 0, 0), init_vector(0, 0, -105), light);
-	obj = init_obj((void *)plane, PLANE, light);
+	plane = init_plane(init_vector(343, 554, 332), init_vector(-130, 0, 0), init_vector(0, 0, -105), find_mat("light"));
+	obj = init_obj((void *)plane, PLANE, plane->mat);
 	append_obj(obj);
-	plane = init_plane(init_vector(0, 0, 0), init_vector(555, 0, 0), init_vector(0, 0, 555), white0);
-	obj = init_obj((void *)plane, PLANE, white0);
+	plane = init_plane(init_vector(0, 0, 0), init_vector(555, 0, 0), init_vector(0, 0, 555), find_mat("white0"));
+	obj = init_obj((void *)plane, PLANE, plane->mat);
 	append_obj(obj);
-	plane = init_plane(init_vector(555, 555, 555), init_vector(-555, 0, 0), init_vector(0, 0, -555), white1);
-	obj = init_obj((void *)plane, PLANE, white1);
+	plane = init_plane(init_vector(555, 555, 555), init_vector(-555, 0, 0), init_vector(0, 0, -555), find_mat("white0"));
+	obj = init_obj((void *)plane, PLANE, plane->mat);
 	append_obj(obj);
-	plane = init_plane(init_vector(0, 0, 555), init_vector(555, 0, 0), init_vector(0, 555, 0), white2);
-	obj = init_obj((void *)plane, PLANE, white2);
+	plane = init_plane(init_vector(0, 0, 555), init_vector(555, 0, 0), init_vector(0, 555, 0), find_mat("white0"));
+	obj = init_obj((void *)plane, PLANE, plane->mat);
 	append_obj(obj);
 
 	(void)argc;

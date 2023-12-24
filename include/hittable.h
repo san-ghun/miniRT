@@ -6,7 +6,7 @@
 /*   By: sanghupa <sanghupa@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 00:47:39 by sanghupa          #+#    #+#             */
-/*   Updated: 2023/12/24 10:15:57 by sanghupa         ###   ########.fr       */
+/*   Updated: 2023/12/24 18:03:48 by sanghupa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ typedef struct s_texture
 typedef struct s_material
 {
 	int			type;	// 0:lambertian | 1:metal | 2:dielectric | ...
+	char		name[64];
 	t_vec3		albedo;
 	double		fuzz;
 	double		index_of_refraction;
