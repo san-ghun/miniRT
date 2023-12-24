@@ -6,7 +6,7 @@
 /*   By: sanghupa <sanghupa@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 14:23:17 by sanghupa          #+#    #+#             */
-/*   Updated: 2023/12/21 16:52:00 by sanghupa         ###   ########.fr       */
+/*   Updated: 2023/12/24 11:03:08 by sanghupa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ typedef struct s_square {
 }				t_square;
 
 typedef struct s_resource {
-	t_obj		**objs;
+	t_obj		*objs[100];
 	int			len_objs;
 }				t_resource;
 
@@ -150,7 +150,7 @@ typedef struct s_vars {
 /// new.c
 t_vars		*new_program(int w, int h, char *str);
 t_container	*new_container(int w, int h, t_vars *vars);
-t_resource	*new_resource(int n_obj);
+t_resource	*new_resource(void);
 
 /// singleton.c
 t_vars		*single_vars(void);

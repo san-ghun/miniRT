@@ -6,7 +6,7 @@
 /*   By: sanghupa <sanghupa@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 01:25:50 by sanghupa          #+#    #+#             */
-/*   Updated: 2023/12/22 01:02:20 by sanghupa         ###   ########.fr       */
+/*   Updated: 2023/12/23 20:21:21 by sanghupa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ t_hit	init_rec(void)
 	this.normal = init_vector(0, 0, 0);
 	this.point = init_vector(0, 0, 0);
 	this.mat = NULL;
+	this.tex = NULL;
 	this.t = 0;
 	this.u = 0;
 	this.v = 0;

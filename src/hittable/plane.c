@@ -6,7 +6,7 @@
 /*   By: sanghupa <sanghupa@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 00:15:27 by sanghupa          #+#    #+#             */
-/*   Updated: 2023/12/22 01:44:11 by sanghupa         ###   ########.fr       */
+/*   Updated: 2023/12/23 20:21:48 by sanghupa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ t_plane	*init_plane(t_vec3 point, t_vec3 u, t_vec3 v, t_material *material)
 	this->d = vdot(this->normal, point);
 	this->w = vscale(n, 1 / vdot(n, n));
 	this->mat = material;
+	this->tex = NULL;
 	return (this);
 }
 
