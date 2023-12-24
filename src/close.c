@@ -6,7 +6,7 @@
 /*   By: sanghupa <sanghupa@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 21:17:42 by sanghupa          #+#    #+#             */
-/*   Updated: 2023/12/19 01:43:16 by sanghupa         ###   ########.fr       */
+/*   Updated: 2023/12/24 10:58:43 by sanghupa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,15 @@ int	close_mlx(t_container *img)
 	i = -1;
 	while (rsc->objs[++i])
 	{
+		if (rsc->objs[i]->texture != NULL)
+			free(rsc->objs[i]->texture);
 		free(rsc->objs[i]->material);
 		free(rsc->objs[i]->data);
 		free(rsc->objs[i]);
 	}
-	free(rsc->objs);
-	rsc->objs = NULL;
+	// free(rsc->objs);
+	// rsc->objs = NULL;
+	ft_bzero(rsc->objs, 100);
 	free(img);
 	free(vars->mlx);
 	exit(EXIT_SUCCESS);

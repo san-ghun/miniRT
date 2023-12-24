@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   new.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sanghupa <sanghupa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sanghupa <sanghupa@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 16:57:57 by sanghupa          #+#    #+#             */
-/*   Updated: 2023/12/15 13:59:35 by sanghupa         ###   ########.fr       */
+/*   Updated: 2023/12/24 11:03:13 by sanghupa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,19 +38,19 @@ t_container	*new_container(int w, int h, t_vars *vars)
 	return (this);
 }
 
-t_resource	*new_resource(int n_obj)
+t_resource	*new_resource(void)
 {
 	t_resource	*rsc;
-	int			i;
 
 	rsc = single_rsc();
-	rsc->objs = malloc(sizeof(t_obj *) * (n_obj + 1));
-	i = 0;
-	while (i < n_obj + 1)
-	{
-		rsc->objs[i] = NULL;
-		i++;
-	}
+	// rsc->objs = malloc(sizeof(t_obj *) * (n_obj + 1));
+	// i = 0;
+	// while (i < n_obj + 1)
+	// {
+	// 	rsc->objs[i] = NULL;
+	// 	i++;
+	// }
+	ft_bzero(rsc->objs, 100);
 	rsc->len_objs = 0;
 	return (rsc);
 }

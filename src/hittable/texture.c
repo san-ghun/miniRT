@@ -1,44 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   singleton.c                                        :+:      :+:    :+:   */
+/*   texture.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sanghupa <sanghupa@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/14 21:33:01 by sanghupa          #+#    #+#             */
-/*   Updated: 2023/12/24 10:55:25 by sanghupa         ###   ########.fr       */
+/*   Created: 2023/12/23 20:17:54 by sanghupa          #+#    #+#             */
+/*   Updated: 2023/12/23 21:22:15 by sanghupa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt.h"
+#include "hittable.h"
 
-t_vars	*single_vars(void)
+t_texture	*init_texture(int type, t_vec3 color)
 {
-	static t_vars	this;
-	static int		is_init;
+	t_texture	*this;
 
-	if (is_init)
-		return (&this);
-	this = (t_vars){
-		.mlx = NULL,
-		.win = NULL,
-		.width = 0,
-		.height = 0,
-	};
-	is_init = 1;
-	return (&this);
+	this = malloc(sizeof(t_texture) * 1);
+	this->type = type;
+	this->color = color;
+	return (this);
 }
 
-t_resource	*single_rsc(void)
+t_vec3	texture_color(t_texture *tex, double u, double v, t_vec3 point)
 {
-	static t_resource	this;
-	static int			is_init;
+	t_vec3	color;
 
-	if (is_init)
-		return (&this);
-	this = (t_resource){
-		.objs = {},
-	};
-	is_init = 1;
-	return (&this);
+	color = init_vector(0, 0, 0);
+	tex->color = color;
+	return (color);
 }

@@ -6,7 +6,7 @@
 /*   By: sanghupa <sanghupa@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/15 15:26:36 by sanghupa          #+#    #+#             */
-/*   Updated: 2023/12/21 17:18:18 by sanghupa         ###   ########.fr       */
+/*   Updated: 2023/12/24 10:17:07 by sanghupa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ typedef struct s_camera
 	int			image_height;		// Rendered image height
 	int			samples_per_pixel;	// Count of random samples for each pixel
 	int			max_depth;			// Maximum nuber of ray bounces into scene
+	t_vec3		background;			// Scene background color
 	double		vfov;				// Vertical view angle (field of view)
 	t_vec3		lookfrom;			// Point camera is looking from
 	t_vec3		lookat;				// Point camera is looking at
@@ -64,9 +65,10 @@ typedef struct s_camera
 ** =============================================================================
 */
 
-t_camera	init_camera(double aspect_ratio, int image_width);
+t_camera	*single_cam(void);
+t_camera	*init_camera(double aspect_ratio, int image_width);
 void		setup_camera(t_camera *this, int vfov, t_vec3 lookfrom, t_vec3 lookat, t_vec3 vup);
-t_ray		get_ray(t_camera camera, int i, int j);
+t_ray		get_ray(t_camera *camera, int i, int j);
 t_vec3		ray_color(t_ray ray, int depth, t_obj *objs[]);
 
 #endif

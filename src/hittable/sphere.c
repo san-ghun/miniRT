@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sphere.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sanghupa <sanghupa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sanghupa <sanghupa@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 01:00:50 by sanghupa          #+#    #+#             */
-/*   Updated: 2023/12/16 13:58:37 by sanghupa         ###   ########.fr       */
+/*   Updated: 2023/12/23 20:22:02 by sanghupa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ t_sphere	*init_sphere(t_vec3 center, double radius, t_material *material)
 	this->center = center;
 	this->radius = radius;
 	this->mat = material;
+	this->tex = NULL;
 	return (this);
 }
 

@@ -6,7 +6,7 @@
 /*   By: sanghupa <sanghupa@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 00:47:39 by sanghupa          #+#    #+#             */
-/*   Updated: 2023/12/22 00:43:12 by sanghupa         ###   ########.fr       */
+/*   Updated: 2023/12/24 10:15:57 by sanghupa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,12 +52,19 @@
 
 typedef int		t_bool;
 
+typedef struct s_texture
+{
+	int			type;	// 0:solid | 1:light
+	t_vec3		color;
+}				t_texture;
+
 typedef struct s_material
 {
 	int			type;	// 0:lambertian | 1:metal | 2:dielectric | ...
 	t_vec3		albedo;
 	double		fuzz;
 	double		index_of_refraction;
+	t_vec3		emit_color;
 }				t_material;
 
 typedef struct s_sphere
@@ -65,6 +72,7 @@ typedef struct s_sphere
 	t_vec3		center;
 	double		radius;
 	t_material	*mat;
+	t_texture	*tex;
 }				t_sphere;
 
 typedef struct s_plane
@@ -77,6 +85,7 @@ typedef struct s_plane
 	double		d;
 	t_vec3		w;
 	t_material	*mat;
+	t_texture	*tex;
 }				t_plane;
 
 typedef struct s_obj
@@ -86,6 +95,7 @@ typedef struct s_obj
 	int			nth;
 	void		*data;
 	t_material	*material;
+	t_texture	*texture;
 }				t_obj;
 
 typedef struct s_hit
@@ -96,6 +106,7 @@ typedef struct s_hit
 	double		u;
 	double		v;
 	t_material	*mat;
+	t_texture	*tex;
 	t_bool		front_face;
 }				t_hit;
 
@@ -124,5 +135,9 @@ t_bool		hit_plane(void *data, t_ray ray, t_interval interval, t_hit *rec);
 /// material.c
 t_material	*init_material(int type, t_vec3 color, double fuzz, double ir);
 t_bool		scatter(t_ray *r, t_hit *rec, t_vec3 *color);
+
+/// texture.c
+t_texture	*init_texture(int type, t_vec3 color);
+t_vec3		texture_color(t_texture *tex, double u, double v, t_vec3 point);
 
 #endif
