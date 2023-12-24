@@ -6,7 +6,7 @@
 /*   By: sanghupa <sanghupa@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 00:47:39 by sanghupa          #+#    #+#             */
-/*   Updated: 2023/12/24 19:57:22 by sanghupa         ###   ########.fr       */
+/*   Updated: 2023/12/24 20:28:35 by sanghupa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,6 +142,6 @@ t_texture	*init_texture(int type, t_vec3 color);
 t_vec3		texture_color(t_texture *tex, double u, double v, t_vec3 point);
 
 /// translate.c
-void		hit_translate(t_obj *obj, t_vec3 offset);
+void		translate_obj(t_obj *obj, t_vec3 offset);
 
 #endif

@@ -6,13 +6,13 @@
 /*   By: sanghupa <sanghupa@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/24 19:14:48 by sanghupa          #+#    #+#             */
-/*   Updated: 2023/12/24 20:00:56 by sanghupa         ###   ########.fr       */
+/*   Updated: 2023/12/24 20:28:45 by sanghupa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "hittable.h"
 
-void	hit_translate(t_obj *obj, t_vec3 offset)
+void	translate_obj(t_obj *obj, t_vec3 offset)
 {
 	t_sphere	*prev_sp;
 	t_sphere	*new_sp;
