@@ -6,7 +6,7 @@
 /*   By: sanghupa <sanghupa@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 14:22:52 by sanghupa          #+#    #+#             */
-/*   Updated: 2023/12/24 18:52:45 by sanghupa         ###   ########.fr       */
+/*   Updated: 2023/12/24 20:16:50 by sanghupa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,6 +188,7 @@ int	main(int argc, char *argv[])
 	append_obj(obj);
 	plane = init_plane(init_vector(343, 554, 332), init_vector(-130, 0, 0), init_vector(0, 0, -105), find_mat("light"));
 	obj = init_obj((void *)plane, PLANE, plane->mat);
+	hit_translate(obj, init_vector(0, -100, 0));
 	append_obj(obj);
 	plane = init_plane(init_vector(0, 0, 0), init_vector(555, 0, 0), init_vector(0, 0, 555), find_mat("white0"));
 	obj = init_obj((void *)plane, PLANE, plane->mat);
