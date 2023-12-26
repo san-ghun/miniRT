@@ -6,14 +6,14 @@
 /*   By: sanghupa <sanghupa@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/15 15:29:44 by sanghupa          #+#    #+#             */
-/*   Updated: 2023/12/24 10:18:05 by sanghupa         ###   ########.fr       */
+/*   Updated: 2023/12/26 15:14:39 by sanghupa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "camera.h"
 #include <math.h>
 
-double		degrees_to_radians(double degrees)
+double	degrees_to_radians(double degrees)
 {
 	return (degrees * M_PI / 180.0);
 }

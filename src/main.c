@@ -6,7 +6,7 @@
 /*   By: sanghupa <sanghupa@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 14:22:52 by sanghupa          #+#    #+#             */
-/*   Updated: 2023/12/24 20:28:57 by sanghupa         ###   ########.fr       */
+/*   Updated: 2023/12/26 16:08:02 by sanghupa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,6 +187,7 @@ int	main(int argc, char *argv[])
 	obj = init_obj((void *)plane, PLANE, plane->mat);
 	append_obj(obj);
 	plane = init_plane(init_vector(343, 554, 332), init_vector(-130, 0, 0), init_vector(0, 0, -105), find_mat("light"));
+	// plane = init_plane(init_vector(113, 554, 127), init_vector(330, 0, 0), init_vector(0, 0, 305), find_mat("light"));
 	obj = init_obj((void *)plane, PLANE, plane->mat);
 	translate_obj(obj, init_vector(0, -100, 0));
 	append_obj(obj);
@@ -199,8 +200,13 @@ int	main(int argc, char *argv[])
 	plane = init_plane(init_vector(0, 0, 555), init_vector(555, 0, 0), init_vector(0, 555, 0), find_mat("white0"));
 	obj = init_obj((void *)plane, PLANE, plane->mat);
 	append_obj(obj);
-	append_box(init_vector(130, 0, 65), init_vector(295, 165, 230), white0);
-	append_box(init_vector(265, 0, 295), init_vector(430, 330, 460), white0);
+	// append_box(init_vector(130, 0, 65), init_vector(295, 165, 230), white0, -18, init_vector(0, 0, 0));
+	append_box(init_vector(0, 0, 0), init_vector(165, 165, 165), white0, -18, init_vector(130, 0, 65));
+	// append_box(init_vector(265, 0, 295), init_vector(430, 330, 460), white0, 15, init_vector(0, 0, 0));
+	append_box(init_vector(0, 0, 0), init_vector(165, 330, 165), white0, 15, init_vector(265, 0, 295));
+	// sphere = init_sphere(init_vector(425, 50, 80), 50.0, green);
+	// obj = init_obj((void *)sphere, SPHERE, sphere->mat);
+	// append_obj(obj);
 
 	(void)argc;
 	(void)argv;

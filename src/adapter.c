@@ -6,7 +6,7 @@
 /*   By: sanghupa <sanghupa@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 21:47:56 by sanghupa          #+#    #+#             */
-/*   Updated: 2023/12/24 18:50:53 by sanghupa         ###   ########.fr       */
+/*   Updated: 2023/12/26 02:00:09 by sanghupa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ t_material	*find_mat(char *name)
 	return (NULL);
 }
 
-void	append_box(t_vec3 a, t_vec3 b, t_material *mat)
+void	append_box(t_vec3 a, t_vec3 b, t_material *mat, double angle, t_vec3 offset)
 {
 	t_vec3	min;
 	t_vec3	max;
@@ -72,15 +72,27 @@ void	append_box(t_vec3 a, t_vec3 b, t_material *mat)
 	dy = init_vector(0, max.y - min.y, 0);
 	dz = init_vector(0, 0, max.z - min.z);
 	plane = init_plane(init_vector(min.x, min.y, max.z), dx, dy, mat);			// front
+	plane->rotate_angle = angle;
+	plane->translate = offset;
 	append_obj(init_obj((void *)plane, PLANE, plane->mat));
 	plane = init_plane(init_vector(max.x, min.y, max.z), vflip(dz), dy, mat);	// right
+	plane->rotate_angle = angle;
+	plane->translate = offset;
 	append_obj(init_obj((void *)plane, PLANE, plane->mat));
 	plane = init_plane(init_vector(max.x, min.y, min.z), vflip(dx), dy, mat);	// back
+	plane->rotate_angle = angle;
+	plane->translate = offset;
 	append_obj(init_obj((void *)plane, PLANE, plane->mat));
 	plane = init_plane(init_vector(min.x, min.y, min.z), dz, dy, mat);			// left
+	plane->rotate_angle = angle;
+	plane->translate = offset;
 	append_obj(init_obj((void *)plane, PLANE, plane->mat));
 	plane = init_plane(init_vector(min.x, max.y, max.z), dx, vflip(dz), mat);	// top
+	plane->rotate_angle = angle;
+	plane->translate = offset;
 	append_obj(init_obj((void *)plane, PLANE, plane->mat));
 	plane = init_plane(init_vector(min.x, min.y, min.z), dx, dz, mat);			// bottom
+	plane->rotate_angle = angle;
+	plane->translate = offset;
 	append_obj(init_obj((void *)plane, PLANE, plane->mat));
 }

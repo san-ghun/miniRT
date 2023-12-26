@@ -6,7 +6,7 @@
 /*   By: sanghupa <sanghupa@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 00:47:39 by sanghupa          #+#    #+#             */
-/*   Updated: 2023/12/24 20:28:35 by sanghupa         ###   ########.fr       */
+/*   Updated: 2023/12/26 15:14:34 by sanghupa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ typedef struct s_sphere
 	double		radius;
 	t_material	*mat;
 	t_texture	*tex;
+	t_vec3		translate;
 }				t_sphere;
 
 typedef struct s_plane
@@ -87,6 +88,8 @@ typedef struct s_plane
 	t_vec3		w;
 	t_material	*mat;
 	t_texture	*tex;
+	t_vec3		translate;
+	double		rotate_angle;
 }				t_plane;
 
 typedef struct s_obj

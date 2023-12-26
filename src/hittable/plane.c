@@ -6,7 +6,7 @@
 /*   By: sanghupa <sanghupa@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 00:15:27 by sanghupa          #+#    #+#             */
-/*   Updated: 2023/12/23 20:21:48 by sanghupa         ###   ########.fr       */
+/*   Updated: 2023/12/26 16:11:48 by sanghupa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ t_plane	*init_plane(t_vec3 point, t_vec3 u, t_vec3 v, t_material *material)
 	this->w = vscale(n, 1 / vdot(n, n));
 	this->mat = material;
 	this->tex = NULL;
+	this->translate = init_vector(0, 0, 0);
+	this->rotate_angle = 0;
 	return (this);
 }
 
@@ -46,6 +48,31 @@ t_bool	hit_plane(void *data, t_ray ray, t_interval interval, t_hit *rec)
 	t_plane	*pl;
 
 	pl = (t_plane *)data;
+
+	t_bool	is_rotate;
+	is_rotate = pl->rotate_angle != 0;
+	t_bool	is_translate;
+	is_translate = (pl->translate.x != 0 || pl->translate.y != 0 || pl->translate.z != 0);
+
+	if (is_translate)
+	{
+		ray.origin = vsubtract(ray.origin, pl->translate);
+	}
+	double	radians = pl->rotate_angle * M_PI / 180.0;
+	double	sin_theta = sin(radians);
+	double	cos_theta = cos(radians);
+	t_vec3	origin = ray.origin;
+	t_vec3	direction = ray.direction;
+	if (is_rotate)
+	{
+		origin.x = cos_theta * ray.origin.x - sin_theta * ray.origin.z;
+		origin.z = sin_theta * ray.origin.x + cos_theta * ray.origin.z;
+		direction.x = cos_theta * ray.direction.x - sin_theta * ray.direction.z;
+		direction.z = sin_theta * ray.direction.x + cos_theta * ray.direction.z;
+		ray.origin = origin;
+		ray.direction = direction;
+	}
+
 	double	denom = vdot(pl->normal, ray.direction);
 
 	// No hit if the ray is parallel to the plane.
@@ -70,6 +97,22 @@ t_bool	hit_plane(void *data, t_ray ray, t_interval interval, t_hit *rec)
 	rec->point = intersection;
 	set_face_normal(rec, ray, pl->normal);
 	rec->mat = pl->mat;
+
+	t_vec3	point = rec->point;
+	t_vec3	normal = rec->normal;
+	if (is_rotate)
+	{
+		point.x = cos_theta * rec->point.x + sin_theta * rec->point.z;
+		point.z = -sin_theta * rec->point.x + cos_theta * rec->point.z;
+		normal.x = cos_theta * rec->normal.x + sin_theta * rec->normal.z;
+		normal.z = -sin_theta * rec->normal.x + cos_theta * rec->normal.z;
+		rec->point = point;
+		rec->normal = normal;
+	}
+	if (is_translate)
+	{
+		rec->point = vadd(rec->point, pl->translate);
+	}
 
 	return (1);
 }

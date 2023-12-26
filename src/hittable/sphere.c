@@ -6,7 +6,7 @@
 /*   By: sanghupa <sanghupa@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 01:00:50 by sanghupa          #+#    #+#             */
-/*   Updated: 2023/12/23 20:22:02 by sanghupa         ###   ########.fr       */
+/*   Updated: 2023/12/26 15:14:27 by sanghupa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ t_sphere	*init_sphere(t_vec3 center, double radius, t_material *material)
 	this->radius = radius;
 	this->mat = material;
 	this->tex = NULL;
+	this->translate = init_vector(0, 0, 0);
 	return (this);
 }
 
