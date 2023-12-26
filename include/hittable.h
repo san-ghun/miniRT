@@ -6,7 +6,7 @@
 /*   By: sanghupa <sanghupa@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 00:47:39 by sanghupa          #+#    #+#             */
-/*   Updated: 2023/12/24 10:15:57 by sanghupa         ###   ########.fr       */
+/*   Updated: 2023/12/26 20:50:05 by sanghupa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ typedef struct s_texture
 typedef struct s_material
 {
 	int			type;	// 0:lambertian | 1:metal | 2:dielectric | ...
+	char		name[64];
 	t_vec3		albedo;
 	double		fuzz;
 	double		index_of_refraction;
@@ -73,6 +74,8 @@ typedef struct s_sphere
 	double		radius;
 	t_material	*mat;
 	t_texture	*tex;
+	t_vec3		translate;
+	double		rotate_angle;
 }				t_sphere;
 
 typedef struct s_plane
@@ -86,6 +89,8 @@ typedef struct s_plane
 	t_vec3		w;
 	t_material	*mat;
 	t_texture	*tex;
+	t_vec3		translate;
+	double		rotate_angle;
 }				t_plane;
 
 typedef struct s_obj

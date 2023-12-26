@@ -6,7 +6,7 @@
 /*   By: sanghupa <sanghupa@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 16:57:57 by sanghupa          #+#    #+#             */
-/*   Updated: 2023/12/24 11:03:13 by sanghupa         ###   ########.fr       */
+/*   Updated: 2023/12/24 17:43:26 by sanghupa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ t_resource	*new_resource(void)
 	// 	i++;
 	// }
 	ft_bzero(rsc->objs, 100);
+	ft_bzero(rsc->mats, 100);
 	rsc->len_objs = 0;
+	rsc->len_mats = 0;
 	return (rsc);
 }

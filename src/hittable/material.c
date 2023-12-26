@@ -6,7 +6,7 @@
 /*   By: sanghupa <sanghupa@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 13:36:00 by sanghupa          #+#    #+#             */
-/*   Updated: 2023/12/23 20:59:02 by sanghupa         ###   ########.fr       */
+/*   Updated: 2023/12/24 18:05:42 by sanghupa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ t_material	*init_material(int type, t_vec3 color, double fuzz, double ir)
 		this->fuzz = fuzz;
 	this->index_of_refraction = ir;
 	this->emit_color = init_vector(0, 0, 0);
+	ft_bzero(this->name, 64);
 	return (this);
 }
 
