@@ -6,7 +6,7 @@
 /*   By: sanghupa <sanghupa@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 00:47:39 by sanghupa          #+#    #+#             */
-/*   Updated: 2023/12/26 15:14:34 by sanghupa         ###   ########.fr       */
+/*   Updated: 2023/12/26 20:50:05 by sanghupa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ typedef struct s_sphere
 	t_material	*mat;
 	t_texture	*tex;
 	t_vec3		translate;
+	double		rotate_angle;
 }				t_sphere;
 
 typedef struct s_plane
@@ -143,8 +144,5 @@ t_bool		scatter(t_ray *r, t_hit *rec, t_vec3 *color);
 /// texture.c
 t_texture	*init_texture(int type, t_vec3 color);
 t_vec3		texture_color(t_texture *tex, double u, double v, t_vec3 point);
-
-/// translate.c
-void		translate_obj(t_obj *obj, t_vec3 offset);
 
 #endif
