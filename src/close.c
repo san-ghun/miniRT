@@ -6,7 +6,7 @@
 /*   By: sanghupa <sanghupa@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 21:17:42 by sanghupa          #+#    #+#             */
-/*   Updated: 2023/12/24 17:53:04 by sanghupa         ###   ########.fr       */
+/*   Updated: 2023/12/27 21:36:55 by sanghupa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,17 @@ int	close_mlx(t_container *img)
 		free(rsc->objs[i]->data);
 		free(rsc->objs[i]);
 	}
-	// free(rsc->objs);
-	// rsc->objs = NULL;
 	ft_bzero(rsc->mats, 100);
 	ft_bzero(rsc->objs, 100);
+	pthread_mutex_destroy(rsc->lock);
+	free(rsc->lock);
+	i = -1;
+	while (++i < N_THREAD)
+	{
+		free(rsc->pths[i]->pth);
+		free(rsc->pths[i]);
+	}
+	free(rsc->pths);
 	free(img);
 	free(vars->mlx);
 	exit(EXIT_SUCCESS);

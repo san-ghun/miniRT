@@ -6,22 +6,40 @@
 /*   By: sanghupa <sanghupa@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 16:57:57 by sanghupa          #+#    #+#             */
-/*   Updated: 2023/12/24 17:43:26 by sanghupa         ###   ########.fr       */
+/*   Updated: 2023/12/27 22:37:51 by sanghupa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-t_vars	*new_program(int w, int h, char *str)
+t_thread	*new_thread(size_t id)
 {
-	t_vars	*vars;
+	t_thread	*this;
 
-	vars = single_vars();
-	vars->mlx = mlx_init();
-	vars->win = mlx_new_window(vars->mlx, w, h, str);
-	vars->width = w;
-	vars->height = h;
-	return (vars);
+	this = malloc(sizeof(t_thread) * 1);
+	this->id = id;
+	this->pth = malloc(sizeof(pthread_t) * 1);
+	return (this);
+}
+
+t_resource	*new_resource(void)
+{
+	t_resource	*rsc;
+	int			i;
+
+	rsc = single_rsc();
+	ft_bzero(rsc->objs, 100);
+	ft_bzero(rsc->mats, 100);
+	rsc->len_objs = 0;
+	rsc->len_mats = 0;
+	rsc->pths = malloc(sizeof(t_thread *) * N_THREAD);
+	ft_bzero(rsc->pths, N_THREAD);
+	rsc->lock = malloc(sizeof(t_mux) * 1);
+	pthread_mutex_init(rsc->lock, NULL);
+	i = -1;
+	while (++i < N_THREAD)
+		rsc->pths[i] = new_thread(i);
+	return (rsc);
 }
 
 t_container	*new_container(int w, int h, t_vars *vars)
@@ -38,21 +56,15 @@ t_container	*new_container(int w, int h, t_vars *vars)
 	return (this);
 }
 
-t_resource	*new_resource(void)
+t_vars	*new_program(int w, int h, char *str)
 {
-	t_resource	*rsc;
+	t_vars	*vars;
 
-	rsc = single_rsc();
-	// rsc->objs = malloc(sizeof(t_obj *) * (n_obj + 1));
-	// i = 0;
-	// while (i < n_obj + 1)
-	// {
-	// 	rsc->objs[i] = NULL;
-	// 	i++;
-	// }
-	ft_bzero(rsc->objs, 100);
-	ft_bzero(rsc->mats, 100);
-	rsc->len_objs = 0;
-	rsc->len_mats = 0;
-	return (rsc);
+	vars = single_vars();
+	vars->mlx = mlx_init();
+	vars->win = mlx_new_window(vars->mlx, w, h, str);
+	vars->width = w;
+	vars->height = h;
+	vars->container = new_container(w, h, vars);
+	return (vars);
 }

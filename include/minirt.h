@@ -6,7 +6,7 @@
 /*   By: sanghupa <sanghupa@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 14:23:17 by sanghupa          #+#    #+#             */
-/*   Updated: 2023/12/26 01:59:19 by sanghupa         ###   ########.fr       */
+/*   Updated: 2023/12/27 22:19:44 by sanghupa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,10 @@
 # define INTMAX		2147483647
 # define INTMIN		-2147483648
 
+# define N_THREAD	8
+# define N_SAMPLE	10
+# define N_DEPTH	10
+
 /*
 ** -----------------------------------------------------------------------------
 ** Result Macros
@@ -113,11 +117,19 @@ typedef struct s_square {
 	int			color;
 }				t_square;
 
+typedef struct s_thread
+{
+	pthread_t	*pth;
+	int			id;
+}				t_thread;
+
 typedef struct s_resource {
 	t_obj		*objs[100];
 	t_material	*mats[100];
 	int			len_objs;
 	int			len_mats;
+	t_thread	**pths;
+	t_mux		*lock;
 }				t_resource;
 
 typedef struct s_temp {
@@ -141,6 +153,7 @@ typedef struct s_vars {
 	void		*win;
 	int			height;
 	int			width;
+	t_container	*container;
 }				t_vars;
 
 /*
@@ -178,5 +191,8 @@ void		append_obj(t_obj *target);
 void		append_mat(t_material *target, char *name);
 t_material	*find_mat(char *name);
 void		append_box(t_vec3 a, t_vec3 b, t_material *mat, double angle, t_vec3 offset);
+
+/// multithread.c
+void		render(t_camera *camera, t_container *container);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: sanghupa <sanghupa@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 14:22:52 by sanghupa          #+#    #+#             */
-/*   Updated: 2023/12/27 18:14:41 by sanghupa         ###   ########.fr       */
+/*   Updated: 2023/12/27 23:13:04 by sanghupa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,74 +17,45 @@ void	light_one(t_camera *cam);
 void	cornell_box(t_camera *cam);
 void	box_one(t_camera *cam);
 
-void	render(t_camera *camera, t_container *container)
-{
-	int		i;
-	int		j;
-	int		sample;
-	t_ray	ray;
-	t_vec3	col_v;
-	double	scalev;
-	int		color;
-
-	j = 0;
-	ft_printf("P3\n%d %d\n255\n", camera->image_width, camera->image_height);
-	while (j < camera->image_height)
-	{
-		i = 0;
-		while (i < camera->image_width)
-		{
-			col_v = init_vector(0.0, 0.0, 0.0);
-			sample = 0;
-			while (sample < camera->samples_per_pixel)
-			{
-				ray = get_ray(camera, i, j);
-				col_v = vadd(col_v, ray_color(ray, camera->max_depth, single_rsc()->objs));
-				sample++;
-			}
-			scalev = 1.0 / camera->samples_per_pixel;
-			col_v = vscale(col_v, scalev);
-			col_v = get_rgb(col_v.x, col_v.y, col_v.z);
-			write_color(col_v);
-			color = get_trgb(0, (int)col_v.x, (int)col_v.y, (int)col_v.z);
-			put_pixel_data(container, i, j, color);
-			i++;
-		}
-		j++;
-	}
-}
-
 int	main(int argc, char *argv[])
 {
 	t_vars			*vars;
 	t_container		*container;
 	t_dotrt			*rt;
 	t_camera		*cam;
+	t_resource		*rsc;
 
 	rt = new_rt();
 	rt->a.ratio = 0.2;
 	rt->a.color = init_vector(0.2, 0.2, 0.2);
+	rsc = new_resource();
 
 	/// scene_zero
-	// cam = init_camera(16.0 / 9.0, 400);
-	// cam->samples_per_pixel = 10;
-	// cam->max_depth = 10;
+	cam = init_camera(16.0 / 9.0, 400);
+	cam->samples_per_pixel = 50;
+	cam->max_depth = 20;
 
 	/// light_one
 	// cam = init_camera(16.0 / 9.0, 400);
-	// cam->samples_per_pixel = 15;
-	// cam->max_depth = 10;
+	// cam->samples_per_pixel = 50;
+	// cam->max_depth = 20;
 
 	/// cornell_box
-	cam = init_camera(1.0, 600);
-	cam->samples_per_pixel = 10;
-	cam->max_depth = 5;
+	// cam = init_camera(1.0, 600);
+	// cam->samples_per_pixel = 50;
+	// cam->max_depth = 20;
 
 	/// box_one
 	// cam = init_camera(1.0, 400);
-	// cam->samples_per_pixel = 10;
-	// cam->max_depth = 10;
+	// cam->samples_per_pixel = 50;
+	// cam->max_depth = 20;
 
+	/// SCENES
+	scene_zero(cam);
+	// light_one(cam);
+	// cornell_box(cam);
+	// box_one(cam);
+	
 	(void)argc;
 	(void)argv;
 	/// init window
@@ -92,12 +63,7 @@ int	main(int argc, char *argv[])
 	if (!(vars->mlx) || !(vars->win))
 		return (1);
 	/// init image
-	container = new_container(vars->width, vars->height, vars);
-
-	// scene_zero(cam);
-	// light_one(cam);
-	cornell_box(cam);
-	// box_one(cam);
+	container = vars->container;
 
 	render(cam, container);
 
@@ -119,8 +85,7 @@ void	scene_zero(t_camera *cam)
 	t_sphere	*sphere;
 
 	/// # Scene 0
-	(void)rsc;
-	rsc = new_resource();
+	rsc = single_rsc();
 	t_material	*mat_ground = init_material(0, init_vector(0.5, 0.5, 0.5), 0, 0);
 	sphere = init_sphere(init_vector(0.0, -1000.0, 0.0), 1000.0, mat_ground);
 	obj = init_obj((void *)sphere, SPHERE, mat_ground);
@@ -195,8 +160,7 @@ void	light_one(t_camera *cam)
 	t_cylinder	*cylinder;
 
 	/// # Light 1
-	(void)rsc;
-	rsc = new_resource();
+	rsc = single_rsc();
 	t_material	*mat_ground = init_material(0, init_vector(0.5, 0.5, 0.5), 0, 0);
 	sphere = init_sphere(init_vector(0.0, -1000.0, 0.0), 1000.0, mat_ground);
 	obj = init_obj((void *)sphere, SPHERE, mat_ground);
@@ -230,8 +194,7 @@ void	cornell_box(t_camera *cam)
 	t_cylinder	*cylinder;
 
 	/// # Cornell Box
-	(void)rsc;
-	rsc = new_resource();
+	rsc = single_rsc();
 	t_material	*red = init_material(0, init_vector(0.65, 0.05, 0.05), 0, 0);
 	t_material	*white0 = init_material(0, init_vector(0.73, 0.73, 0.73), 0, 0);
 	t_material	*green = init_material(0, init_vector(0.12, 0.45, 0.15), 0, 0);
@@ -287,8 +250,7 @@ void	box_one(t_camera *cam)
 	t_cylinder	*cylinder;
 
 	/// # Box 1
-	(void)rsc;
-	rsc = new_resource();
+	rsc = single_rsc();
 	t_material	*ground = init_material(0, init_vector(0.48, 0.83, 0.53), 0, 0);
 	t_material	*light = init_material(0, init_vector(0, 0, 0), 0, 0);
 	light->emit_color = init_vector(15, 15, 15);
