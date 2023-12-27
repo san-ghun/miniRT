@@ -6,7 +6,7 @@
 /*   By: sanghupa <sanghupa@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 21:33:01 by sanghupa          #+#    #+#             */
-/*   Updated: 2023/12/24 17:42:58 by sanghupa         ###   ########.fr       */
+/*   Updated: 2023/12/27 22:20:00 by sanghupa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ t_vars	*single_vars(void)
 		.win = NULL,
 		.width = 0,
 		.height = 0,
+		.container = NULL,
 	};
 	is_init = 1;
 	return (&this);
@@ -41,6 +42,8 @@ t_resource	*single_rsc(void)
 		.mats = {},
 		.len_objs = 0,
 		.len_mats = 0,
+		.pths = NULL,
+		.lock = NULL,
 	};
 	is_init = 1;
 	return (&this);
