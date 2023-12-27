@@ -6,7 +6,7 @@
 /*   By: sanghupa <sanghupa@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 00:47:39 by sanghupa          #+#    #+#             */
-/*   Updated: 2023/12/26 20:50:05 by sanghupa         ###   ########.fr       */
+/*   Updated: 2023/12/26 23:46:05 by sanghupa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,20 @@ typedef struct s_plane
 	double		rotate_angle;
 }				t_plane;
 
+typedef struct s_cylinder
+{
+	t_vec3		center;
+	t_vec3		normal;
+	double		radius;
+	double		height;
+	t_vec3		tc;
+	t_vec3		bc;
+	t_material	*mat;
+	t_texture	*tex;
+	t_vec3		translate;
+	double		rotate_angle;
+}				t_cylinder;
+
 typedef struct s_obj
 {
 	int			id;
@@ -136,6 +150,10 @@ t_bool		hit_sphere(void *data, t_ray ray, t_interval interval, t_hit *rec);
 /// plane.c
 t_plane		*init_plane(t_vec3 point, t_vec3 u, t_vec3 v, t_material *material);
 t_bool		hit_plane(void *data, t_ray ray, t_interval interval, t_hit *rec);
+
+/// cylinder.c
+t_cylinder	*init_cylinder(t_vec3 center, double radius, double height, t_material *material);
+t_bool		hit_cylinder(void *data, t_ray ray, t_interval interval, t_hit *rec);
 
 /// material.c
 t_material	*init_material(int type, t_vec3 color, double fuzz, double ir);

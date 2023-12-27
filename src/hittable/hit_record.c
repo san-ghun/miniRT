@@ -6,7 +6,7 @@
 /*   By: sanghupa <sanghupa@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 01:25:50 by sanghupa          #+#    #+#             */
-/*   Updated: 2023/12/26 15:15:02 by sanghupa         ###   ########.fr       */
+/*   Updated: 2023/12/26 23:46:49 by sanghupa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,13 @@ t_bool	hit_objs(t_obj *objs[], t_ray ray, t_interval interval, t_hit *rec)
 		}
 		if (objs[i]->type == PLANE && 
 			hit_plane((void *)(objs[i]->data), ray, ray_t, &temp_rec))
+		{
+			hit_anything = 1;
+			closest_so_far = temp_rec.t;
+			*rec = temp_rec;
+		}
+		if (objs[i]->type == CYLINDER && 
+			hit_cylinder((void *)(objs[i]->data), ray, ray_t, &temp_rec))
 		{
 			hit_anything = 1;
 			closest_so_far = temp_rec.t;
