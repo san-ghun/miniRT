@@ -6,7 +6,7 @@
 /*   By: sanghupa <sanghupa@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 14:22:52 by sanghupa          #+#    #+#             */
-/*   Updated: 2023/12/26 22:14:07 by sanghupa         ###   ########.fr       */
+/*   Updated: 2023/12/27 18:14:41 by sanghupa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,14 +76,14 @@ int	main(int argc, char *argv[])
 	// cam->max_depth = 10;
 
 	/// cornell_box
-	// cam = init_camera(1.0, 600);
-	// cam->samples_per_pixel = 50;
-	// cam->max_depth = 10;
+	cam = init_camera(1.0, 600);
+	cam->samples_per_pixel = 10;
+	cam->max_depth = 5;
 
 	/// box_one
-	cam = init_camera(1.0, 400);
-	cam->samples_per_pixel = 100;
-	cam->max_depth = 20;
+	// cam = init_camera(1.0, 400);
+	// cam->samples_per_pixel = 10;
+	// cam->max_depth = 10;
 
 	(void)argc;
 	(void)argv;
@@ -96,8 +96,8 @@ int	main(int argc, char *argv[])
 
 	// scene_zero(cam);
 	// light_one(cam);
-	// cornell_box(cam);
-	box_one(cam);
+	cornell_box(cam);
+	// box_one(cam);
 
 	render(cam, container);
 
@@ -192,6 +192,7 @@ void	light_one(t_camera *cam)
 	t_obj		*obj;
 	t_sphere	*sphere;
 	t_plane		*plane;
+	t_cylinder	*cylinder;
 
 	/// # Light 1
 	(void)rsc;
@@ -226,6 +227,7 @@ void	cornell_box(t_camera *cam)
 	t_obj		*obj;
 	t_sphere	*sphere;
 	t_plane		*plane;
+	t_cylinder	*cylinder;
 
 	/// # Cornell Box
 	(void)rsc;
@@ -245,9 +247,9 @@ void	cornell_box(t_camera *cam)
 	plane = init_plane(init_vector(0, 0, 0), init_vector(0, 555, 0), init_vector(0, 0, 555), find_mat("red"));
 	obj = init_obj((void *)plane, PLANE, plane->mat);
 	append_obj(obj);
-	plane = init_plane(init_vector(343, 554, 332), init_vector(-130, 0, 0), init_vector(0, 0, -105), find_mat("light"));
-	// plane = init_plane(init_vector(113, 554, 127), init_vector(330, 0, 0), init_vector(0, 0, 305), find_mat("light"));
-	plane->translate = init_vector(0, -100, 0);
+	// plane = init_plane(init_vector(343, 554, 332), init_vector(-130, 0, 0), init_vector(0, 0, -105), find_mat("light"));
+	// plane->translate = init_vector(0, -100, 0);
+	plane = init_plane(init_vector(113, 554, 127), init_vector(330, 0, 0), init_vector(0, 0, 305), find_mat("light"));
 	obj = init_obj((void *)plane, PLANE, plane->mat);
 	append_obj(obj);
 	plane = init_plane(init_vector(0, 0, 0), init_vector(555, 0, 0), init_vector(0, 0, 555), find_mat("white0"));
@@ -259,12 +261,16 @@ void	cornell_box(t_camera *cam)
 	plane = init_plane(init_vector(0, 0, 555), init_vector(555, 0, 0), init_vector(0, 555, 0), find_mat("white0"));
 	obj = init_obj((void *)plane, PLANE, plane->mat);
 	append_obj(obj);
-	// append_box(init_vector(130, 0, 65), init_vector(295, 165, 230), white0, -18, init_vector(0, 0, 0));
 	append_box(init_vector(0, 0, 0), init_vector(165, 165, 165), white0, -18, init_vector(130, 0, 65));
-	// append_box(init_vector(265, 0, 295), init_vector(430, 330, 460), white0, 15, init_vector(0, 0, 0));
 	append_box(init_vector(0, 0, 0), init_vector(165, 330, 165), white0, 15, init_vector(265, 0, 295));
-	// sphere = init_sphere(init_vector(425, 50, 80), 50.0, green);
-	// obj = init_obj((void *)sphere, SPHERE, sphere->mat);
+	sphere = init_sphere(init_vector(425, 50, 80), 50.0, green);
+	obj = init_obj((void *)sphere, SPHERE, sphere->mat);
+	append_obj(obj);
+	// cylinder = init_cylinder(init_vector(0, 0, 0), 55, 100, white0);
+	// cylinder->normal = init_vector(0, 0, 1);
+	// cylinder->rotate_angle = 15;
+	// cylinder->translate = init_vector(130, 100, 165);
+	// obj = init_obj((void *)cylinder, CYLINDER, cylinder->mat);
 	// append_obj(obj);
 
 	cam->background = init_vector(0, 0, 0);
@@ -278,6 +284,7 @@ void	box_one(t_camera *cam)
 	t_obj		*obj;
 	t_sphere	*sphere;
 	t_plane		*plane;
+	t_cylinder	*cylinder;
 
 	/// # Box 1
 	(void)rsc;

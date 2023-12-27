@@ -6,9 +6,9 @@
   - [x] Compile source
   - [x] OS specification
 
-- Initialize project directory
+- [x] Initialize project directory
 
-- Initialize program start with minilibx window API
+- [x] Initialize program start with minilibx window API
 
 - The Window Management
 
