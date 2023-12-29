@@ -6,7 +6,7 @@
 /*   By: sanghupa <sanghupa@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 14:23:17 by sanghupa          #+#    #+#             */
-/*   Updated: 2023/12/27 22:19:44 by sanghupa         ###   ########.fr       */
+/*   Updated: 2023/12/28 15:38:29 by sanghupa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@
 # include "hittable.h"
 # include "interval.h"
 # include "camera.h"
-# include "ft_readrt.h"
+# include "ft_dotrt.h"
 
 /// key mapping
 #if __linux__
@@ -186,13 +186,15 @@ void		put_pixel_data(t_container *cont, int x, int y, int color);
 void		draw_square(t_square square, t_container *img);
 t_temp		*single_temp(void);
 
+/// multithread.c
+void		render(t_camera *camera, t_container *container);
+
 /// adapter.c
 void		append_obj(t_obj *target);
 void		append_mat(t_material *target, char *name);
 t_material	*find_mat(char *name);
 void		append_box(t_vec3 a, t_vec3 b, t_material *mat, double angle, t_vec3 offset);
+void		apply_dotrt(t_dotrt *rt);
 
-/// multithread.c
-void		render(t_camera *camera, t_container *container);
 
 #endif

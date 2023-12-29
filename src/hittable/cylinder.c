@@ -6,7 +6,7 @@
 /*   By: sanghupa <sanghupa@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 23:07:52 by sanghupa          #+#    #+#             */
-/*   Updated: 2023/12/27 18:12:26 by sanghupa         ###   ########.fr       */
+/*   Updated: 2023/12/28 21:08:11 by sanghupa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ t_cylinder	*init_cylinder(t_vec3 center, double radius, double height, t_materia
 	return (this);
 }
 
-double	root_rectangle(t_cylinder *cy, t_ray ray, t_interval interval)
+static double	root_rectangle(t_cylinder *cy, t_ray ray, double lim)
 {
 	double	root;
 	
@@ -44,10 +44,10 @@ double	root_rectangle(t_cylinder *cy, t_ray ray, t_interval interval)
 		return (INFINITY);
 	double	sqrtd = sqrt(discriminant);
 	root = (-half_b - sqrtd) / a;
-	if (!surrounds(interval, root))
+	if (root < 0.001 || root > lim)
 	{
 		root = (-half_b + sqrtd) / a;
-		if (!surrounds(interval, root))
+		if (root < 0.001 || root > lim)
 			return (INFINITY);
 	}
 	if (vdot(cy->normal, vsubtract(vadd(ray.origin, vscale(ray.direction, root)), cy->tc)) > 0)
@@ -57,7 +57,7 @@ double	root_rectangle(t_cylinder *cy, t_ray ray, t_interval interval)
 	return (root);
 }
 
-double	root_circle(t_cylinder *cy, t_ray ray, t_interval interval)
+static double	root_circle(t_cylinder *cy, t_ray ray, double lim)
 {
 	double	root_circ;
 
@@ -72,9 +72,9 @@ double	root_circle(t_cylinder *cy, t_ray ray, t_interval interval)
 	double	bt = vdot(bv, cy->normal) / denom;
 	if (vlen_pow(vsubtract(vadd(ray.origin, vscale(ray.direction, bt)), cy->bc)) > cy->radius * cy->radius)
 		bt = INFINITY;
-	if (!surrounds(interval, tt))
+	if (tt < 0.001 || tt > lim)
 		tt = INFINITY;
-	if (!surrounds(interval, bt))
+	if (bt < 0.001 || bt > lim)
 		bt = INFINITY;
 	if (tt < bt)
 		root_circ = tt;
@@ -117,11 +117,11 @@ t_bool	hit_cylinder(void *data, t_ray ray, t_interval interval, t_hit *rec)
 	cy->bc = vsubtract(cy->center, vscale(cy->normal, cy->height / 2));
 	// get root for rectangle
 	double	root_rect;
-	root_rect = root_rectangle(cy, ray, interval);
+	root_rect = root_rectangle(cy, ray, interval.max);
 
 	// get root for circle
 	double	root_circ;
-	root_circ = root_circle(cy, ray, interval);
+	root_circ = root_circle(cy, ray, interval.max);
 
 	if (root_rect == INFINITY && root_circ == INFINITY)
 		return (0);
@@ -157,5 +157,19 @@ t_bool	hit_cylinder(void *data, t_ray ray, t_interval interval, t_hit *rec)
 		rec->point = vadd(rec->point, cy->translate);
 	}
 
+	return (1);
+}
+
+t_bool	interfere_cy(void *data, t_ray r, double lim)
+{
+	double 		root_r;
+	double		root_c;
+	t_cylinder	*cy;
+
+	cy = (t_cylinder *)data;
+	root_r = root_rectangle(cy, r, lim);
+	root_c = root_circle(cy, r, lim);
+	if (root_r == INFINITY && root_c == INFINITY)
+		return (0);
 	return (1);
 }

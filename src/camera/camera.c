@@ -6,7 +6,7 @@
 /*   By: sanghupa <sanghupa@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/15 15:29:44 by sanghupa          #+#    #+#             */
-/*   Updated: 2023/12/26 15:14:39 by sanghupa         ###   ########.fr       */
+/*   Updated: 2023/12/28 18:34:52 by sanghupa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,35 +171,4 @@ t_ray	get_ray(t_camera *camera, int i, int j)
 	ray_direction = vsubtract(pixel_sample, ray_origin);
 	ray = init_ray(ray_origin, ray_direction);
 	return (ray);
-}
-
-t_vec3	ray_color(t_ray ray, int depth, t_obj *objs[])
-{
-	t_subrt		rt_al;
-	t_vec3		color;
-	t_vec3		ambient;
-	t_hit		rec;
-	double		a;
-
-	rt_al = single_rt()->a;
-	if (depth <= 0)
-		return (init_vector(0.0, 0.0, 0.0));
-	if (hit_objs(objs, ray, init_interval(0.001, INFINITY), &rec))
-	{
-		ambient.x = rt_al.ratio * rt_al.color.x * 0.001 * rec.mat->albedo.x;
-		ambient.y = rt_al.ratio * rt_al.color.y * 0.001 * rec.mat->albedo.y;
-		ambient.z = rt_al.ratio * rt_al.color.z * 0.001 * rec.mat->albedo.z;
-		if (scatter(&ray, &rec, &color))
-			return (vadd(vmult(ray_color(ray, depth - 1, objs), color), vadd(ambient, rec.mat->emit_color)));
-		else
-			return (vadd(ambient, rec.mat->emit_color));
-	}
-	else
-	{
-		// a = 0.5 * (vunit(ray.direction).y + 1.0);
-		// color = vscale(init_vector(1.0, 1.0, 1.0), 1.0 - a);
-		// color = vadd(color, vscale(init_vector(0.5, 0.7, 1.0), a));
-		return (single_cam()->background);
-	}
-	return (color);
 }

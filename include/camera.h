@@ -6,7 +6,7 @@
 /*   By: sanghupa <sanghupa@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/15 15:26:36 by sanghupa          #+#    #+#             */
-/*   Updated: 2023/12/27 22:45:46 by sanghupa         ###   ########.fr       */
+/*   Updated: 2023/12/28 18:35:30 by sanghupa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 # include "hittable.h"
 # include "color.h"
 # include "ft_random.h"
-# include "ft_readrt.h"
+# include "ft_dotrt.h"
 
 /*
 ** =============================================================================
@@ -65,12 +65,15 @@ typedef struct s_camera
 ** =============================================================================
 */
 
+// camera.c
 t_camera	*single_cam(void);
 t_camera	*init_camera(double aspect_ratio, int image_width);
 void		setup_camera(t_camera *this, int vfov, t_vec3 lookfrom, t_vec3 lookat, t_vec3 vup);
 t_vec3		pixel_sample_square(t_camera *camera);
 t_vec3		defocus_disk_sample(t_camera *camera);
 t_ray		get_ray(t_camera *camera, int i, int j);
+
+// trace.c
 t_vec3		ray_color(t_ray ray, int depth, t_obj *objs[]);
 
 #endif

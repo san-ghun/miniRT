@@ -6,7 +6,7 @@
 /*   By: sanghupa <sanghupa@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 21:47:56 by sanghupa          #+#    #+#             */
-/*   Updated: 2023/12/26 02:00:09 by sanghupa         ###   ########.fr       */
+/*   Updated: 2023/12/29 20:00:41 by sanghupa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,4 +95,79 @@ void	append_box(t_vec3 a, t_vec3 b, t_material *mat, double angle, t_vec3 offset
 	plane->rotate_angle = angle;
 	plane->translate = offset;
 	append_obj(init_obj((void *)plane, PLANE, plane->mat));
+}
+
+void	apply_dotrt(t_dotrt *rt)
+{
+	int			i;
+	t_material	*mat_default;
+	t_material	*mat_light;
+	t_subrt		*subrt;
+	t_sphere	*sp;
+	t_plane		*pl;
+	t_rectangle	*re;
+	t_cylinder	*cy;
+	t_obj		*obj;
+
+	// mat_light = init_material(0, rt->l->color, 0, 0);
+	// mat_light->emit_color = vscale((t_vec3){1, 1, 1}, rt->l->ratio);
+	// mat_light->emit_color = vscale(rt->l->color, 5);
+	// append_mat(mat_light, "light");
+
+	// sp = init_sphere(init_vector(0, 0, 0), 10, mat_light);
+	// sp->translate = rt->l->point;
+	// obj = init_obj((void *)sp, SPHERE, sp->mat);
+	
+	// pl = init_plane(init_vector(0, 0, 0), (t_vec3){1, 0, 0}, (t_vec3){0, 0, 1}, mat_light);
+	// pl->translate = rt->l->point;
+	// obj = init_obj((void *)pl, PLANE, pl->mat);
+
+	// re = init_rectangle(init_vector(0, 0, 0), (t_vec3){1, 0, 0}, (t_vec3){0, 0, 1}, mat_light);
+	// re->translate = rt->l->point;
+	// re->normal = (t_vec3){-(re->translate.y), re->translate.x, 0};
+	// obj = init_obj((void *)re, RECTANGLE, re->mat);
+	
+	// append_obj(obj);
+	
+	i = -1;
+	while (rt->sp[++i])
+	{
+		subrt = rt->sp[i];
+		mat_default = init_material(2, subrt->color, 0, 0);
+		append_mat(mat_default, "");
+		ft_strlcat(mat_default->name, "sp", 3);
+		sp = init_sphere(subrt->point, subrt->value1, mat_default);
+		obj = init_obj((void *)sp, SPHERE, sp->mat);
+		append_obj(obj);
+	}
+	re = init_rectangle(init_vector(0, -10, 10), (t_vec3){0, 10, 0}, (t_vec3){10, 0, 0}, mat_default);
+	// re->translate = (t_vec3){0, -10, 10};
+	// re->normal = (t_vec3){-(re->translate.y), re->translate.x, 0};
+	obj = init_obj((void *)re, RECTANGLE, re->mat);
+	append_obj(obj);
+	i = -1;
+	while (rt->pl[++i])
+	{
+		subrt = rt->pl[i];
+		mat_default = init_material(0, subrt->color, 0, 0);
+		append_mat(mat_default, "");
+		ft_strlcat(mat_default->name, "pl", 3);
+		pl = init_plane(subrt->point, init_vector(0, 0, 0), init_vector(0, 0, 0), mat_default);
+		pl->normal = subrt->vector;
+		obj = init_obj((void *)pl, PLANE, pl->mat);
+		append_obj(obj);
+	}
+	i = -1;
+	while (rt->cy[++i])
+	{
+		subrt = rt->cy[i];
+		mat_default = init_material(2, subrt->color, 0, 1.5);
+		append_mat(mat_default, "");
+		ft_strlcat(mat_default->name, "cy", 3);
+		cy = init_cylinder(subrt->point, subrt->value1, subrt->value2, mat_default);
+		cy->normal = subrt->vector;
+		obj = init_obj((void *)cy, CYLINDER, cy->mat);
+		append_obj(obj);
+	}
+	
 }

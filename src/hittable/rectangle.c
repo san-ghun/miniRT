@@ -1,24 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   plane.c                                            :+:      :+:    :+:   */
+/*   rectangle.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sanghupa <sanghupa@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/22 00:15:27 by sanghupa          #+#    #+#             */
-/*   Updated: 2023/12/29 13:47:37 by sanghupa         ###   ########.fr       */
+/*   Created: 2023/12/29 14:27:54 by sanghupa          #+#    #+#             */
+/*   Updated: 2023/12/29 20:05:03 by sanghupa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "hittable.h"
 #include <math.h>
 
-t_plane	*init_plane(t_vec3 point, t_vec3 u, t_vec3 v, t_material *material)
+t_rectangle	*init_rectangle(t_vec3 point, t_vec3 u, t_vec3 v, t_material *material)
 {
-	t_plane	*this;
+	t_rectangle	*this;
 	t_vec3	n;
 
-	this = malloc(sizeof(t_plane) * 1);
+	this = malloc(sizeof(t_rectangle) * 1);
 	this->point = point;
 	this->u = u;
 	this->v = v;
@@ -34,18 +34,18 @@ t_plane	*init_plane(t_vec3 point, t_vec3 u, t_vec3 v, t_material *material)
 	return (this);
 }
 
-static t_bool	check_root(t_plane *pl, t_ray ray, double *t, double lim)
+static t_bool	check_root(t_rectangle *re, t_ray ray, double *t, double lim)
 {
-	double	denom = vdot(pl->normal, ray.direction);
+	double	denom = vdot(re->normal, ray.direction);
 
-	// No hit if the ray is parallel to the plane.
+	// No hit if the ray is parallel to the rectangle.
 	// if (fabs(denom) < 1e-8)
 	if (!denom)
 		return (0);
 
 	// Return false if the hit point parameter t is outside the ray interval.
-	// *t = (pl->d - vdot(pl->normal, ray.origin)) / denom;
-	*t = vdot(vsubtract(pl->point, ray.origin), pl->normal) / denom;
+	// *t = (re->d - vdot(re->normal, ray.origin)) / denom;
+	*t = vdot(vsubtract(re->point, ray.origin), re->normal) / denom;
 	if (*t < 0.001 || *t > lim)
 		return (0);
 	return (1);
@@ -60,23 +60,23 @@ static t_bool	is_interior(double a, double b, t_hit *rec)
 	return (1);
 }
 
-t_bool	hit_plane(void *data, t_ray ray, t_interval interval, t_hit *rec)
+t_bool	hit_rectangle(void *data, t_ray ray, t_interval interval, t_hit *rec)
 {
-	t_plane	*pl;
+	t_rectangle	*re;
 	double	t;
 
-	pl = (t_plane *)data;
+	re = (t_rectangle *)data;
 
 	t_bool	is_rotate;
-	is_rotate = pl->rotate_angle != 0;
+	is_rotate = re->rotate_angle != 0;
 	t_bool	is_translate;
-	is_translate = (pl->translate.x != 0 || pl->translate.y != 0 || pl->translate.z != 0);
+	is_translate = (re->translate.x != 0 || re->translate.y != 0 || re->translate.z != 0);
 
 	if (is_translate)
 	{
-		ray.origin = vsubtract(ray.origin, pl->translate);
+		ray.origin = vsubtract(ray.origin, re->translate);
 	}
-	double	radians = pl->rotate_angle * M_PI / 180.0;
+	double	radians = re->rotate_angle * M_PI / 180.0;
 	double	sin_theta = sin(radians);
 	double	cos_theta = cos(radians);
 	t_vec3	origin = ray.origin;
@@ -91,22 +91,22 @@ t_bool	hit_plane(void *data, t_ray ray, t_interval interval, t_hit *rec)
 		ray.direction = direction;
 	}
 
-	if (check_root(pl, ray, &t, interval.max) != 1)
+	if (check_root(re, ray, &t, interval.max) != 1)
 		return (0);
 
-	// Determine the hit point lies within the planar shape using its plane coordinates.
+	// Determine the hit point lies within the planar shape using its rectangle coordinates.
 	t_vec3	intersection = ray_at(ray, t);
-	// t_vec3	planar_hitpt_vector = vsubtract(intersection, pl->point);
-	// double	alpha = vdot(pl->w, vcross(planar_hitpt_vector, pl->v));
-	// double	beta = vdot(pl->w, vcross(pl->u, planar_hitpt_vector));
+	t_vec3	planar_hitpt_vector = vsubtract(intersection, re->point);
+	double	alpha = vdot(re->w, vcross(planar_hitpt_vector, re->v));
+	double	beta = vdot(re->w, vcross(re->u, planar_hitpt_vector));
 
-	// if (!is_interior(alpha, beta, rec))
-	// 	return (0);
+	if (!is_interior(alpha, beta, rec))
+		return (0);
 
 	rec->t = t;
 	rec->point = intersection;
-	set_face_normal(rec, ray, pl->normal);
-	rec->mat = pl->mat;
+	set_face_normal(rec, ray, re->normal);
+	rec->mat = re->mat;
 
 	t_vec3	point = rec->point;
 	t_vec3	normal = rec->normal;
@@ -121,19 +121,19 @@ t_bool	hit_plane(void *data, t_ray ray, t_interval interval, t_hit *rec)
 	}
 	if (is_translate)
 	{
-		rec->point = vadd(rec->point, pl->translate);
+		rec->point = vadd(rec->point, re->translate);
 	}
 
 	return (1);
 }
 
-t_bool	interfere_pl(void *data, t_ray r, double lim)
+t_bool	interfere_re(void *data, t_ray r, double lim)
 {
 	double 		t;
-	t_plane	*pl;
+	t_rectangle	*re;
 
-	pl = (t_plane *)data;
-	if (check_root(pl, r, &t, lim) != 1)
+	re = (t_rectangle *)data;
+	if (check_root(re, r, &t, lim) != 1)
 		return (0);
 	return (1);
 }
