@@ -6,7 +6,7 @@
 /*   By: sanghupa <sanghupa@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 21:21:20 by sanghupa          #+#    #+#             */
-/*   Updated: 2023/12/27 22:58:12 by sanghupa         ###   ########.fr       */
+/*   Updated: 2023/12/29 17:10:44 by sanghupa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	render_deprecated(t_camera *camera, t_container *container)
 	}
 }
 
-static t_ray	get_ray_thread(t_thread *pth, t_camera *camera, int i, int j)
+static t_ray	get_ray_thread(t_thread *pth, t_camera *camera, double i, double j)
 {
 	t_vec3	pixel_center;
 	t_vec3	pixel_sample;
@@ -59,18 +59,20 @@ static t_ray	get_ray_thread(t_thread *pth, t_camera *camera, int i, int j)
 	t_ray	ray;
 
 	i = pth->id * camera->image_width / N_THREAD + i;
-	// i = (i + ft_random(0, 1)) / (double)(camera->image_width - 1);
-	// j = (j + ft_random(0, 1)) / (double)(camera->image_height - 1);
+	// i = (i + ft_randdouble()) / (double)(camera->image_width - 1);
+	// j = (j + ft_randdouble()) / (double)(camera->image_height - 1);
 	pixel_center = vadd(camera->pixel00_loc, \
-			vscale(camera->pixel_delta_u, (double)i));
+			vscale(camera->pixel_delta_u, i));
 	pixel_center = vadd(pixel_center, \
-			vscale(camera->pixel_delta_v, (double)j));
+			vscale(camera->pixel_delta_v, j));
 	pixel_sample = vadd(pixel_center, pixel_sample_square(camera));
 	ray_origin = defocus_disk_sample(camera);
 	if (camera->defocus_angle <= 0)
 		ray_origin = camera->center;
 	ray_direction = vsubtract(pixel_sample, ray_origin);
-	ray = init_ray(ray_origin, ray_direction);
+	ray = init_ray(ray_origin, vunit(ray_direction));
+	// ray_direction = vunit(vsubtract(pixel_center, camera->center));
+	// ray = init_ray(camera->center, ray_direction);
 	return (ray);
 }
 
@@ -79,6 +81,7 @@ static void	write_pixel_data(t_thread *pth, int x, int y, int color)
 	t_container	*cont;
 	t_mux		*lock;
 	char		*dst;
+	int			i;
 
 	cont = single_vars()->container;
 	lock = single_rsc()->lock;
@@ -90,6 +93,11 @@ static void	write_pixel_data(t_thread *pth, int x, int y, int color)
 		*(unsigned int *)dst = color;
 		pthread_mutex_unlock(lock);
 	}
+	// dst = cont->addr + \
+	// 	(y * cont->line_length + (x + pth->id * cont->w / N_THREAD) * (cont->bits_per_pixel / 8));
+	// pthread_mutex_lock(lock);
+	// *(unsigned int *)dst = color;
+	// pthread_mutex_unlock(lock);
 }
 
 static void	*thread_col_calc(void *pth)
@@ -120,7 +128,7 @@ static void	*thread_col_calc(void *pth)
 				ray = get_ray_thread((t_thread *)pth, camera, x, y);
 				col_v = vadd(col_v, ray_color(ray, camera->max_depth, single_rsc()->objs));
 			}
-			scalev = 1.0 / camera->samples_per_pixel;
+			scalev = 1.0 / ((double)camera->samples_per_pixel);
 			col_v = vscale(col_v, scalev);
 			col_v = get_rgb(col_v.x, col_v.y, col_v.z);
 			color = get_trgb(0, (int)col_v.x, (int)col_v.y, (int)col_v.z);

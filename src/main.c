@@ -6,7 +6,7 @@
 /*   By: sanghupa <sanghupa@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 14:22:52 by sanghupa          #+#    #+#             */
-/*   Updated: 2023/12/27 23:13:04 by sanghupa         ###   ########.fr       */
+/*   Updated: 2023/12/29 19:55:34 by sanghupa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,20 +25,30 @@ int	main(int argc, char *argv[])
 	t_camera		*cam;
 	t_resource		*rsc;
 
-	rt = new_rt();
-	rt->a.ratio = 0.2;
-	rt->a.color = init_vector(0.2, 0.2, 0.2);
 	rsc = new_resource();
 
-	/// scene_zero
+	rt = new_rt();
+	set_dotrt(rt);
+
 	cam = init_camera(16.0 / 9.0, 400);
-	cam->samples_per_pixel = 50;
-	cam->max_depth = 20;
+	cam->samples_per_pixel = 10;
+	cam->max_depth = 10;
+	cam->background = init_vector(0, 0, 0);
+	cam->defocus_angle = 0.0;
+	cam->focus_dist = 10.0;
+	setup_camera(cam, rt->c->value1, rt->c->point, rt->c->vector, (t_vec3){0, 1, 0});
+
+	apply_dotrt(rt);
+
+	/// scene_zero
+	// cam = init_camera(16.0 / 9.0, 400);
+	// cam->samples_per_pixel = 10;
+	// cam->max_depth = 10;
 
 	/// light_one
 	// cam = init_camera(16.0 / 9.0, 400);
-	// cam->samples_per_pixel = 50;
-	// cam->max_depth = 20;
+	// cam->samples_per_pixel = 10;
+	// cam->max_depth = 10;
 
 	/// cornell_box
 	// cam = init_camera(1.0, 600);
@@ -47,15 +57,15 @@ int	main(int argc, char *argv[])
 
 	/// box_one
 	// cam = init_camera(1.0, 400);
-	// cam->samples_per_pixel = 50;
-	// cam->max_depth = 20;
+	// cam->samples_per_pixel = 10;
+	// cam->max_depth = 10;
 
 	/// SCENES
-	scene_zero(cam);
+	// scene_zero(cam);
 	// light_one(cam);
 	// cornell_box(cam);
 	// box_one(cam);
-	
+
 	(void)argc;
 	(void)argv;
 	/// init window
@@ -175,8 +185,8 @@ void	light_one(t_camera *cam)
 	obj = init_obj((void *)sphere, SPHERE, mat_light_sp);
 	append_obj(obj);
 	t_material	*mat_light_pl = init_material(0, init_vector(0, 0, 0), 0, 0);
-	mat_light_pl->emit_color = init_vector(4, 4, 4);
-	plane = init_plane(init_vector(3, 1, -2), init_vector(2, 0, 0), init_vector(0, 2, 0), mat_light_pl);
+	mat_light_pl->emit_color = init_vector(1, 1, 1);
+	plane = init_plane(init_vector(5, 1, -2), init_vector(2, 0, 0), init_vector(0, 2, 0), mat_light_pl);
 	obj = init_obj((void *)plane, PLANE, mat_light_pl);
 	append_obj(obj);
 
@@ -253,7 +263,7 @@ void	box_one(t_camera *cam)
 	rsc = single_rsc();
 	t_material	*ground = init_material(0, init_vector(0.48, 0.83, 0.53), 0, 0);
 	t_material	*light = init_material(0, init_vector(0, 0, 0), 0, 0);
-	light->emit_color = init_vector(15, 15, 15);
+	light->emit_color = init_vector(1, 1, 1);
 	t_material	*solid = init_material(0, init_vector(0.7, 0.3, 0.1), 0, 0);
 	t_material	*glass = init_material(2, init_vector(0, 0, 0), 0, 1.5);
 	t_material	*metal = init_material(1, init_vector(0.8, 0.8, 0.9), 1.0, 0);
@@ -290,7 +300,7 @@ void	box_one(t_camera *cam)
 	sphere = init_sphere(init_vector(220, 280, 300), 80, metal0);
 	obj = init_obj((void *)sphere, SPHERE, sphere->mat);
 	append_obj(obj);
-	append_box(init_vector(0, 0, 0), init_vector(165, 165, 165), white, 18, init_vector(-100, 270, 395));
+	// append_box(init_vector(0, 0, 0), init_vector(165, 165, 165), white, 18, init_vector(-100, 270, 395));
 
 	cam->background = init_vector(0, 0, 0);
 	cam->defocus_angle = 0;

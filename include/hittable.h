@@ -6,7 +6,7 @@
 /*   By: sanghupa <sanghupa@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 00:47:39 by sanghupa          #+#    #+#             */
-/*   Updated: 2023/12/26 23:46:05 by sanghupa         ###   ########.fr       */
+/*   Updated: 2023/12/29 14:41:13 by sanghupa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@
 # define SPHERE			5
 # define PLANE			6
 # define CYLINDER		7
-// # define SQUARE			8
+# define RECTANGLE		8
 // # define TRIANGLE		9
 // # define CONE			10
 
@@ -93,6 +93,21 @@ typedef struct s_plane
 	double		rotate_angle;
 }				t_plane;
 
+typedef struct s_rectangle
+{
+	t_vec3		point;
+	t_vec3		u;
+	t_vec3		v;
+	t_aabb		box;
+	t_vec3		normal;
+	double		d;
+	t_vec3		w;
+	t_material	*mat;
+	t_texture	*tex;
+	t_vec3		translate;
+	double		rotate_angle;
+}				t_rectangle;
+
 typedef struct s_cylinder
 {
 	t_vec3		center;
@@ -142,18 +157,27 @@ t_obj		*init_obj(void *data, int type, t_material *material);
 t_hit		init_rec(void);
 void		set_face_normal(t_hit *rec, t_ray ray, t_vec3 outward_normal);
 t_bool		hit_objs(t_obj *objs[], t_ray ray, t_interval interval, t_hit *rec);
+t_bool		obj_visible(t_ray ray, double lim, t_obj *objs[]);
 
 /// sphere.c
 t_sphere	*init_sphere(t_vec3 center, double radius, t_material *material);
 t_bool		hit_sphere(void *data, t_ray ray, t_interval interval, t_hit *rec);
+t_bool		interfere_sp(void *data, t_ray r, double lim);
 
 /// plane.c
 t_plane		*init_plane(t_vec3 point, t_vec3 u, t_vec3 v, t_material *material);
 t_bool		hit_plane(void *data, t_ray ray, t_interval interval, t_hit *rec);
+t_bool		interfere_pl(void *data, t_ray r, double lim);
+
+/// rectangle.c
+t_rectangle	*init_rectangle(t_vec3 point, t_vec3 u, t_vec3 v, t_material *material);
+t_bool		hit_rectangle(void *data, t_ray ray, t_interval interval, t_hit *rec);
+t_bool		interfere_re(void *data, t_ray r, double lim);
 
 /// cylinder.c
 t_cylinder	*init_cylinder(t_vec3 center, double radius, double height, t_material *material);
 t_bool		hit_cylinder(void *data, t_ray ray, t_interval interval, t_hit *rec);
+t_bool		interfere_cy(void *data, t_ray r, double lim);
 
 /// material.c
 t_material	*init_material(int type, t_vec3 color, double fuzz, double ir);

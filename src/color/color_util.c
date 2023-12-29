@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   color_util.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sanghupa <sanghupa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sanghupa <sanghupa@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 13:08:51 by sanghupa          #+#    #+#             */
-/*   Updated: 2023/12/16 17:23:29 by sanghupa         ###   ########.fr       */
+/*   Updated: 2023/12/29 17:08:37 by sanghupa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,9 @@ t_vec3	get_rgb(double red, double green, double blue)
 	red = clamp(intensity, red);
 	green = clamp(intensity, green);
 	blue = clamp(intensity, blue);;
-	red *= 255.999;
-	green *= 255.999;
-	blue *= 255.999;
+	red *= 255.0;
+	green *= 255.0;
+	blue *= 255.0;
 	return ((t_vec3){red, green, blue});
 }
 
