@@ -6,7 +6,7 @@
 /*   By: sanghupa <sanghupa@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 23:34:00 by sanghupa          #+#    #+#             */
-/*   Updated: 2023/12/22 00:09:03 by sanghupa         ###   ########.fr       */
+/*   Updated: 2023/12/29 21:05:54 by sanghupa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,17 +36,17 @@ t_aabb	init_aabb_vec(t_vec3 a, t_vec3 b)
 	return (this);
 }
 
-t_aabb	init_aabb_box(t_aabb box0, t_aabb box1)
-{
-	t_aabb	this;
+// t_aabb	init_aabb_box(t_aabb box0, t_aabb box1)
+// {
+// 	t_aabb	this;
 
-	this = (t_aabb){
-		.x = init_interval_itv(box0.x, box1.x),
-		.y = init_interval_itv(box0.y, box1.y),
-		.z = init_interval_itv(box0.z, box1.z),
-	};
-	return (this);
-}
+// 	this = (t_aabb){
+// 		.x = init_interval_itv(box0.x, box1.x),
+// 		.y = init_interval_itv(box0.y, box1.y),
+// 		.z = init_interval_itv(box0.z, box1.z),
+// 	};
+// 	return (this);
+// }
 
 t_interval	aabb_axis(t_aabb box, int n)
 {
@@ -66,10 +66,16 @@ t_bool	aabb_hit(t_aabb box, t_ray ray, t_interval ray_t)
 	i = -1;
 	while (++i < 3)
 	{
-		t0 = fmin((aabb_axis(box, i).min - vec_val(ray.origin, i)) / vec_val(ray.direction, i),
-				(aabb_axis(box, i).max - vec_val(ray.origin, i)) / vec_val(ray.direction, i));
-		t1 = fmax((aabb_axis(box, i).min - vec_val(ray.origin, i)) / vec_val(ray.direction, i),
-				(aabb_axis(box, i).max - vec_val(ray.origin, i)) / vec_val(ray.direction, i));
+		t0 = fmin(
+				(aabb_axis(box, i).min - vec_val(ray.origin, i)) \
+					/ vec_val(ray.direction, i),
+				(aabb_axis(box, i).max - vec_val(ray.origin, i)) \
+					/ vec_val(ray.direction, i));
+		t1 = fmax(
+				(aabb_axis(box, i).min - vec_val(ray.origin, i)) \
+					/ vec_val(ray.direction, i),
+				(aabb_axis(box, i).max - vec_val(ray.origin, i)) \
+					/ vec_val(ray.direction, i));
 		ray_t.min = fmax(t0, ray_t.min);
 		ray_t.max = fmin(t1, ray_t.max);
 		if (ray_t.max <= ray_t.min)
@@ -83,7 +89,7 @@ t_aabb	aabb_pad(t_aabb box)
 	t_interval	new_x;
 	t_interval	new_y;
 	t_interval	new_z;
-	
+
 	new_x = expand_interval(box.x, 0.0001);
 	if (size_itv(box.x) >= 0.0001)
 		new_x = box.x;

@@ -6,169 +6,106 @@
 /*   By: sanghupa <sanghupa@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 23:07:52 by sanghupa          #+#    #+#             */
-/*   Updated: 2023/12/28 21:08:11 by sanghupa         ###   ########.fr       */
+/*   Updated: 2023/12/30 01:08:18 by sanghupa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "hittable.h"
 #include <math.h>
 
-t_cylinder	*init_cylinder(t_vec3 center, double radius, double height, t_material *material)
-{
-	t_cylinder	*this;
-
-	this = malloc(sizeof(t_cylinder) * 1);
-	this->center = center;
-	this->normal = init_vector(0, 1, 0);
-	this->radius = radius;
-	this->height = height;
-	this->tc = vadd(this->center, vscale(this->normal, this->height / 2));
-	this->bc = vsubtract(this->center, vscale(this->normal, this->height / 2));
-	this->mat = material;
-	this->tex = NULL;
-	this->translate = init_vector(0, 0, 0);
-	this->rotate_angle = 0;
-	return (this);
-}
-
-static double	root_rectangle(t_cylinder *cy, t_ray ray, double lim)
+static double	root_rectangle(t_cylinder *cy, \
+								t_vec3 r_o, t_vec3 r_d, double lim)
 {
 	double	root;
-	
-	t_vec3	v = vsubtract(ray.origin, cy->center);
-	double 	a = vlen_pow(vcross(ray.direction, cy->normal));
-	double	half_b = vdot(vcross(ray.direction, cy->normal), vcross(v, cy->normal));
-	double	c = vlen_pow(vcross(v, cy->normal)) - (cy->radius * cy->radius);
-	double	discriminant = half_b * half_b - a * c;
-	if (discriminant < 0)
+	t_vec3	v;
+	double	a;
+	double	half_b;
+	double	c;
+
+	v = vsubtract(r_o, cy->center);
+	a = vlen_pow(vcross(r_d, cy->normal));
+	half_b = vdot(vcross(r_d, cy->normal), vcross(v, cy->normal));
+	c = vlen_pow(vcross(v, cy->normal)) - (cy->radius * cy->radius);
+	if (half_b * half_b - a * c < 0)
 		return (INFINITY);
-	double	sqrtd = sqrt(discriminant);
-	root = (-half_b - sqrtd) / a;
+	root = (-half_b - sqrt(half_b * half_b - a * c)) / a;
 	if (root < 0.001 || root > lim)
 	{
-		root = (-half_b + sqrtd) / a;
-		if (root < 0.001 || root > lim)
+		root = (-half_b + sqrt(half_b * half_b - a * c)) / a;
+		if (root < 0.001 || sqrt(half_b * half_b - a * c) > lim)
 			return (INFINITY);
 	}
-	if (vdot(cy->normal, vsubtract(vadd(ray.origin, vscale(ray.direction, root)), cy->tc)) > 0)
+	if (vdot(cy->normal, vsubtract(vadd(r_o, vscale(r_d, root)), cy->tc)) > 0)
 		return (INFINITY);
-	if (vdot(cy->normal, vsubtract(vadd(ray.origin, vscale(ray.direction, root)), cy->bc)) < 0)
+	if (vdot(cy->normal, vsubtract(vadd(r_o, vscale(r_d, root)), cy->bc)) < 0)
 		return (INFINITY);
 	return (root);
 }
 
-static double	root_circle(t_cylinder *cy, t_ray ray, double lim)
+static double	root_circle(t_cylinder *cy, t_vec3 r_o, t_vec3 r_d, double lim)
 {
-	double	root_circ;
+	double	denom;
+	double	tt;
+	double	bt;
 
-	double	denom = vdot(ray.direction, cy->normal);
+	denom = vdot(r_d, cy->normal);
 	if (fabs(denom) < 1e-8)
 		return (INFINITY);
-	t_vec3	tv = vsubtract(cy->tc, ray.origin);
-	double	tt = vdot(tv, cy->normal) / denom;
-	if (vlen_pow(vsubtract(vadd(ray.origin, vscale(ray.direction, tt)), cy->tc)) > cy->radius * cy->radius)
+	tt = vdot(vsubtract(cy->tc, r_o), cy->normal) / denom;
+	if (vlen_pow(vsubtract(vadd(r_o, vscale(r_d, tt)), cy->tc)) > \
+			cy->radius * cy->radius)
 		tt = INFINITY;
-	t_vec3	bv = vsubtract(cy->bc, ray.origin);
-	double	bt = vdot(bv, cy->normal) / denom;
-	if (vlen_pow(vsubtract(vadd(ray.origin, vscale(ray.direction, bt)), cy->bc)) > cy->radius * cy->radius)
+	bt = vdot(vsubtract(cy->bc, r_o), cy->normal) / denom;
+	if (vlen_pow(vsubtract(vadd(r_o, vscale(r_d, bt)), cy->bc)) > \
+			cy->radius * cy->radius)
 		bt = INFINITY;
 	if (tt < 0.001 || tt > lim)
 		tt = INFINITY;
 	if (bt < 0.001 || bt > lim)
 		bt = INFINITY;
 	if (tt < bt)
-		root_circ = tt;
-	else
-		root_circ = bt;
-	return (root_circ);
+		return (tt);
+	return (bt);
 }
 
 t_bool	hit_cylinder(void *data, t_ray ray, t_interval interval, t_hit *rec)
 {
 	t_cylinder	*cy;
+	double		root_rect;
+	double		root_circ;
 
 	cy = (t_cylinder *)data;
-
-	t_bool	is_rotate;
-	is_rotate = cy->rotate_angle != 0;
-	t_bool	is_translate;
-	is_translate = (cy->translate.x != 0 || cy->translate.y != 0 || cy->translate.z != 0);
-
-	if (is_translate)
-	{
-		ray.origin = vsubtract(ray.origin, cy->translate);
-	}
-	double	radians = cy->rotate_angle * M_PI / 180.0;
-	double	sin_theta = sin(radians);
-	double	cos_theta = cos(radians);
-	t_vec3	origin = ray.origin;
-	t_vec3	direction = ray.direction;
-	if (is_rotate)
-	{
-		origin.x = cos_theta * ray.origin.x - sin_theta * ray.origin.z;
-		origin.z = sin_theta * ray.origin.x + cos_theta * ray.origin.z;
-		direction.x = cos_theta * ray.direction.x - sin_theta * ray.direction.z;
-		direction.z = sin_theta * ray.direction.x + cos_theta * ray.direction.z;
-		ray.origin = origin;
-		ray.direction = direction;
-	}
-
-	cy->tc = vadd(cy->center, vscale(cy->normal, cy->height / 2));
-	cy->bc = vsubtract(cy->center, vscale(cy->normal, cy->height / 2));
-	// get root for rectangle
-	double	root_rect;
-	root_rect = root_rectangle(cy, ray, interval.max);
-
-	// get root for circle
-	double	root_circ;
-	root_circ = root_circle(cy, ray, interval.max);
-
+	ray.origin = vsubtract(ray.origin, cy->translate);
+	if (cy->rotate_angle != 0)
+		pre_rotate(&ray, cy->rotate_angle * M_PI / 180.0);
+	root_rect = root_rectangle(cy, ray.origin, ray.direction, interval.max);
+	root_circ = root_circle(cy, ray.origin, ray.direction, interval.max);
 	if (root_rect == INFINITY && root_circ == INFINITY)
 		return (0);
+	set_hit_point(rec, ray, root_circ);
+	set_face_normal(rec, ray, cy->normal);
 	if (root_rect < root_circ)
 	{
-		rec->t = root_rect;
-		rec->point = ray_at(ray, root_rect);
-		t_vec3	outward_normal = vunit(vsubtract(rec->point, vadd(vscale(cy->normal, vdot(cy->normal, vsubtract(rec->point, cy->center))), cy->center)));
-		set_face_normal(rec, ray, outward_normal);
+		set_hit_point(rec, ray, root_rect);
+		set_face_normal(rec, ray, vunit(vsubtract(rec->point, \
+			vadd(vscale(cy->normal, vdot(cy->normal, \
+				vsubtract(rec->point, cy->center))), cy->center))));
 	}
-	else
-	{
-		rec->t = root_circ;
-		rec->point = ray_at(ray, root_circ);
-		t_vec3	outward_normal = cy->normal;
-		set_face_normal(rec, ray, outward_normal);
-	}
-	rec->mat = cy->mat;
-
-	t_vec3	point = rec->point;
-	t_vec3	normal = rec->normal;
-	if (is_rotate)
-	{
-		point.x = cos_theta * rec->point.x + sin_theta * rec->point.z;
-		point.z = -sin_theta * rec->point.x + cos_theta * rec->point.z;
-		normal.x = cos_theta * rec->normal.x + sin_theta * rec->normal.z;
-		normal.z = -sin_theta * rec->normal.x + cos_theta * rec->normal.z;
-		rec->point = point;
-		rec->normal = normal;
-	}
-	if (is_translate)
-	{
-		rec->point = vadd(rec->point, cy->translate);
-	}
-
+	if (cy->rotate_angle != 0)
+		post_rotate(rec, cy->rotate_angle * M_PI / 180.0);
+	rec->point = vadd(rec->point, cy->translate);
 	return (1);
 }
 
 t_bool	interfere_cy(void *data, t_ray r, double lim)
 {
-	double 		root_r;
+	double		root_r;
 	double		root_c;
 	t_cylinder	*cy;
 
 	cy = (t_cylinder *)data;
-	root_r = root_rectangle(cy, r, lim);
-	root_c = root_circle(cy, r, lim);
+	root_r = root_rectangle(cy, r.origin, r.direction, lim);
+	root_c = root_circle(cy, r.origin, r.direction, lim);
 	if (root_r == INFINITY && root_c == INFINITY)
 		return (0);
 	return (1);

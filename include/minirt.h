@@ -6,7 +6,7 @@
 /*   By: sanghupa <sanghupa@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 14:23:17 by sanghupa          #+#    #+#             */
-/*   Updated: 2023/12/28 15:38:29 by sanghupa         ###   ########.fr       */
+/*   Updated: 2023/12/30 00:41:21 by sanghupa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,13 +58,13 @@
 # include "ft_dotrt.h"
 
 /// key mapping
-#if __linux__
-	# include "key_linux.h"
-#elif __APPLE__
-	# include "key_macos.h"
-#else
-#	error "Unknown compier"acos
-#endif
+# if __linux__
+# include "key_linux.h"
+# elif __APPLE__
+# include "key_macos.h"
+# else
+# error "Unknown OS"
+# endif
 
 /*
 ** =============================================================================
@@ -187,14 +187,12 @@ void		draw_square(t_square square, t_container *img);
 t_temp		*single_temp(void);
 
 /// multithread.c
-void		render(t_camera *camera, t_container *container);
+void		render(void);
 
 /// adapter.c
 void		append_obj(t_obj *target);
 void		append_mat(t_material *target, char *name);
 t_material	*find_mat(char *name);
-void		append_box(t_vec3 a, t_vec3 b, t_material *mat, double angle, t_vec3 offset);
 void		apply_dotrt(t_dotrt *rt);
-
 
 #endif

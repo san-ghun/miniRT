@@ -6,7 +6,7 @@
 /*   By: sanghupa <sanghupa@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 16:43:00 by sanghupa          #+#    #+#             */
-/*   Updated: 2023/12/29 14:43:59 by sanghupa         ###   ########.fr       */
+/*   Updated: 2023/12/30 00:35:30 by sanghupa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,9 @@ typedef struct s_dotrt {
 	t_subrt		*l;
 	t_subrt		*sp[100];
 	t_subrt		*pl[100];
-	t_subrt		*re[100];
 	t_subrt		*cy[100];
 	int			cnt_sp;
 	int			cnt_pl;
-	int			cnt_re;
 	int			cnt_cy;
 }				t_dotrt;
 

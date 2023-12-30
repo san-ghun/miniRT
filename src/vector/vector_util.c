@@ -6,7 +6,7 @@
 /*   By: sanghupa <sanghupa@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 00:40:18 by sanghupa          #+#    #+#             */
-/*   Updated: 2023/12/19 00:33:09 by sanghupa         ###   ########.fr       */
+/*   Updated: 2023/12/29 20:53:50 by sanghupa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,14 @@
 
 t_vec3	vrandom(double min, double max)
 {
-	return (init_vector(ft_random(min, max), ft_random(min, max), ft_random(min, max)));
+	t_vec3	ret;
+
+	ret = (t_vec3){
+		ft_random(min, max), 
+		ft_random(min, max), 
+		ft_random(min, max)
+	};
+	return (ret);
 }
 
 t_vec3	vrandom_in_unit_sphere(void)
