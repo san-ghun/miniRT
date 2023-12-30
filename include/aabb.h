@@ -6,7 +6,7 @@
 /*   By: sanghupa <sanghupa@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 23:25:16 by sanghupa          #+#    #+#             */
-/*   Updated: 2023/12/22 00:19:14 by sanghupa         ###   ########.fr       */
+/*   Updated: 2023/12/29 21:06:09 by sanghupa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ typedef int		t_bool;
 
 typedef struct s_aabb
 {
-    t_interval	x;
+	t_interval	x;
 	t_interval	y;
 	t_interval	z;
 }				t_aabb;
@@ -47,7 +47,7 @@ typedef struct s_aabb
 
 t_aabb		init_aabb_itv(t_interval ix, t_interval iy, t_interval iz);
 t_aabb		init_aabb_vec(t_vec3 a, t_vec3 b);
-t_aabb		init_aabb_box(t_aabb box0, t_aabb box1);
+// t_aabb		init_aabb_box(t_aabb box0, t_aabb box1);
 t_interval	aabb_axis(t_aabb box, int n);
 t_bool		aabb_hit(t_aabb box, t_ray ray, t_interval ray_t);
 t_aabb		aabb_pad(t_aabb box);

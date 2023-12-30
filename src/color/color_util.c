@@ -6,7 +6,7 @@
 /*   By: sanghupa <sanghupa@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/16 13:08:51 by sanghupa          #+#    #+#             */
-/*   Updated: 2023/12/29 17:08:37 by sanghupa         ###   ########.fr       */
+/*   Updated: 2023/12/29 21:06:37 by sanghupa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ t_vec3	get_rgb(double red, double green, double blue)
 	blue = linear_to_gamma(blue);
 	red = clamp(intensity, red);
 	green = clamp(intensity, green);
-	blue = clamp(intensity, blue);;
+	blue = clamp(intensity, blue);
 	red *= 255.0;
 	green *= 255.0;
 	blue *= 255.0;

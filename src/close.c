@@ -6,7 +6,7 @@
 /*   By: sanghupa <sanghupa@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 21:17:42 by sanghupa          #+#    #+#             */
-/*   Updated: 2023/12/29 14:44:29 by sanghupa         ###   ########.fr       */
+/*   Updated: 2023/12/30 00:41:42 by sanghupa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,24 +23,10 @@ void	ft_free_2d(void **targets)
 	targets = NULL;
 }
 
-int	close_mlx(t_container *img)
+static void	free_resource(t_resource *rsc)
 {
-	t_dotrt		*rt;
-	t_vars		*vars;
-	t_resource	*rsc;
-	int			i;
+	int	i;
 
-	rt = single_rt();
-	vars = single_vars();
-	rsc = single_rsc();
-	mlx_destroy_image(vars->mlx, img->img);
-	mlx_destroy_window(vars->mlx, vars->win);
-
-	/// NOT available in MacOS
-	/// Un-comment following if you are compiling on Linux
-	// mlx_destroy_display(vars->mlx);
-
-	// free t_resource
 	i = -1;
 	while (rsc->mats[++i])
 		free(rsc->mats[i]);
@@ -63,13 +49,12 @@ int	close_mlx(t_container *img)
 		free(rsc->pths[i]);
 	}
 	free(rsc->pths);
+}
 
-	// free img
-	free(img);
-	// free mlx
-	free(vars->mlx);
+static void	free_dotrt(t_dotrt *rt)
+{
+	int	i;
 
-	// free t_dotrt
 	i = -1;
 	while (rt->sp[++i])
 		free(rt->sp[i]);
@@ -77,13 +62,32 @@ int	close_mlx(t_container *img)
 	while (rt->pl[++i])
 		free(rt->pl[i]);
 	i = -1;
-	while (rt->re[++i])
-		free(rt->re[i]);
-	i = -1;
 	while (rt->cy[++i])
 		free(rt->cy[i]);
 	free(rt->a);
 	free(rt->c);
 	free(rt->l);
+}
+
+int	close_mlx(t_container *img)
+{
+	t_dotrt		*rt;
+	t_vars		*vars;
+	t_resource	*rsc;
+
+	rt = single_rt();
+	vars = single_vars();
+	rsc = single_rsc();
+	mlx_destroy_image(vars->mlx, img->img);
+	mlx_destroy_window(vars->mlx, vars->win);
+
+	/// NOT available in MacOS
+	/// Un-comment following if you are compiling on Linux
+	// mlx_destroy_display(vars->mlx);
+
+	free_resource(rsc);
+	free(img);
+	free(vars->mlx);
+	free_dotrt(rt);
 	exit(EXIT_SUCCESS);
 }

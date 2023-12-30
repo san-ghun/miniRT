@@ -6,7 +6,7 @@
 /*   By: sanghupa <sanghupa@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 16:51:48 by sanghupa          #+#    #+#             */
-/*   Updated: 2023/12/29 14:45:11 by sanghupa         ###   ########.fr       */
+/*   Updated: 2023/12/30 00:39:39 by sanghupa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,16 +41,13 @@ t_dotrt	*single_rt(void)
 		.l = init_subrt(),
 		.sp = {},
 		.pl = {},
-		.re = {},
 		.cy = {},
 		.cnt_sp = 0,
 		.cnt_pl = 0,
-		.cnt_re = 0,
 		.cnt_cy = 0,
 	};
 	ft_bzero(this.sp, 100);
 	ft_bzero(this.pl, 100);
-	ft_bzero(this.re, 100);
 	ft_bzero(this.cy, 100);
 	is_init = 1;
 	return (&this);
@@ -63,6 +60,7 @@ t_dotrt	*new_rt(void)
 
 	rt = single_rt();
 	i = 0;
+	(void)i;
 	// TODO: implement configuring and producing new rt struct.
 	return (rt);
 }

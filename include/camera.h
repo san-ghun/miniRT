@@ -6,7 +6,7 @@
 /*   By: sanghupa <sanghupa@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/15 15:26:36 by sanghupa          #+#    #+#             */
-/*   Updated: 2023/12/28 18:35:30 by sanghupa         ###   ########.fr       */
+/*   Updated: 2023/12/29 22:31:14 by sanghupa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,12 +49,14 @@ typedef struct s_camera
 	double		defocus_angle;		// Variation angle of rays through each pixel
 	double		focus_dist;			// Distance from camera lookfrom point to plane of perfect focus
 	t_vec3		center;				// Camera center
-	t_vec3		pixel00_loc;		// Location of pixel 0, 0
-	t_vec3		pixel_delta_u;		// Offset to pixel to the right
-	t_vec3		pixel_delta_v;		// Offset to pixel below
 	t_vec3		u;					// }
 	t_vec3		v;					// } Camera frame basis vectors
 	t_vec3		w;					// }
+	t_vec3		viewport_u;			// Vector across viewport horizontal edge
+	t_vec3		viewport_v;			// Vector down viewport vertical edge
+	t_vec3		pixel_delta_u;		// Offset to pixel to the right
+	t_vec3		pixel_delta_v;		// Offset to pixel below
+	t_vec3		pixel00_loc;		// Location of pixel 0, 0
 	t_vec3		defocus_disk_u;		// Defocus disk horizontal radius
 	t_vec3		defocus_disk_v;		// Defocus disk vertical radius
 }				t_camera;
@@ -68,10 +70,10 @@ typedef struct s_camera
 // camera.c
 t_camera	*single_cam(void);
 t_camera	*init_camera(double aspect_ratio, int image_width);
-void		setup_camera(t_camera *this, int vfov, t_vec3 lookfrom, t_vec3 lookat, t_vec3 vup);
+void		setup_camera(int vfov, t_vec3 lookfrom, t_vec3 lookat, t_vec3 vup);
 t_vec3		pixel_sample_square(t_camera *camera);
 t_vec3		defocus_disk_sample(t_camera *camera);
-t_ray		get_ray(t_camera *camera, int i, int j);
+// t_ray		get_ray(t_camera *camera, int i, int j);
 
 // trace.c
 t_vec3		ray_color(t_ray ray, int depth, t_obj *objs[]);

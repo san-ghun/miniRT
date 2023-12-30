@@ -6,16 +6,26 @@
 /*   By: sanghupa <sanghupa@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/15 15:29:44 by sanghupa          #+#    #+#             */
-/*   Updated: 2023/12/28 18:34:52 by sanghupa         ###   ########.fr       */
+/*   Updated: 2023/12/29 22:32:11 by sanghupa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "camera.h"
 #include <math.h>
 
-double	degrees_to_radians(double degrees)
+static t_camera	extra_setup(t_camera *this)
 {
-	return (degrees * M_PI / 180.0);
+	this->u = init_vector(0, 0, 0);
+	this->v = init_vector(0, 0, 0);
+	this->w = init_vector(0, 0, 0);
+	this->viewport_u = init_vector(0, 0, 0);
+	this->viewport_v = init_vector(0, 0, 0);
+	this->pixel_delta_u = init_vector(0, 0, 0);
+	this->pixel_delta_v = init_vector(0, 0, 0);
+	this->pixel00_loc = init_vector(0, 0, 0);
+	this->defocus_disk_u = init_vector(0, 0, 0);
+	this->defocus_disk_v = init_vector(0, 0, 0);
+	return (*this);
 }
 
 t_camera	*single_cam(void)
@@ -39,15 +49,8 @@ t_camera	*single_cam(void)
 		.defocus_angle = 0.0,
 		.focus_dist = 0.0,
 		.center = init_vector(0, 0, 0),
-		.pixel00_loc = init_vector(0, 0, 0),
-		.pixel_delta_u = init_vector(0, 0, 0),
-		.pixel_delta_v = init_vector(0, 0, 0),
-		.u = init_vector(0, 0, 0),
-		.v = init_vector(0, 0, 0),
-		.w = init_vector(0, 0, 0),
-		.defocus_disk_u = init_vector(0, 0, 0),
-		.defocus_disk_v = init_vector(0, 0, 0),
 	};
+	this = extra_setup(&this);
 	is_init = 1;
 	return (&this);
 }
@@ -79,55 +82,6 @@ t_camera	*init_camera(double aspect_ratio, int image_width)
 	return (this);
 }
 
-void	setup_camera(t_camera *this, int vfov, t_vec3 lookfrom, t_vec3 lookat, t_vec3 vup)
-{
-	this->vfov = vfov;
-	this->lookfrom = lookfrom;
-	this->lookat = lookat;
-	this->vup = vup;
-	this->center = this->lookfrom;
-	
-	// Determine viewport dimensions.
-	double	focal_len = vlen_pow(vsubtract(this->lookfrom, this->lookat));
-	double	theta = degrees_to_radians(this->vfov);
-	double	h = tan(theta / 2);
-	// double	viewport_h = 2.0 * h * focal_len;
-	double	viewport_h = 2.0 * h * this->focus_dist;
-	double	viewport_w = viewport_h * this->aspect_ratio;
-
-	// Calculate the u,v,w unit basis vector for the camera coordinate frame.
-	this->w = vunit(vsubtract(this->lookfrom, this->lookat));
-	this->u = vunit(vcross(this->vup, this->w));
-	this->v = vcross(this->w, this->u);
-
-	// Calculate the vectors across the horizontal and down the verticla viewport edges.
-	t_vec3	viewport_u = vscale(this->u, viewport_w);		// Vector across viewport horizontal edge
-	t_vec3	viewport_v = vscale(vflip(this->v), viewport_h);	// Vector down viewport vertical edge
-
-	// Calculate the horizontal and vertical delta vectors from pixel to pixel.
-	this->pixel_delta_u = vscale(viewport_u, 1.0 / this->image_width);
-	this->pixel_delta_v = vscale(viewport_v, 1.0 / this->image_height);
-
-	// t_vec3	viewport_upper_left = vsubtract(this->center, vscale(this->w, focal_len));
-	t_vec3	viewport_upper_left = vsubtract(this->center, vscale(this->w, this->focus_dist));
-	viewport_upper_left = vsubtract(viewport_upper_left, vscale(viewport_u, 0.5));
-	viewport_upper_left = vsubtract(viewport_upper_left, vscale(viewport_v, 0.5));
-
-	this->pixel00_loc = (t_vec3){
-		viewport_upper_left.x + 0.5 * \
-			(this->pixel_delta_u.x + this->pixel_delta_v.x),
-		viewport_upper_left.y + 0.5 * \
-			(this->pixel_delta_u.y + this->pixel_delta_v.y),
-		viewport_upper_left.z + 0.5 * \
-			(this->pixel_delta_u.z + this->pixel_delta_v.z),
-	};
-
-	double	defocus_radius = this->focus_dist * tan(degrees_to_radians(this->defocus_angle / 2));
-	this->defocus_disk_u = vscale(this->u, defocus_radius);
-	this->defocus_disk_v = vscale(this->v, defocus_radius);
-	return ;
-}
-
 t_vec3	pixel_sample_square(t_camera *camera)
 {
 	double	px;
@@ -147,28 +101,29 @@ t_vec3	defocus_disk_sample(t_camera *camera)
 	t_vec3	ret;
 
 	p = random_in_unit_disk();
-	ret = vadd(vscale(camera->defocus_disk_u, p.x), vscale(camera->defocus_disk_v, p.y));
+	ret = vadd(vscale(camera->defocus_disk_u, p.x), \
+				vscale(camera->defocus_disk_v, p.y));
 	ret = vadd(camera->center, ret);
 	return (ret);
 }
 
-t_ray	get_ray(t_camera *camera, int i, int j)
-{
-	t_vec3	pixel_center;
-	t_vec3	pixel_sample;
-	t_vec3	ray_origin;
-	t_vec3	ray_direction;
-	t_ray	ray;
-
-	pixel_center = vadd(camera->pixel00_loc, \
-			vscale(camera->pixel_delta_u, (double)i));
-	pixel_center = vadd(pixel_center, \
-			vscale(camera->pixel_delta_v, (double)j));
-	pixel_sample = vadd(pixel_center, pixel_sample_square(camera));
-	ray_origin = defocus_disk_sample(camera);
-	if (camera->defocus_angle <= 0)
-		ray_origin = camera->center;
-	ray_direction = vsubtract(pixel_sample, ray_origin);
-	ray = init_ray(ray_origin, ray_direction);
-	return (ray);
-}
+// t_ray	get_ray(t_camera *camera, int i, int j)
+// {
+// 	t_vec3	pixel_center;
+// 	t_vec3	pixel_sample;
+// 	t_vec3	ray_origin;
+// 	t_vec3	ray_direction;
+// 	t_ray	ray;
+//
+// 	pixel_center = vadd(camera->pixel00_loc, 
+// 		vscale(camera->pixel_delta_u, (double)i));
+// 	pixel_center = vadd(pixel_center, 
+// 		vscale(camera->pixel_delta_v, (double)j));
+// 	pixel_sample = vadd(pixel_center, pixel_sample_square(camera));
+// 	ray_origin = defocus_disk_sample(camera);
+// 	if (camera->defocus_angle <= 0)
+// 		ray_origin = camera->center;
+// 	ray_direction = vsubtract(pixel_sample, ray_origin);
+// 	ray = init_ray(ray_origin, ray_direction);
+// 	return (ray);
+// }
