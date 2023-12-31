@@ -6,7 +6,7 @@
 /*   By: sanghupa <sanghupa@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/26 23:07:52 by sanghupa          #+#    #+#             */
-/*   Updated: 2023/12/30 01:08:18 by sanghupa         ###   ########.fr       */
+/*   Updated: 2023/12/31 00:08:46 by sanghupa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static double	root_rectangle(t_cylinder *cy, \
 	if (root < 0.001 || root > lim)
 	{
 		root = (-half_b + sqrt(half_b * half_b - a * c)) / a;
-		if (root < 0.001 || sqrt(half_b * half_b - a * c) > lim)
+		if (root < 0.001 || root > lim)
 			return (INFINITY);
 	}
 	if (vdot(cy->normal, vsubtract(vadd(r_o, vscale(r_d, root)), cy->tc)) > 0)
@@ -49,7 +49,7 @@ static double	root_circle(t_cylinder *cy, t_vec3 r_o, t_vec3 r_d, double lim)
 	double	bt;
 
 	denom = vdot(r_d, cy->normal);
-	if (fabs(denom) < 1e-8)
+	if (!denom)
 		return (INFINITY);
 	tt = vdot(vsubtract(cy->tc, r_o), cy->normal) / denom;
 	if (vlen_pow(vsubtract(vadd(r_o, vscale(r_d, tt)), cy->tc)) > \
