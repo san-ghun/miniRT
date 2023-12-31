@@ -6,7 +6,7 @@
 /*   By: sanghupa <sanghupa@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/28 18:34:37 by sanghupa          #+#    #+#             */
-/*   Updated: 2023/12/30 21:28:27 by sanghupa         ###   ########.fr       */
+/*   Updated: 2023/12/31 01:58:34 by sanghupa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,14 +49,14 @@ static t_vec3	point_light_get(t_hit *rec, t_subrt *rt_l, t_obj *objs[])
 	light_dir = vunit(light_dir);
 	light_ray = init_ray(vadd(rec->point, vscale(rec->normal, 1e-4)), \
 							light_dir);
-	if (in_shadow(light_ray, light_len, objs) || (rt_l->ratio == 0))
-		return ((t_vec3){0, 0, 0});
-	rt_l->vector2 = vscale((t_vec3){1, 1, 1}, rt_l->ratio);
+	if (in_shadow(light_ray, light_len, objs) || (rt_l->ratio == 0.0))
+		return ((t_vec3){0.0, 0.0, 0.0});
+	rt_l->vector2 = vscale((t_vec3){1.0, 1.0, 1.0}, rt_l->ratio);
 	diffuse = vscale(rt_l->vector2, fmax(0.0, vdot(rec->normal, light_dir)));
 	diffuse = vscale(vmult(diffuse, rec->mat->albedo), 30.0);
 	diffuse.x = diffuse.x / (rt_l->vector2.x + \
 				rt_l->vector2.x * 0.1 * light_len + \
-				rt_l->vector2.x * 0.01 * light_len * light_len);
+				rt_l->vector2.x * 0.02 * light_len * light_len);
 	diffuse.y = diffuse.y / (rt_l->vector2.y + \
 				rt_l->vector2.y * 0.1 * light_len + \
 				rt_l->vector2.y * 0.01 * light_len * light_len);
@@ -78,10 +78,9 @@ static t_vec3	phong_lighting(t_hit *rec, t_obj *objs[])
 	ambient = vscale(rt_al->color, rt_al->ratio);
 	ambient = vmult(ambient, rec->mat->albedo);
 	ambient = vscale(ambient, 0.001);
-	light_color = (t_vec3){0, 0, 0};
+	light_color = (t_vec3){0.0, 0.0, 0.0};
 	light_color = vadd(light_color, point_light_get(rec, rt_l, objs));
 	light_color = vadd(light_color, ambient);
-	// return (vmult(light_color, rec->mat->albedo));
 	return (light_color);
 }
 
