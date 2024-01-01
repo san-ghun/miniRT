@@ -6,7 +6,7 @@
 /*   By: sanghupa <sanghupa@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/15 15:29:44 by sanghupa          #+#    #+#             */
-/*   Updated: 2023/12/29 22:32:11 by sanghupa         ###   ########.fr       */
+/*   Updated: 2024/01/01 13:00:16 by sanghupa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,8 @@ t_camera	*init_camera(double aspect_ratio, int image_width)
 	this->image_height = (int)(this->image_width / this->aspect_ratio);
 	if (this->image_height < 1)
 		this->image_height = 1;
-	this->samples_per_pixel = 10;
-	this->max_depth = 10;
+	this->samples_per_pixel = N_SAMPLE;
+	this->max_depth = N_DEPTH;
 	this->background = init_vector(1.0, 1.0, 1.0);
 	this->vfov = 90;
 	this->lookfrom = init_vector(0.0, 0.0, -1.0);

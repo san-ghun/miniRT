@@ -6,7 +6,7 @@
 /*   By: sanghupa <sanghupa@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/28 15:22:35 by sanghupa          #+#    #+#             */
-/*   Updated: 2023/12/31 01:53:20 by sanghupa         ###   ########.fr       */
+/*   Updated: 2024/01/01 14:17:23 by sanghupa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,8 @@ void	set_dotrt(t_dotrt *rt)
 
 	rt->sp[0] = init_subrt();
 	rt->sp[0]->type = SPHERE;
+	// rt->sp[0]->mat_type = 2;
+	// rt->sp[0]->mat_value = 1.0;
 	rt->sp[0]->point = (t_vec3){0, -5, 5};
 	rt->sp[0]->value1 = 10 / 2;	// convert diameter into radius, 지름 to 반지름
 	rt->sp[0]->color = (t_vec3){255/255.0, 0/255.0, 0/255.0};
@@ -84,6 +86,8 @@ void	set_dotrt(t_dotrt *rt)
 
 	rt->pl[0] = init_subrt();
 	rt->pl[0]->type = PLANE;
+	// rt->pl[0]->mat_type = 1;
+	// rt->pl[0]->mat_value = 0.0;
 	rt->pl[0]->point = (t_vec3){0.0, -10.0, 0.0};
 	rt->pl[0]->vector = (t_vec3){0, 0, -1};
 	rt->pl[0]->color = (t_vec3){0/255.0, 0/255.0, 255/255.0};

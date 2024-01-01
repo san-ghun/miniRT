@@ -6,7 +6,7 @@
 /*   By: sanghupa <sanghupa@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 21:53:32 by sanghupa          #+#    #+#             */
-/*   Updated: 2023/12/30 21:18:01 by sanghupa         ###   ########.fr       */
+/*   Updated: 2024/01/01 14:12:16 by sanghupa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,11 @@ static void	apply_sp(t_dotrt *rt)
 	while (rt->sp[++i])
 	{
 		subrt = rt->sp[i];
-		mat_default = init_material(0, subrt->color, 0, 0);
+		mat_default = init_material(subrt->mat_type, subrt->color, 0, 0);
+		if (subrt->mat_type == 1)
+			mat_default->fuzz = subrt->mat_value;
+		if (subrt->mat_type == 2)
+			mat_default->index_of_refraction = subrt->mat_value;
 		append_mat(mat_default, "");
 		ft_strlcat(mat_default->name, "sp", 3);
 		sp = init_sphere(subrt->point, subrt->value1, mat_default);
@@ -45,7 +49,11 @@ static void	apply_pl(t_dotrt *rt)
 	while (rt->pl[++i])
 	{
 		subrt = rt->pl[i];
-		mat_default = init_material(0, subrt->color, 0, 0);
+		mat_default = init_material(subrt->mat_type, subrt->color, 0, 0);
+		if (subrt->mat_type == 1)
+			mat_default->fuzz = subrt->mat_value;
+		if (subrt->mat_type == 2)
+			mat_default->index_of_refraction = subrt->mat_value;
 		append_mat(mat_default, "");
 		ft_strlcat(mat_default->name, "pl", 3);
 		pl = init_plane(subrt->point, \
@@ -69,7 +77,11 @@ static void	apply_cy(t_dotrt *rt)
 	while (rt->cy[++i])
 	{
 		subrt = rt->cy[i];
-		mat_default = init_material(0, subrt->color, 0, 0);
+		mat_default = init_material(subrt->mat_type, subrt->color, 0, 0);
+		if (subrt->mat_type == 1)
+			mat_default->fuzz = subrt->mat_value;
+		if (subrt->mat_type == 2)
+			mat_default->index_of_refraction = subrt->mat_value;
 		append_mat(mat_default, "");
 		ft_strlcat(mat_default->name, "cy", 3);
 		cy = init_cylinder(subrt->point, \
