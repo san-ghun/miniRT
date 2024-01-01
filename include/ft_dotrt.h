@@ -6,7 +6,7 @@
 /*   By: sanghupa <sanghupa@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 16:43:00 by sanghupa          #+#    #+#             */
-/*   Updated: 2023/12/30 00:35:30 by sanghupa         ###   ########.fr       */
+/*   Updated: 2024/01/01 14:06:17 by sanghupa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ typedef int		t_bool;
 
 typedef struct s_subrt {
 	int			type;
+	int			mat_type;
+	double		mat_value;
 	double		value1;
 	double		value2;
 	double		ratio;

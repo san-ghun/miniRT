@@ -6,7 +6,7 @@
 /*   By: sanghupa <sanghupa@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 16:51:48 by sanghupa          #+#    #+#             */
-/*   Updated: 2023/12/30 00:39:39 by sanghupa         ###   ########.fr       */
+/*   Updated: 2024/01/01 14:07:05 by sanghupa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ t_subrt	*init_subrt(void)
 
 	this = malloc(sizeof(t_subrt) * 1);
 	this->type = NOTHING;
+	this->mat_type = 0;
+	this->mat_value = 0.0;
 	this->value1 = 0.0;
 	this->value2 = 0.0;
 	this->ratio = 0.0;
