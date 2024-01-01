@@ -6,7 +6,7 @@
 /*   By: sanghupa <sanghupa@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/28 18:34:37 by sanghupa          #+#    #+#             */
-/*   Updated: 2024/01/01 12:59:37 by sanghupa         ###   ########.fr       */
+/*   Updated: 2024/01/01 14:21:20 by sanghupa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,13 +86,10 @@ static t_vec3	phong_lighting(t_hit *rec, t_obj *objs[])
 
 t_vec3	ray_color(t_ray ray, int depth, t_obj *objs[])
 {
-	t_subrt		*rt_al;
 	t_vec3		color;
-	t_vec3		ambient;
 	t_vec3		emt;
 	t_hit		rec;
 
-	rt_al = single_rt()->a;
 	if (depth <= 0)
 		return (init_vector(0.0, 0.0, 0.0));
 	if (hit_objs(objs, ray, init_interval(0.001, INFINITY), &rec))
