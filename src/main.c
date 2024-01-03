@@ -6,7 +6,7 @@
 /*   By: sanghupa <sanghupa@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 14:22:52 by sanghupa          #+#    #+#             */
-/*   Updated: 2024/01/01 13:01:32 by sanghupa         ###   ########.fr       */
+/*   Updated: 2024/01/03 22:06:02 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,16 +39,16 @@ int	main(int argc, char *argv[])
 	t_dotrt			*rt;
 	t_camera		*cam;
 	t_resource		*rsc;
-
+	
+	if (!check_input(argc, argv))
+		return (1); /// error msg
 	rsc = new_resource();
 	(void)rsc;
-	rt = new_rt();
+	rt = new_rt(argv[1]);
 	set_dotrt(rt);
 	apply_dotrt(rt);
 	cam = init_camera(16.0 / 9.0, 400);
 	cam = cam_ready(cam, rt);
-	(void)argc;
-	(void)argv;
 	vars = new_program(cam->image_width, cam->image_height, "New Program");
 	if (!(vars->mlx) || !(vars->win))
 		return (1);
