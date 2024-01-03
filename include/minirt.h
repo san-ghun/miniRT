@@ -6,7 +6,7 @@
 /*   By: sanghupa <sanghupa@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 14:23:17 by sanghupa          #+#    #+#             */
-/*   Updated: 2024/01/01 12:58:37 by sanghupa         ###   ########.fr       */
+/*   Updated: 2024/01/03 17:24:45 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,9 @@
 # include "ft_printf.h"
 # include "from_ms.h"
 
+/// limits
+# include <limits.h>
+
 /// source
 # include "color.h"
 # include "vector.h"
@@ -56,6 +59,7 @@
 # include "interval.h"
 # include "camera.h"
 # include "ft_dotrt.h"
+# include "valid.h"
 
 /// key mapping
 # if __linux__
@@ -78,9 +82,6 @@
 /// Prevent Heap mem leak: use addition to char or array (dev)
 # define DATA_SIZE	3072
 
-# define INTMAX		2147483647
-# define INTMIN		-2147483648
-
 # define N_THREAD	8
 
 /*
@@ -89,15 +90,7 @@
 ** -----------------------------------------------------------------------------
 */
 
-# define TRUE 			1
-# define FALSE 			0
-# define VALID			0
-# define INVALID		1
-# define CHECK			1
-# define PARSE			0
-# define SUCCESS		1
-# define END			0
-# define ERROR 			-1
+# include "macro.h"
 
 /*
 ** =============================================================================

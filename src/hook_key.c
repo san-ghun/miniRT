@@ -6,7 +6,7 @@
 /*   By: sanghupa <sanghupa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 17:01:26 by sanghupa          #+#    #+#             */
-/*   Updated: 2023/12/15 20:36:25 by sanghupa         ###   ########.fr       */
+/*   Updated: 2024/01/03 17:16:10 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,5 +43,5 @@ int	key_hooks(int keycode, t_container *img)
 
 int	get_color(void)
 {
-	return (rand() % INTMAX);
+	return (rand() % INT_MAX);
 }
