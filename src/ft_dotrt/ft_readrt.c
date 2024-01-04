@@ -6,13 +6,11 @@
 /*   By: sanghupa <sanghupa@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 16:51:48 by sanghupa          #+#    #+#             */
-/*   Updated: 2024/01/03 23:45:47 by minakim          ###   ########.fr       */
+/*   Updated: 2024/01/04 22:49:29 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_dotrt.h"
-
-typedef void (*f_ptr)(char **); /// function pointer for dotrt
 
 t_subrt	*init_subrt(void)
 {
@@ -57,36 +55,60 @@ t_dotrt	*single_rt(void)
 	return (&this);
 }
 
+///
+
+int array_len(char **array)
+{
+	int	i;
+	
+	i = 0;
+	while(*array)
+		i++;
+	return (i);
+}
+
 void	ft_free_array(char **array)
 {
-
+	while (*array)
+		free(*array);
+	free(array);
 }
 
-void	as_ambient(char **array)
+int	as_ambient(char **array)
+{
+	char	**rgb;
+	
+	if (array_len(array) != 3)
+		return (error_invalid_input(FORMAT, AMBIENT, UNDEFINED));
+	rgb = ft_split(array[2], ',');
+	if (!rgb)
+		return (INVALID);
+	if (array_len(rgb) != 3)
+		return (ft_free_array(rgb), INVALID);
+	
+}
+
+int	as_camera(char **array)
 {
 
 }
 
-void	as_camera(char **array)
+int	as_light(char **array)
 {
 
 }
 
-void	as_light(char **array)
+int	as_sphere(char **array)
 {
 
 }
 
-void	as_sphere(char **array)
+int	as_plane(char **array)
 {
 
 }
 
-void	as_plane(char **array)
-{
-
-}
-void	as_cylinder(char **array)
+int	as_cylinder(char **array)
 {
 
 }
@@ -109,23 +131,24 @@ f_ptr	classify_subrt(char *input)
 		return (NULL);
 }
 
-t_bool	process_input(char **split)
+int	process_input(char **split)
 {
-	f_ptr	type;
+	f_ptr	func_to_run;
 	
-	type = classify_subrt(split[0]);
-	if (type == NULL)
-		return (FALSE);
-	type(split);
-	return (TRUE);
+	func_to_run = classify_subrt(split[0]);
+	if (func_to_run == NULL)
+		return (INVALID); /// error msg?
+	if (func_to_run(split) != VALID)
+		return (INVALID);
+	return (VALID);
 }
 
-int	is_whitespace(char c)
+t_bool	is_whitespace(char c)
 {
 	if (c == '\t' || c == '\v' || \
 		c == '\f' || c == '\r')
-		return (1);
-	return (0);
+		return (TRUE);
+	return (FALSE);
 }
 
 void	unify_spacekind(char *s)
@@ -133,31 +156,31 @@ void	unify_spacekind(char *s)
 	while (*s)
 	{
 		if (is_whitespace(*s))
-			*s = ' ';
+			*s = SPACE;
 		s++;
 	}
 }
 
-t_bool	set_subrt(char *line)
+int	set_subrt(char *line)
 {
 	char	**split;
 	
 	unify_spacekind(line);
-	split = ft_split(line, ' ');
+	split = ft_split(line, SPACE);
 	if (!split)
-		return (FALSE);
-	if (!process_input(split))
-		return (ft_free_array(split), FALSE);
-	return (TRUE);
+		return (INVALID);
+	if (process_input(split) != VALID)
+		return (ft_free_array(split), INVALID);
+	return (VALID);
 }
 
-t_bool	convert_dotrt_format(int fd)
+int	convert_dotrt_format(int fd)
 {
 	char 	*line;
 	
 	line = get_next_line(fd);
 	if (!line) /// empty
-		return (FALSE);
+		return (INVALID);
 	while (line)
 	{
 		if (line[0] == '\n' || line[0] == '\0')
@@ -167,12 +190,12 @@ t_bool	convert_dotrt_format(int fd)
 			continue ;
 		}
 		line = ft_strtrim(line, "\n");
-		if (!set_subrt(line))
-			return (free(line), FALSE);
+		if (set_subrt(line) != INVALID)
+			return (free(line), INVALID);
 		free(line);
 		line = get_next_line(fd);
 	}
-	return (TRUE);
+	return (VALID);
 }
 
 t_dotrt	*new_rt(char *filename)
@@ -183,8 +206,8 @@ t_dotrt	*new_rt(char *filename)
 	rt = single_rt();
 	fd = open(filename, O_RDONLY);
 	if (fd <= 0)
-		return (FALSE); /// end program
-	if (!convert_dotrt_format(fd))
-		return (FALSE); /// end program
+		return (NULL); /// end program
+	if (convert_dotrt_format(fd) != VALID)
+		return (NULL); /// end program
 	return (rt);
 }

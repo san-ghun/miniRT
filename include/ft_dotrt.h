@@ -6,7 +6,7 @@
 /*   By: sanghupa <sanghupa@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 16:43:00 by sanghupa          #+#    #+#             */
-/*   Updated: 2024/01/03 22:40:26 by minakim          ###   ########.fr       */
+/*   Updated: 2024/01/04 23:00:13 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # include "macro.h"
 # include "get_next_line.h"
 # include "from_ms.h"
+
 /// open
 # include <fcntl.h>
 
@@ -35,6 +36,7 @@
 */
 
 # define MAX_SUBRT 100
+# define SPACE ' '
 
 /*
 ** =============================================================================
@@ -43,6 +45,7 @@
 */
 
 typedef int		t_bool;
+typedef int		(*f_ptr)(char **);
 
 typedef struct s_subrt {
 	int			type;
@@ -68,6 +71,7 @@ typedef struct s_dotrt {
 	int			cnt_pl;
 	int			cnt_cy;
 }				t_dotrt;
+
 
 /*
 ** =============================================================================
