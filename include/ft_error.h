@@ -6,7 +6,7 @@
 /*   By: minakim <minakim@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 22:51:58 by minakim           #+#    #+#             */
-/*   Updated: 2024/01/04 23:03:06 by minakim          ###   ########.fr       */
+/*   Updated: 2024/01/06 22:26:25 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,13 @@
 
 typedef int t_bool;
 
-typedef enum e_terr{
+typedef enum e_err{
 	FORMAT = 2,
 	COLOR,
 	RATIO,
 	VECTOR,
+	VIEWPOINT,
+	HOV
 } t_err;
 
 /// @param indentifier Define each element present in the ".rt" file as an `indentifier` object.
@@ -39,7 +41,7 @@ void	print_error_location(int indentifier, int index);
 t_bool	is_objunique(int indentifier);
 
 /// error.c
-t_err	error_wrong_range(t_err type, int indentifier, int index);
-t_err	error_invalid_input(t_err type, int indentifier, int index);
+int	error_wrong_range(int indentifier, int index);
+int	error_invalid_element(int indentifier, int index);
 
 #endif

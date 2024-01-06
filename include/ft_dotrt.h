@@ -6,7 +6,7 @@
 /*   By: sanghupa <sanghupa@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 16:43:00 by sanghupa          #+#    #+#             */
-/*   Updated: 2024/01/04 23:00:13 by minakim          ###   ########.fr       */
+/*   Updated: 2024/01/06 22:43:26 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,15 @@
 # include "vector.h"
 # include "hittable.h"
 
+# include "ft_error.h"
 # include "macro.h"
 # include "get_next_line.h"
 # include "from_ms.h"
 
 /// open
 # include <fcntl.h>
+///
+# include <math.h>
 
 /*
 ** =============================================================================
@@ -46,6 +49,7 @@
 
 typedef int		t_bool;
 typedef int		(*f_ptr)(char **);
+typedef t_bool	(*f_range)(double);
 
 typedef struct s_subrt {
 	int			type;
@@ -72,6 +76,23 @@ typedef struct s_dotrt {
 	int			cnt_cy;
 }				t_dotrt;
 
+/*
+** =============================================================================
+** Type Definition Index
+** =============================================================================
+*/
+
+typedef	enum e_a {
+	A_RATIO = 1,
+	A_RGB
+} t_a;
+
+typedef	enum e_c {
+	C_VIEWPOINT = 1,
+	C_VECTOR,
+	C_FOV
+} t_c;
+
 
 /*
 ** =============================================================================
@@ -87,4 +108,10 @@ t_dotrt		*new_rt(char *filename);
 /// ft_writert.c
 void		set_dotrt(t_dotrt *rt);
 
+
+/// is_format.c
+t_bool	is_rgb(double color);
+t_bool	is_ratio(double num);
+t_bool	is_vector(double vector);
+t_bool	is_hov(double hov);
 #endif

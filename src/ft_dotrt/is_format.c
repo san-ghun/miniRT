@@ -1,29 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error1.c                                           :+:      :+:    :+:   */
+/*   is_format.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: minakim <minakim@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/04 22:49:49 by minakim           #+#    #+#             */
-/*   Updated: 2024/01/06 22:27:14 by minakim          ###   ########.fr       */
+/*   Created: 2024/01/06 21:26:03 by minakim           #+#    #+#             */
+/*   Updated: 2024/01/06 22:19:39 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_error.h"
+#include "ft_dotrt.h"
 
-int	error_wrong_range(int indentifier, int index)
+t_bool	is_rgb(double color)
 {
-	print_error_location(indentifier, index);
-	if (indentifier > 0)
-		return (indentifier);
-	return (42);
+	if (color >= 0.0 && color <= 1.0)
+		return (TRUE);
+	return (FALSE);
 }
 
-int	error_invalid_element(int indentifier, int index)
+t_bool	is_ratio(double num)
 {
-	print_error_location(indentifier, index);
-	if (indentifier > 0)
-		return (indentifier);
-	return (42);
+	if (num >= 0.0 && num <= 1.0)
+		return (TRUE);
+	return (FALSE);
+}
+
+t_bool	is_vector(double vector)
+{
+	if (vector >= -1.0 && vector <= 1.0)
+		return (TRUE);
+	return (FALSE);
+}
+
+t_bool	is_hov(double hov)
+{
+	if (hov >= 0 && hov <= 180)
+		return (TRUE);
+	return (FALSE);
 }

@@ -6,7 +6,7 @@
 /*   By: sanghupa <sanghupa@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 16:51:48 by sanghupa          #+#    #+#             */
-/*   Updated: 2024/01/04 22:49:29 by minakim          ###   ########.fr       */
+/*   Updated: 2024/01/06 22:58:23 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,30 +67,158 @@ int array_len(char **array)
 	return (i);
 }
 
-void	ft_free_array(char **array)
+void	ft_arr_free(char **array)
 {
 	while (*array)
 		free(*array);
 	free(array);
 }
 
+int	valid_tuple(char **ele, int id, int i, f_range is_range)
+{
+	double	val;
+	
+	if (!ele)
+		return (INVALID);
+	if (array_len(ele) != 3)
+	{
+		ft_arr_free(ele);
+		return (error_invalid_element(id, i));
+	}
+	while (*ele)
+	{
+		val = ft_stod(*ele);
+		if (isnan(val))
+			return (ft_arr_free(ele), error_invalid_element(id, i));
+		if (is_range && !is_range(val))
+			return (ft_arr_free(ele), error_wrong_range(id, i));
+		ele++;
+	}
+	return (VALID);
+}
+
+t_bool	check_ratio_range(char *ratio, int obj_n, int id)
+{
+	if (!is_ratio(ft_stod(ratio)))
+	{
+		error_wrong_range(id, obj_n);
+		return (FALSE);
+	}
+	return (TRUE);
+}
+
+t_bool	verify_ambient_element(char *ratio, char **array, int obj_n)
+{
+	char	**rgb;
+	if (obj_n > 1)
+		return (error_invalid_element(AMBIENT, obj_n));
+	if (!check_ratio_range(ratio, obj_n, AMBIENT))
+		return (FALSE);
+	rgb = ft_split(array[A_RGB], ',');
+	if (valid_tuple(rgb, AMBIENT, obj_n, is_rgb) != VALID)
+		return (INVALID);
+	return (TRUE);
+}
+
+double	rgb_conv(char *target)
+{
+	double	res;
+	
+	res = 0.0;
+	res = ft_stod(target);
+	return (res / 255.0);
+}
+
+t_vec3	set_rgb(char **rgb)
+{
+	t_vec3	target;
+	
+	target = (t_vec3){rgb_conv(rgb[0]), rgb_conv(rgb[1]), rgb_conv(rgb[2])};
+	return (target);
+}
+
+
+void	set_rt_ambient(char *ratio, char **rgb)
+{
+	t_dotrt		*rt;
+
+	rt = single_rt();
+	rt->a->type = AMBIENT;
+	rt->a->ratio = ft_stod(ratio);
+	rt->a->color = set_rgb(rgb);
+	ft_arr_free(rgb);
+}
+
 int	as_ambient(char **array)
 {
 	char	**rgb;
 	
-	if (array_len(array) != 3)
-		return (error_invalid_input(FORMAT, AMBIENT, UNDEFINED));
-	rgb = ft_split(array[2], ',');
-	if (!rgb)
-		return (INVALID);
-	if (array_len(rgb) != 3)
-		return (ft_free_array(rgb), INVALID);
+	static int	obj_n = 0;
 	
+	if (++obj_n > 1)
+		return (error_invalid_element(AMBIENT, obj_n));
+	if (array_len(array) != 3)
+		return (error_invalid_element(AMBIENT, obj_n));
+	if (!verify_ambient_element(array[A_RATIO], rgb, obj_n))
+		return (INVALID);
+	set_rt_ambient(array[A_RATIO], rgb);
+	return (VALID);
+}
+
+int	verify_camera_element(char **array, char **view_point, char **vector, int obj_n)
+{
+	double	fov;
+	
+	fov = ft_stod(array[C_FOV]);
+	if (isnan(fov) || !is_hov(fov))
+		return (error_invalid_element(HOV, obj_n));
+	view_point = ft_split(array[C_VIEWPOINT], ',');
+	if (valid_tuple(view_point, CAMERA, obj_n, NULL) != VALID)
+		return (INVALID);
+	vector = ft_split(array[C_VECTOR], ',');
+	if (valid_tuple(vector, CAMERA, obj_n, is_vector) != VALID)
+	{
+		ft_arr_free(view_point);
+		return (INVALID);
+	}
+	return (VALID);
+}
+
+t_vec3	set_tuple(char **v)
+{
+	t_vec3	target;
+	
+	target = (t_vec3){ft_stod(v[0]), ft_stod(v[1]), ft_stod(v[2])};
+	return (target);
+}
+
+
+void	set_rt_camera(char **view_point, char **vector)
+{
+	t_dotrt		*rt;
+	
+	rt = single_rt();
+	rt->c->type = CAMERA;
+	rt->c->point = set_tuple(view_point);
+	rt->c->vector = set_tuple(vector);
+	ft_arr_free(view_point);
+	ft_arr_free(vector);
 }
 
 int	as_camera(char **array)
 {
-
+	char	**view_point;
+	char	**vector;
+	static int	obj_n = 0;
+	
+	if (++obj_n > 1)
+		return (error_invalid_element(CAMERA, obj_n));
+	if (array_len(array) != 4)
+		return (error_invalid_element(CAMERA, obj_n));
+	if (verify_camera_element(array, view_point, vector, obj_n) != VALID)
+		return (INVALID);
+	set_rt_camera(view_point, vector);
+	return (VALID);
 }
 
 int	as_light(char **array)
@@ -170,7 +298,7 @@ int	set_subrt(char *line)
 	if (!split)
 		return (INVALID);
 	if (process_input(split) != VALID)
-		return (ft_free_array(split), INVALID);
+		return (ft_arr_free(split), INVALID);
 	return (VALID);
 }
 
