@@ -6,7 +6,7 @@
 /*   By: sanghupa <sanghupa@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 16:51:48 by sanghupa          #+#    #+#             */
-/*   Updated: 2024/01/06 22:58:23 by minakim          ###   ########.fr       */
+/*   Updated: 2024/01/06 23:24:40 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ int	valid_tuple(char **ele, int id, int i, f_range is_range)
 {
 	double	val;
 	
-	if (!ele)
+	if (!ele || *ele)
 		return (INVALID);
 	if (array_len(ele) != 3)
 	{
@@ -134,6 +134,7 @@ t_vec3	set_rgb(char **rgb)
 	t_vec3	target;
 	
 	target = (t_vec3){rgb_conv(rgb[0]), rgb_conv(rgb[1]), rgb_conv(rgb[2])};
+	ft_arr_free(rgb);
 	return (target);
 }
 
@@ -146,7 +147,6 @@ void	set_rt_ambient(char *ratio, char **rgb)
 	rt->a->type = AMBIENT;
 	rt->a->ratio = ft_stod(ratio);
 	rt->a->color = set_rgb(rgb);
-	ft_arr_free(rgb);
 }
 
 int	as_ambient(char **array)
@@ -165,22 +165,19 @@ int	as_ambient(char **array)
 	return (VALID);
 }
 
-int	verify_camera_element(char **array, char **view_point, char **vector, int obj_n)
+int	verify_camera_element(char **array, char **point, char **vector, int obj_n)
 {
 	double	fov;
 	
 	fov = ft_stod(array[C_FOV]);
 	if (isnan(fov) || !is_hov(fov))
-		return (error_invalid_element(HOV, obj_n));
-	view_point = ft_split(array[C_VIEWPOINT], ',');
-	if (valid_tuple(view_point, CAMERA, obj_n, NULL) != VALID)
+		return (error_invalid_element(CAMERA, obj_n));
+	point = ft_split(array[C_VIEWPOINT], ',');
+	if (valid_tuple(point, CAMERA, obj_n, NULL) != VALID)
 		return (INVALID);
 	vector = ft_split(array[C_VECTOR], ',');
 	if (valid_tuple(vector, CAMERA, obj_n, is_vector) != VALID)
-	{
-		ft_arr_free(view_point);
-		return (INVALID);
-	}
+		return (ft_arr_free(point), INVALID);
 	return (VALID);
 }
 
@@ -189,11 +186,12 @@ t_vec3	set_tuple(char **v)
 	t_vec3	target;
 	
 	target = (t_vec3){ft_stod(v[0]), ft_stod(v[1]), ft_stod(v[2])};
+	ft_arr_free(v);
 	return (target);
 }
 
 
-void	set_rt_camera(char **view_point, char **vector)
+void	set_rt_camera(char **view_point, char **vector, char *fov)
 {
 	t_dotrt		*rt;
 	
@@ -201,8 +199,7 @@ void	set_rt_camera(char **view_point, char **vector)
 	rt->c->type = CAMERA;
 	rt->c->point = set_tuple(view_point);
 	rt->c->vector = set_tuple(vector);
-	ft_arr_free(view_point);
-	ft_arr_free(vector);
+	rt->c->value1 = ft_stod(fov);
 }
 
 int	as_camera(char **array)
@@ -217,13 +214,57 @@ int	as_camera(char **array)
 		return (error_invalid_element(CAMERA, obj_n));
 	if (verify_camera_element(array, view_point, vector, obj_n) != VALID)
 		return (INVALID);
-	set_rt_camera(view_point, vector);
+	set_rt_camera(view_point, vector, array[C_FOV]);
 	return (VALID);
+}
+
+typedef enum e_l{
+	L_POINT = 1,
+	L_RATIO,
+	L_RGB
+}	t_l;
+
+int	verify_light_element(char **array, char **point, char **rgb, int obj_n)
+{
+	double	ratio;
+	
+	ratio = ft_stod(array[L_RATIO]);
+	if (isnan(ratio) || !is_ratio(ratio))
+		return (error_invalid_element(LIGHT, obj_n));
+	point = ft_split(array[L_POINT], ',');
+	if (valid_tuple(point, LIGHT, obj_n, NULL) != VALID)
+		return (INVALID);
+	rgb = ft_split(array[L_RGB], ',');
+	if (valid_tuple(rgb, LIGHT, obj_n, is_rgb) != VALID)
+		return (ft_arr_free(point), INVALID);
+	return (VALID);
+}
+
+void	set_rt_light(char **light_point, char *ratio, char **rgb)
+{
+	t_dotrt	*rt;
+	
+	rt = single_rt();
+	rt->l->type = LIGHT;
+	rt->l->point = set_tuple(light_point);
+	rt->l->ratio = ft_stod(ratio);
+	rt->l->color = set_rgb(rgb);
 }
 
 int	as_light(char **array)
 {
-
+	char	**light_point;
+	char	**rgb;
+	static int	obj_n = 0;
+	
+	if (++obj_n > 1)
+		return (error_invalid_element(LIGHT, obj_n));
+	if (array_len(array) != 4)
+		return (error_invalid_element(LIGHT, obj_n));
+	if (verify_light_element(array, light_point, rgb, obj_n) != VALID)
+		return (INVALID);
+	set_rt_light(light_point, array[L_RGB], rgb);
+	return (VALID);
 }
 
 int	as_sphere(char **array)
@@ -241,7 +282,7 @@ int	as_cylinder(char **array)
 
 }
 
-f_ptr	classify_subrt(char *input)
+f_ptr	classify_element_type(char *input)
 {
 	if (ft_strnequ(input, "A", 2))
 		return (as_ambient);
@@ -259,14 +300,14 @@ f_ptr	classify_subrt(char *input)
 		return (NULL);
 }
 
-int	process_input(char **split)
+int	execute_subrt(char **array)
 {
 	f_ptr	func_to_run;
 	
-	func_to_run = classify_subrt(split[0]);
+	func_to_run = classify_element_type(array[0]);
 	if (func_to_run == NULL)
 		return (INVALID); /// error msg?
-	if (func_to_run(split) != VALID)
+	if (func_to_run(array) != VALID)
 		return (INVALID);
 	return (VALID);
 }
@@ -289,16 +330,17 @@ void	unify_spacekind(char *s)
 	}
 }
 
-int	set_subrt(char *line)
+int	process_subrt(char *line)
 {
-	char	**split;
+	char	**array;
 	
 	unify_spacekind(line);
-	split = ft_split(line, SPACE);
-	if (!split)
+	array = ft_split(line, SPACE);
+	if (!array)
 		return (INVALID);
-	if (process_input(split) != VALID)
-		return (ft_arr_free(split), INVALID);
+	if (execute_subrt(array) != VALID)
+			return (ft_arr_free(array), INVALID);
+	ft_arr_free(array);
 	return (VALID);
 }
 
@@ -318,7 +360,7 @@ int	convert_dotrt_format(int fd)
 			continue ;
 		}
 		line = ft_strtrim(line, "\n");
-		if (set_subrt(line) != INVALID)
+		if (process_subrt(line) != INVALID)
 			return (free(line), INVALID);
 		free(line);
 		line = get_next_line(fd);

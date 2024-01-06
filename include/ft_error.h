@@ -6,7 +6,7 @@
 /*   By: minakim <minakim@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 22:51:58 by minakim           #+#    #+#             */
-/*   Updated: 2024/01/06 22:26:25 by minakim          ###   ########.fr       */
+/*   Updated: 2024/01/06 23:07:08 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,6 @@
 #include "macro.h"
 
 typedef int t_bool;
-
-typedef enum e_err{
-	FORMAT = 2,
-	COLOR,
-	RATIO,
-	VECTOR,
-	VIEWPOINT,
-	HOV
-} t_err;
 
 /// @param indentifier Define each element present in the ".rt" file as an `indentifier` object.
 /// This param exists to print out the specific place where the error occurred.
