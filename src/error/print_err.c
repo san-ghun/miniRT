@@ -6,7 +6,7 @@
 /*   By: minakim <minakim@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 23:02:10 by minakim           #+#    #+#             */
-/*   Updated: 2024/01/04 23:07:09 by minakim          ###   ########.fr       */
+/*   Updated: 2024/01/06 23:41:45 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int print_objname(int identifier)
 			"CYLINDER",
 			"RECTANGLE"
 	};
-	if (identifier > 0 && identifier < sizeof(names) / sizeof(names[0]))
+	if (identifier > 0 && identifier < (int)(sizeof (names) / sizeof(names[0])))
 	{
 		ft_putstr_fd((char *)names[identifier], 1);
 		return (TRUE);

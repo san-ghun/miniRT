@@ -6,7 +6,7 @@
 /*   By: sanghupa <sanghupa@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 16:51:48 by sanghupa          #+#    #+#             */
-/*   Updated: 2024/01/06 23:24:40 by minakim          ###   ########.fr       */
+/*   Updated: 2024/01/06 23:43:22 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int array_len(char **array)
 	int	i;
 	
 	i = 0;
-	while(*array)
+	while (*array)
 		i++;
 	return (i);
 }
@@ -152,9 +152,9 @@ void	set_rt_ambient(char *ratio, char **rgb)
 int	as_ambient(char **array)
 {
 	char	**rgb;
-	
 	static int	obj_n = 0;
 	
+	rgb = NULL;
 	if (++obj_n > 1)
 		return (error_invalid_element(AMBIENT, obj_n));
 	if (array_len(array) != 3)
@@ -208,6 +208,8 @@ int	as_camera(char **array)
 	char	**vector;
 	static int	obj_n = 0;
 	
+	view_point = NULL;
+	vector = NULL;
 	if (++obj_n > 1)
 		return (error_invalid_element(CAMERA, obj_n));
 	if (array_len(array) != 4)
@@ -257,6 +259,8 @@ int	as_light(char **array)
 	char	**rgb;
 	static int	obj_n = 0;
 	
+	light_point = NULL;
+	rgb = NULL;
 	if (++obj_n > 1)
 		return (error_invalid_element(LIGHT, obj_n));
 	if (array_len(array) != 4)
@@ -267,20 +271,20 @@ int	as_light(char **array)
 	return (VALID);
 }
 
-int	as_sphere(char **array)
-{
-
-}
-
-int	as_plane(char **array)
-{
-
-}
-
-int	as_cylinder(char **array)
-{
-
-}
+//int	as_sphere(char **array)
+//{
+//
+//}
+//
+//int	as_plane(char **array)
+//{
+//
+//}
+//
+//int	as_cylinder(char **array)
+//{
+//
+//}
 
 f_ptr	classify_element_type(char *input)
 {
@@ -290,12 +294,12 @@ f_ptr	classify_element_type(char *input)
 		return (as_camera);
 	else if (ft_strnequ(input, "L", 2))
 		return (as_light);
-	else if (ft_strnequ(input, "sp", 3))
-		return (as_sphere);
-	else if (ft_strnequ(input, "pl", 3))
-		return (as_plane);
-	else if (ft_strnequ(input, "cy", 3))
-		return (as_cylinder);
+//	else if (ft_strnequ(input, "sp", 3))
+//		return (as_sphere);
+//	else if (ft_strnequ(input, "pl", 3))
+//		return (as_plane);
+//	else if (ft_strnequ(input, "cy", 3))
+//		return (as_cylinder);
 	else
 		return (NULL);
 }

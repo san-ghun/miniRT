@@ -6,7 +6,7 @@
 /*   By: minakim <minakim@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 21:55:10 by minakim           #+#    #+#             */
-/*   Updated: 2024/01/03 22:08:03 by minakim          ###   ########.fr       */
+/*   Updated: 2024/01/06 23:43:52 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,8 @@ t_bool	check_input(int argc, char *argv[])
 		return (FALSE);
 	if (!check_filename(argv[1]))
 		return (FALSE);
+	return (TRUE);
 }
 
-t_bool	check_rgb();
-t_bool	check_vector();
+//t_bool	check_rgb();
+//t_bool	check_vector();

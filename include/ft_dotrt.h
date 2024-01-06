@@ -6,7 +6,7 @@
 /*   By: sanghupa <sanghupa@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 16:43:00 by sanghupa          #+#    #+#             */
-/*   Updated: 2024/01/06 23:20:31 by minakim          ###   ########.fr       */
+/*   Updated: 2024/01/06 23:36:30 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@
 */
 
 typedef int		t_bool;
-typedef int		(*f_ptr)(char **);
+typedef int		(*f_ptr)(char **); // TODO: change name
 typedef t_bool	(*f_range)(double);
 
 typedef struct s_subrt {

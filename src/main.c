@@ -6,7 +6,7 @@
 /*   By: sanghupa <sanghupa@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 14:22:52 by sanghupa          #+#    #+#             */
-/*   Updated: 2024/01/03 22:06:02 by minakim          ###   ########.fr       */
+/*   Updated: 2024/01/06 23:49:13 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,17 @@ static void	mlx_run(t_vars *vars, t_container *container)
 	mlx_loop(vars->mlx);
 }
 
+t_dotrt	*new_rt_tmp(void)
+{
+	t_dotrt	*rt;
+	int		i;
+	
+	rt = single_rt();
+	i = 0;
+	(void)i;
+	return (rt);
+}
+
 int	main(int argc, char *argv[])
 {
 	t_vars			*vars;
@@ -40,11 +51,14 @@ int	main(int argc, char *argv[])
 	t_camera		*cam;
 	t_resource		*rsc;
 	
-	if (!check_input(argc, argv))
-		return (1); /// error msg
+//	if (!check_input(argc, argv))
+//		return (1); /// error msg
 	rsc = new_resource();
 	(void)rsc;
-	rt = new_rt(argv[1]);
+//	rt = new_rt(argv[1]);
+	(void)argv;
+	(void)argc;
+	rt = new_rt_tmp();
 	set_dotrt(rt);
 	apply_dotrt(rt);
 	cam = init_camera(16.0 / 9.0, 400);
