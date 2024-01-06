@@ -6,11 +6,12 @@
 /*   By: sanghupa <sanghupa@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 16:51:48 by sanghupa          #+#    #+#             */
-/*   Updated: 2024/01/06 23:43:22 by minakim          ###   ########.fr       */
+/*   Updated: 2024/01/07 00:55:47 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_dotrt.h"
+#include "stdio.h"
 
 t_subrt	*init_subrt(void)
 {
@@ -62,15 +63,18 @@ int array_len(char **array)
 	int	i;
 	
 	i = 0;
-	while (*array)
+	while (array[i])
 		i++;
 	return (i);
 }
 
 void	ft_arr_free(char **array)
 {
-	while (*array)
-		free(*array);
+	int	i;
+	
+	i = -1;
+	while (array[++i])
+		free(array[i]);
 	free(array);
 }
 
@@ -78,7 +82,8 @@ int	valid_tuple(char **ele, int id, int i, f_range is_range)
 {
 	double	val;
 	
-	if (!ele || *ele)
+	
+	if (!ele || !*ele)
 		return (INVALID);
 	if (array_len(ele) != 3)
 	{
@@ -90,7 +95,7 @@ int	valid_tuple(char **ele, int id, int i, f_range is_range)
 		val = ft_stod(*ele);
 		if (isnan(val))
 			return (ft_arr_free(ele), error_invalid_element(id, i));
-		if (is_range && !is_range(val))
+		if (is_range != NULL && !is_range(val))
 			return (ft_arr_free(ele), error_wrong_range(id, i));
 		ele++;
 	}
@@ -107,37 +112,47 @@ t_bool	check_ratio_range(char *ratio, int obj_n, int id)
 	return (TRUE);
 }
 
-t_bool	verify_ambient_element(char *ratio, char **array, int obj_n)
+int	verify_ambient_element(char *ratio, char **array, int obj_n)
 {
 	char	**rgb;
+	
 	if (obj_n > 1)
 		return (error_invalid_element(AMBIENT, obj_n));
 	if (!check_ratio_range(ratio, obj_n, AMBIENT))
-		return (FALSE);
+		return (INVALID);
 	rgb = ft_split(array[A_RGB], ',');
 	if (valid_tuple(rgb, AMBIENT, obj_n, is_rgb) != VALID)
 		return (INVALID);
-	return (TRUE);
+	return (VALID);
 }
 
-double	rgb_conv(char *target)
+double	rgb_conv(char *s) /// error?
 {
 	double	res;
-	
 	res = 0.0;
-	res = ft_stod(target);
+	res = ft_stod(s);
 	return (res / 255.0);
 }
 
 t_vec3	set_rgb(char **rgb)
 {
-	t_vec3	target;
+	t_vec3	this;
 	
-	target = (t_vec3){rgb_conv(rgb[0]), rgb_conv(rgb[1]), rgb_conv(rgb[2])};
+	this = (t_vec3){rgb_conv(rgb[0]), rgb_conv(rgb[1]), rgb_conv(rgb[2])};
 	ft_arr_free(rgb);
-	return (target);
+	return (this);
 }
 
+//t_vec3	set_rgb(char **rgb)
+//{
+//	t_vec3	this;
+//
+//	this.x = rgb_conv(rgb[0]);
+//	this.y = rgb_conv(rgb[1]);
+//	this.z = rgb_conv(rgb[2]);
+//	ft_arr_free(rgb);
+//	return (this);
+//}
 
 void	set_rt_ambient(char *ratio, char **rgb)
 {
@@ -147,6 +162,9 @@ void	set_rt_ambient(char *ratio, char **rgb)
 	rt->a->type = AMBIENT;
 	rt->a->ratio = ft_stod(ratio);
 	rt->a->color = set_rgb(rgb);
+	printf("%f\n", rt->a->ratio);
+	printf("%f, %f, %f\n", rt->a->color.x, rt->a->color.y, rt->a->color.z);
+
 }
 
 int	as_ambient(char **array)
@@ -154,14 +172,16 @@ int	as_ambient(char **array)
 	char	**rgb;
 	static int	obj_n = 0;
 	
+
 	rgb = NULL;
 	if (++obj_n > 1)
 		return (error_invalid_element(AMBIENT, obj_n));
 	if (array_len(array) != 3)
 		return (error_invalid_element(AMBIENT, obj_n));
-	if (!verify_ambient_element(array[A_RATIO], rgb, obj_n))
+	if (verify_ambient_element(array[A_RATIO], array, obj_n) != VALID)
 		return (INVALID);
 	set_rt_ambient(array[A_RATIO], rgb);
+	
 	return (VALID);
 }
 
@@ -289,11 +309,11 @@ int	as_light(char **array)
 f_ptr	classify_element_type(char *input)
 {
 	if (ft_strnequ(input, "A", 2))
-		return (as_ambient);
+		return (printf("ambient\n"), as_ambient);
 	else if (ft_strnequ(input, "C", 2))
-		return (as_camera);
+		return (printf("camera\n"), as_camera);
 	else if (ft_strnequ(input, "L", 2))
-		return (as_light);
+		return (printf("light\n"), as_light);
 //	else if (ft_strnequ(input, "sp", 3))
 //		return (as_sphere);
 //	else if (ft_strnequ(input, "pl", 3))
@@ -312,7 +332,10 @@ int	execute_subrt(char **array)
 	if (func_to_run == NULL)
 		return (INVALID); /// error msg?
 	if (func_to_run(array) != VALID)
+	{
+		printf("function invalid\n");
 		return (INVALID);
+	}
 	return (VALID);
 }
 
@@ -355,20 +378,20 @@ int	convert_dotrt_format(int fd)
 	line = get_next_line(fd);
 	if (!line) /// empty
 		return (INVALID);
-	while (line)
-	{
+//	while (line)
+//	{
 		if (line[0] == '\n' || line[0] == '\0')
 		{
 			free(line);
-			line = get_next_line(fd);
-			continue ;
+//			line = get_next_line(fd);
+//			continue ;
 		}
 		line = ft_strtrim(line, "\n");
 		if (process_subrt(line) != INVALID)
 			return (free(line), INVALID);
 		free(line);
-		line = get_next_line(fd);
-	}
+//		line = get_next_line(fd);
+//	}
 	return (VALID);
 }
 

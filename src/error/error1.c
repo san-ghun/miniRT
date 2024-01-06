@@ -6,7 +6,7 @@
 /*   By: minakim <minakim@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 22:49:49 by minakim           #+#    #+#             */
-/*   Updated: 2024/01/06 22:27:14 by minakim          ###   ########.fr       */
+/*   Updated: 2024/01/07 00:28:09 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,4 +26,11 @@ int	error_invalid_element(int indentifier, int index)
 	if (indentifier > 0)
 		return (indentifier);
 	return (42);
+}
+
+int error_no_input(void)
+{
+	ft_printf("please include the .rt file.\n"
+			  "./miniRT filename.rt\n");
+	return (INVALID);
 }
