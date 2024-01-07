@@ -6,7 +6,7 @@
 /*   By: sanghupa <sanghupa@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 14:22:52 by sanghupa          #+#    #+#             */
-/*   Updated: 2024/01/07 16:31:36 by minakim          ###   ########.fr       */
+/*   Updated: 2024/01/07 17:46:39 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ t_bool	check_filename(char *filename)
 {
 	int len;
 	int	e_len;
-	
+
 	if (!filename)
 		return (FALSE);
 	len = ft_strlen(filename);
