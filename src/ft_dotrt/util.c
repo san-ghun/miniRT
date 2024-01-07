@@ -1,20 +1,51 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   bool.c                                             :+:      :+:    :+:   */
+/*   util.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: minakim <minakim@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/04 22:58:38 by minakim           #+#    #+#             */
-/*   Updated: 2024/01/04 23:00:21 by minakim          ###   ########.fr       */
+/*   Created: 2024/01/07 16:07:14 by minakim           #+#    #+#             */
+/*   Updated: 2024/01/07 16:07:14 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_error.h"
+#include "ft_dotrt.h"
 
-t_bool	is_objunique(int indentifier)
+int array_len(char **array)
 {
-	if (indentifier == AMBIENT || indentifier == CAMERA || indentifier == LIGHT)
+	int	i;
+	
+	i = 0;
+	while (array[i])
+		i++;
+	return (i);
+}
+
+void	ft_arr_free(char **array)
+{
+	int	i;
+	
+	i = -1;
+	while (array[++i])
+		free(array[i]);
+	free(array);
+}
+
+t_bool	is_whitespace(char c)
+{
+	if (c == '\t' || c == '\v' || \
+		c == '\f' || c == '\r')
 		return (TRUE);
 	return (FALSE);
+}
+
+void	unify_spacekind(char *s)
+{
+	while (*s)
+	{
+		if (is_whitespace(*s))
+			*s = SPACE;
+		s++;
+	}
 }

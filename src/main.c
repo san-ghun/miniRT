@@ -6,11 +6,36 @@
 /*   By: sanghupa <sanghupa@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 14:22:52 by sanghupa          #+#    #+#             */
-/*   Updated: 2024/01/06 23:59:47 by minakim          ###   ########.fr       */
+/*   Updated: 2024/01/07 16:31:36 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
+
+t_bool	check_filename(char *filename)
+{
+	int len;
+	int	e_len;
+	
+	if (!filename)
+		return (FALSE);
+	len = ft_strlen(filename);
+	if (len < 4)
+		return (FALSE);
+	e_len = ft_strlen(EXTENSION);
+	if (!ft_strnequ(&filename[len - e_len], EXTENSION, e_len))
+		return (FALSE);
+	return (TRUE);
+}
+
+t_bool	args_check(int argc, char *argv[])
+{
+	if (argc != 2)
+		return (FALSE);
+	if (!check_filename(argv[1]))
+		return (FALSE);
+	return (TRUE);
+}
 
 static t_camera	*cam_ready(t_camera *cam, t_dotrt *rt)
 {
@@ -32,32 +57,19 @@ static void	mlx_run(t_vars *vars, t_container *container)
 	mlx_loop(vars->mlx);
 }
 
-t_dotrt	*new_rt_tmp(void)
-{
-	t_dotrt	*rt;
-	int		i;
-	
-	rt = single_rt();
-	i = 0;
-	(void)i;
-	return (rt);
-}
-
 int	main(int argc, char *argv[])
 {
 	t_vars			*vars;
 	t_container		*container;
-	t_dotrt			*rt;
 	t_camera		*cam;
+	t_dotrt			*rt;
 	t_resource		*rsc;
-	
-	if (!check_input(argc, argv))
+
+	if (!args_check(argc, argv))
 		return (error_no_input());
 	rsc = new_resource();
 	(void)rsc;
-	rt = new_rt(argv[1]);
-//	rt = new_rt_tmp();
-	set_dotrt(rt);
+	rt = read_rt(argv[1]);
 	apply_dotrt(rt);
 	cam = init_camera(16.0 / 9.0, 400);
 	cam = cam_ready(cam, rt);

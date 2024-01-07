@@ -40,3 +40,10 @@ t_bool	is_hov(double hov)
 		return (TRUE);
 	return (FALSE);
 }
+
+t_bool	is_unit(double unit)
+{
+	if (unit > 0.0)
+		return (TRUE);
+	return (FALSE);
+}

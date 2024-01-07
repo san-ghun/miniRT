@@ -6,7 +6,7 @@
 /*   By: minakim <minakim@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 23:02:10 by minakim           #+#    #+#             */
-/*   Updated: 2024/01/07 00:27:56 by minakim          ###   ########.fr       */
+/*   Updated: 2024/01/07 16:53:45 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,12 @@
 /// Define each element present in the ".rt" file as an `indentifier` object.
 /// This param exists to print out the specific place where the error occurred.
 /// For `indentifier`, only `Identifier Macros`, in "macros.h" should be entered.
+t_bool	is_objunique(int indentifier)
+{
+	if (indentifier == AMBIENT || indentifier == CAMERA || indentifier == LIGHT)
+		return (TRUE);
+	return (FALSE);
+}
 
 /// @note In the concatenated function,
 /// 0 is defined as VALID, so the 0th index, "NOTUSED", is not used.
@@ -33,9 +39,7 @@ char	*print_objname(int identifier)
 			"RECTANGLE"
 	};
 	if (identifier > 0 && identifier < (int)(sizeof (names) / sizeof(names[0])))
-	{
 		return ((char *)names[identifier]);
-	}
 	return ("undefine");
 }
 

@@ -6,7 +6,7 @@
 /*   By: minakim <minakim@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 22:51:58 by minakim           #+#    #+#             */
-/*   Updated: 2024/01/07 00:27:24 by minakim          ###   ########.fr       */
+/*   Updated: 2024/01/07 16:54:11 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,8 @@ void	print_error_location(int indentifier, int index);
 t_bool	is_objunique(int indentifier);
 
 /// error.c
-int	error_wrong_range(int indentifier, int index);
-int	error_invalid_element(int indentifier, int index);
+int	error_wrong_range(int identifier, int index);
+int	error_invalid_element(int identifier, int index);
 int error_no_input(void);
+
 #endif

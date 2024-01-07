@@ -6,7 +6,7 @@
 /*   By: sanghupa <sanghupa@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 16:43:00 by sanghupa          #+#    #+#             */
-/*   Updated: 2024/01/06 23:36:30 by minakim          ###   ########.fr       */
+/*   Updated: 2024/01/07 17:00:38 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@
 
 /// open
 # include <fcntl.h>
-///
+/// nan
 # include <math.h>
 
 /*
@@ -38,8 +38,8 @@
 ** =============================================================================
 */
 
-# define MAX_SUBRT 100
-# define SPACE ' '
+# define MAX_SUBRT	100
+# define SPACE		' '
 
 /*
 ** =============================================================================
@@ -48,7 +48,12 @@
 */
 
 typedef int		t_bool;
-typedef int		(*f_ptr)(char **); // TODO: change name
+
+/// @brief This function pointer is used to classify as_object.
+typedef int		(*f_type)(char **);
+
+/// @brief This function pointer is used to
+/// determine the range of each object's components.
 typedef t_bool	(*f_range)(double);
 
 typedef struct s_subrt {
@@ -78,20 +83,54 @@ typedef struct s_dotrt {
 
 /*
 ** =============================================================================
-** Type Definition Index
+** Type Definition enumerations for indexing
 ** =============================================================================
 */
 
+/// give each element the index it requires to make sure it's safe to use
+/// even if it's modified in the future
+/// @enum ambient light
 typedef	enum e_a {
 	A_RATIO = 1,
 	A_RGB
-} t_a;
+}	t_a;
 
+/// @enum camera
 typedef	enum e_c {
 	C_VIEWPOINT = 1,
 	C_VECTOR,
 	C_FOV
-} t_c;
+}	t_c;
+
+/// @enum light
+typedef enum e_l {
+	L_POINT = 1,
+	L_RATIO,
+	L_RGB
+}	t_l;
+
+/// @enum sphere
+typedef enum e_sp {
+	SP_POINT = 1,
+	SP_DIAMETER,
+	SP_RGB
+}	t_sp;
+
+/// @enum plane
+typedef enum e_pl {
+	PL_POINT = 1,
+	PL_VECTOR,
+	PL_RGB
+}	t_pl;
+
+/// @enum cylinder
+typedef enum e_cy {
+	CY_POINT = 1,
+	CY_VECTOR,
+	CY_DIAMETER,
+	CY_HEIGHT,
+	CY_RGB
+}	t_cy;
 
 
 /*
@@ -103,15 +142,36 @@ typedef	enum e_c {
 /// ft_readrt.c
 t_subrt		*init_subrt(void);
 t_dotrt		*single_rt(void);
-t_dotrt		*new_rt(char *filename);
+t_dotrt		*read_rt(char *filename);
 
 /// ft_writert.c
 void		set_dotrt(t_dotrt *rt);
-
 
 /// is_format.c
 t_bool	is_rgb(double color);
 t_bool	is_ratio(double num);
 t_bool	is_vector(double vector);
 t_bool	is_hov(double hov);
+t_bool	is_unit(double unit);
+
+/// as_ambient, camera, light, sphere, plane, and cylinder.c
+int		as_ambient(char **array);
+int		as_camera(char **array);
+int		as_light(char **array);
+int		as_sphere(char **array);
+int		as_plane(char **array);
+int		as_cylinder(char **array);
+
+/// set_tuple.c
+int		valid_tuple(char **ele, int id, int i, f_range is_range);
+t_vec3	set_tuple(char **v);
+t_vec3	set_rgb(char **rgb);
+
+/// utils.c
+int		array_len(char **array);
+void	ft_arr_free(char **array);
+void	unify_spacekind(char *s);
+
+/// temp : debug
+void	print_rt(void);
 #endif

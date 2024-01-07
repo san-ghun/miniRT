@@ -35,6 +35,7 @@ void	set_dotrt(t_dotrt *rt)
 	 rt->sp[0]->value1 = 20 / 2;	// convert diameter into radius, 지름 to 반지름
 	 rt->sp[0]->color = (t_vec3){255/255, 255/255, 255/255};
 	 rt->cnt_sp++;
+	 
 	 rt->sp[1] = init_subrt();
 	 rt->sp[1]->type = SPHERE;
 	 rt->sp[1]->point = (t_vec3){15, -10, 20};
