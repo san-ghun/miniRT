@@ -1,30 +1,39 @@
 cmake_minimum_required(VERSION 3.16)
 project(miniRT C)
 
-set(CMAKE_C_STANDARD 11)
 
-# Source files
-set(SRC_DIR ./src)
-file(GLOB SRC_FILES ${SRC_DIR}/*.c)
+set(CMAKE_BUILD_TYPE Debug)
+set(CMAKE_C_STANDARD 99)
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -Werror -Wextra -g")
+
+# libft
+file(GLOB_RECURSE LIBFT_SOURCES "libft/*/*.c")
+add_library(libft STATIC ${LIBFT_SOURCES})
+target_include_directories(libft PUBLIC libft/include)
+
+# mlx lib
+file(GLOB_RECURSE MLX_SOURCES "minilibx-linux/*.c")
+add_library(mlx STATIC ${MLX_SOURCES})
+target_include_directories(mlx PUBLIC ./minilibx-linux)
+
+# ignore mlx -w
+target_compile_options(mlx PRIVATE -w)
 
 # Include directories
-set(INC_DIR ./include)
-set(LIBFT_DIR ./libft)
-set(MLX_DIR ./minilibx-linux)
+include_directories(include)
+include_directories(libft/include)
+include_directories(minilibx-linux)
 
-include_directories(${INC_DIR} ${LIBFT_DIR}/include ${MLX_DIR})
+link_directories(/usr/lib)
 
-# Library directories
-link_directories(${LIBFT_DIR} ${MLX_DIR})
-
-# Compiler flags
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -Wextra -Werror")
+# Compile miniRT
+file(GLOB_RECURSE MINIRT_SOURCES
+		"src/*.c"
+		"src/*/*.c"
+		)
 
 # Add the executable
-add_executable(miniRT ${SRC_FILES})
+add_executable(miniRT ${MINIRT_SOURCES})
 
 # Link libraries
-target_link_libraries(miniRT ft mlx m)
-
-# Set working directory for CLion run configurations
-set_target_properties(miniRT PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
+target_link_libraries(miniRT libft mlx X11 Xext m)
