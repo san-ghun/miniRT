@@ -6,7 +6,7 @@
 /*   By: sanghupa <sanghupa@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 14:22:52 by sanghupa          #+#    #+#             */
-/*   Updated: 2024/01/07 17:46:39 by minakim          ###   ########.fr       */
+/*   Updated: 2024/01/08 22:25:42 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ static void	mlx_run(t_vars *vars, t_container *container)
 	mlx_loop(vars->mlx);
 }
 
+/// FIXME: It should be a memcheck on force exit during program execution.
 int	main(int argc, char *argv[])
 {
 	t_vars			*vars;
@@ -70,6 +71,8 @@ int	main(int argc, char *argv[])
 	rsc = new_resource();
 	(void)rsc;
 	rt = read_rt(argv[1]);
+	if (rt == NULL)
+		return (0);
 	apply_dotrt(rt);
 	cam = init_camera(16.0 / 9.0, 400);
 	cam = cam_ready(cam, rt);

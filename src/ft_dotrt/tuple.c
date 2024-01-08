@@ -6,7 +6,7 @@
 /*   By: minakim <minakim@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/07 16:06:17 by minakim           #+#    #+#             */
-/*   Updated: 2024/01/07 17:44:00 by minakim          ###   ########.fr       */
+/*   Updated: 2024/01/08 22:04:50 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,9 @@
 int	valid_tuple(char **ele, int id, int i, f_range is_range)
 {
 	double	val;
-
+	int		j;
+	
+	j = -1;
 	if (!ele || !*ele)
 		return (INVALID);
 	if (array_len(ele) != 3)
@@ -34,14 +36,13 @@ int	valid_tuple(char **ele, int id, int i, f_range is_range)
 		ft_arr_free(ele);
 		return (error_invalid_element(id, i));
 	}
-	while (*ele)
+	while (ele[++j])
 	{
-		val = ft_stod(*ele);
+		val = ft_stod(ele[j]);
 		if (isnan(val))
 			return (ft_arr_free(ele), error_invalid_element(id, i));
 		if (is_range != NULL && !is_range(val))
 			return (ft_arr_free(ele), error_wrong_range(id, i));
-		ele++;
 	}
 	return (VALID);
 }

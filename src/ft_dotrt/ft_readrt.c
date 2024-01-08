@@ -6,12 +6,14 @@
 /*   By: sanghupa <sanghupa@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 16:51:48 by sanghupa          #+#    #+#             */
-/*   Updated: 2024/01/07 17:44:20 by minakim          ###   ########.fr       */
+/*   Updated: 2024/01/08 22:24:58 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_dotrt.h"
 
+/// as_sphere, as_plaib, as_cylinder
+/// TODO: single_rt de-allocation is not happening within the read_rt logic
 f_type	classify_element_type(char *input)
 {
 	if (ft_strnequ(input, "A", 2))
@@ -62,7 +64,8 @@ int	process_subrt(char *line)
 int	convert_dotrt_format(int fd)
 {
 	char 	*line;
-
+	char	*trim;
+	
 	line = get_next_line(fd);
 	if (!line)
 		return (INVALID);
@@ -74,13 +77,15 @@ int	convert_dotrt_format(int fd)
 			line = get_next_line(fd);
 			continue ;
 		}
-		line = ft_strtrim(line, "\n");
-		if (process_subrt(line) != VALID)
-			return (free(line), INVALID);
+		trim = ft_strtrim(line, "\n");
 		free(line);
+		if (process_subrt(trim) != VALID)
+			return (free(trim), INVALID);
+		free(trim);
 		line = get_next_line(fd);
 	}
-	print_rt(); /// FIXME: del later
+	/// FIXME: del later
+	print_rt();
 	return (VALID);
 }
 
