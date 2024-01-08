@@ -6,63 +6,112 @@
 /*   By: sanghupa <sanghupa@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 16:51:48 by sanghupa          #+#    #+#             */
-/*   Updated: 2024/01/01 14:07:05 by sanghupa         ###   ########.fr       */
+/*   Updated: 2024/01/08 22:24:58 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_dotrt.h"
 
-t_subrt	*init_subrt(void)
+/// as_sphere, as_plaib, as_cylinder
+/// TODO: single_rt de-allocation is not happening within the read_rt logic
+f_type	classify_element_type(char *input)
 {
-	t_subrt	*this;
-
-	this = malloc(sizeof(t_subrt) * 1);
-	this->type = NOTHING;
-	this->mat_type = 0;
-	this->mat_value = 0.0;
-	this->value1 = 0.0;
-	this->value2 = 0.0;
-	this->ratio = 0.0;
-	this->point = init_vector(0.0, 0.0, 0.0);
-	this->color = init_vector(0.0, 0.0, 0.0);
-	this->vector = init_vector(0.0, 0.0, 0.0);
-	this->vector2 = init_vector(0.0, 0.0, 0.0);
-	return (this);
+	if (ft_strnequ(input, "A", 2))
+		return (as_ambient);
+	else if (ft_strnequ(input, "C", 2))
+		return (as_camera);
+	else if (ft_strnequ(input, "L", 2))
+		return (as_light);
+	else if (ft_strnequ(input, "sp", 3))
+		return (as_sphere);
+	else if (ft_strnequ(input, "pl", 3))
+		return (as_plane);
+	else if (ft_strnequ(input, "cy", 3))
+		return (as_cylinder);
+	else
+		return (NULL);
 }
 
-t_dotrt	*single_rt(void)
+int	execute_subrt(char **array)
 {
-	static t_dotrt	this;
-	static int		is_init;
+	f_type	func_to_run;
 
-	if (is_init)
-		return (&this);
-	this = (t_dotrt){
-		.a = init_subrt(),
-		.c = init_subrt(),
-		.l = init_subrt(),
-		.sp = {},
-		.pl = {},
-		.cy = {},
-		.cnt_sp = 0,
-		.cnt_pl = 0,
-		.cnt_cy = 0,
-	};
-	ft_bzero(this.sp, 100);
-	ft_bzero(this.pl, 100);
-	ft_bzero(this.cy, 100);
-	is_init = 1;
-	return (&this);
+	func_to_run = classify_element_type(array[0]);
+	if (func_to_run == NULL)
+	{
+		ft_printf("error: invalid identifier\n");
+		return (INVALID);
+	}
+	if (func_to_run(array) != VALID)
+		return (INVALID);
+	return (VALID);
 }
 
-t_dotrt	*new_rt(void)
+int	process_subrt(char *line)
+{
+	char	**array;
+
+	unify_spacekind(line);
+	array = ft_split(line, SPACE);
+	if (!array)
+		return (INVALID);
+	if (execute_subrt(array) != VALID)
+			return (ft_arr_free(array), INVALID);
+	ft_arr_free(array);
+	return (VALID);
+}
+
+int	convert_dotrt_format(int fd)
+{
+	char 	*line;
+	char	*trim;
+	
+	line = get_next_line(fd);
+	if (!line)
+		return (INVALID);
+	while (line)
+	{
+		if (line[0] == '\n' || line[0] == '\0')
+		{
+			free(line);
+			line = get_next_line(fd);
+			continue ;
+		}
+		trim = ft_strtrim(line, "\n");
+		free(line);
+		if (process_subrt(trim) != VALID)
+			return (free(trim), INVALID);
+		free(trim);
+		line = get_next_line(fd);
+	}
+	/// FIXME: del later
+	print_rt();
+	return (VALID);
+}
+
+t_dotrt	*read_rt(char *filename)
 {
 	t_dotrt	*rt;
-	int		i;
+	int 	fd;
 
 	rt = single_rt();
-	i = 0;
-	(void)i;
-	// TODO: implement configuring and producing new rt struct.
+	if (access(filename, R_OK) != 0)
+	{
+		ft_printf("error: checking file access.\n");
+		return (NULL);
+	}
+	fd = open(filename, O_RDONLY);
+	if (fd <= 0)
+	{
+		ft_printf("error: can't open file.\n");
+		return (NULL);
+	}
+	if (convert_dotrt_format(fd) != VALID)
+	{
+		ft_printf("error: target .rt file valid fail.\n");
+		close(fd);
+		return (NULL);
+	}
+	close(fd);
 	return (rt);
 }
