@@ -6,7 +6,7 @@
 /*   By: sanghupa <sanghupa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 14:00:17 by sanghupa          #+#    #+#             */
-/*   Updated: 2023/12/02 14:12:15 by sanghupa         ###   ########.fr       */
+/*   Updated: 2024/01/05 18:21:00 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,6 @@ int		ft_strequ(char const *s1, char const *s2);
 int		ft_strcmp(char const *s1, char const *s2);
 int		ft_isspace(char c);
 int		ft_strnequ(char const *s1, char const *s2, size_t i);
+double	ft_stod(const char *s);
 
 #endif

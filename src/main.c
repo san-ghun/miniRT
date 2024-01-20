@@ -6,11 +6,36 @@
 /*   By: sanghupa <sanghupa@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 14:22:52 by sanghupa          #+#    #+#             */
-/*   Updated: 2024/01/01 13:01:32 by sanghupa         ###   ########.fr       */
+/*   Updated: 2024/01/08 22:25:42 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
+
+t_bool	check_filename(char *filename)
+{
+	int len;
+	int	e_len;
+
+	if (!filename)
+		return (FALSE);
+	len = ft_strlen(filename);
+	if (len < 4)
+		return (FALSE);
+	e_len = ft_strlen(EXTENSION);
+	if (!ft_strnequ(&filename[len - e_len], EXTENSION, e_len))
+		return (FALSE);
+	return (TRUE);
+}
+
+t_bool	args_check(int argc, char *argv[])
+{
+	if (argc != 2)
+		return (FALSE);
+	if (!check_filename(argv[1]))
+		return (FALSE);
+	return (TRUE);
+}
 
 static t_camera	*cam_ready(t_camera *cam, t_dotrt *rt)
 {
@@ -32,23 +57,25 @@ static void	mlx_run(t_vars *vars, t_container *container)
 	mlx_loop(vars->mlx);
 }
 
+/// FIXME: It should be a memcheck on force exit during program execution.
 int	main(int argc, char *argv[])
 {
 	t_vars			*vars;
 	t_container		*container;
-	t_dotrt			*rt;
 	t_camera		*cam;
+	t_dotrt			*rt;
 	t_resource		*rsc;
 
+	if (!args_check(argc, argv))
+		return (error_no_input());
 	rsc = new_resource();
 	(void)rsc;
-	rt = new_rt();
-	set_dotrt(rt);
+	rt = read_rt(argv[1]);
+	if (rt == NULL)
+		return (0);
 	apply_dotrt(rt);
 	cam = init_camera(16.0 / 9.0, 400);
 	cam = cam_ready(cam, rt);
-	(void)argc;
-	(void)argv;
 	vars = new_program(cam->image_width, cam->image_height, "New Program");
 	if (!(vars->mlx) || !(vars->win))
 		return (1);
