@@ -6,7 +6,7 @@
 /*   By: sanghupa <sanghupa@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 21:17:42 by sanghupa          #+#    #+#             */
-/*   Updated: 2023/12/30 00:41:42 by sanghupa         ###   ########.fr       */
+/*   Updated: 2024/01/20 21:29:08 by sanghupa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	ft_free_2d(void **targets)
 	targets = NULL;
 }
 
-static void	free_resource(t_resource *rsc)
+void	free_resource(t_resource *rsc)
 {
 	int	i;
 
@@ -51,7 +51,7 @@ static void	free_resource(t_resource *rsc)
 	free(rsc->pths);
 }
 
-static void	free_dotrt(t_dotrt *rt)
+void	free_dotrt(t_dotrt *rt)
 {
 	int	i;
 

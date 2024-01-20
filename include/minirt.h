@@ -6,7 +6,7 @@
 /*   By: sanghupa <sanghupa@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 14:23:17 by sanghupa          #+#    #+#             */
-/*   Updated: 2024/01/07 17:47:17 by minakim          ###   ########.fr       */
+/*   Updated: 2024/01/20 21:14:15 by sanghupa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,6 +163,8 @@ t_resource	*single_rsc(void);
 
 /// close.c
 void		ft_free_2d(void **targets);
+void		free_resource(t_resource *rsc);
+void		free_dotrt(t_dotrt *rt);
 int			close_mlx(t_container *img);
 
 /// hook_key.c
