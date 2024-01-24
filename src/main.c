@@ -6,7 +6,7 @@
 /*   By: sanghupa <sanghupa@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 14:22:52 by sanghupa          #+#    #+#             */
-/*   Updated: 2024/01/08 22:25:42 by minakim          ###   ########.fr       */
+/*   Updated: 2024/01/20 21:28:02 by sanghupa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int	main(int argc, char *argv[])
 	(void)rsc;
 	rt = read_rt(argv[1]);
 	if (rt == NULL)
-		return (0);
+		return (free_resource(rsc), free_dotrt(single_rt()), 0);
 	apply_dotrt(rt);
 	cam = init_camera(16.0 / 9.0, 400);
 	cam = cam_ready(cam, rt);

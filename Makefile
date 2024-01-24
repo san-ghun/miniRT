@@ -6,7 +6,7 @@
 #    By: sanghupa <sanghupa@student.42berlin.de>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/14 12:21:54 by sanghupa          #+#    #+#              #
-#    Updated: 2023/12/14 22:29:09 by sanghupa         ###   ########.fr        #
+#    Updated: 2024/01/20 20:57:54 by sanghupa         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@
 # =============================================================================
 
 CC			= cc
-CFLAGS		= -Wall -Werror -Wextra -g3
+CFLAGS		= -Wall -Werror -Wextra
 
 RM			= rm -f
 
@@ -124,12 +124,12 @@ endif
 
 dev: $(MLX) $(LIBFT)
 ifeq ($(UNAME), Darwin) # iMac / iOS
-		$(CC) -fsanitize=address -g -o $(NAME) $(SRC_NAME) $(HEADERS) $(MLX_FLAGS)
+		$(CC) -fsanitize=address -g3 -o $(NAME) $(SRC_NAME) $(HEADERS) $(MLX_FLAGS)
 		install_name_tool -change $(MLX) $(LIB_DIR)/$(MLX) $(NAME)
 else #Linux and others...
 #		$(CC) -fsanitize=thread -g -o $(NAME) $(SRC_NAME) $(HEADERS) $(MLX_FLAGS)
 #		$(CC) -fsanitize=address -g -o $(NAME) $(SRC_NAME) $(HEADERS) $(MLX_FLAGS)
-		$(CC) -g -o $(NAME) $(SRC_NAME) $(HEADERS) $(MLX_FLAGS)
+		$(CC) -g3 -o $(NAME) $(SRC_NAME) $(HEADERS) $(MLX_FLAGS)
 endif
 
 $(NAME): $(MLX) $(LIBFT) $(OBJ_NAME)
