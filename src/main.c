@@ -6,7 +6,7 @@
 /*   By: sanghupa <sanghupa@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 14:22:52 by sanghupa          #+#    #+#             */
-/*   Updated: 2024/01/20 21:28:02 by sanghupa         ###   ########.fr       */
+/*   Updated: 2024/01/30 18:15:27 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ static void	mlx_run(t_vars *vars, t_container *container)
 	mlx_loop(vars->mlx);
 }
 
-/// FIXME: It should be a memcheck on force exit during program execution.
 int	main(int argc, char *argv[])
 {
 	t_vars			*vars;
@@ -74,13 +73,13 @@ int	main(int argc, char *argv[])
 	if (rt == NULL)
 		return (free_resource(rsc), free_dotrt(single_rt()), 0);
 	apply_dotrt(rt);
-	cam = init_camera(16.0 / 9.0, 400);
+	cam = init_camera(16.0 / 9.0, set_image_width(1000));
 	cam = cam_ready(cam, rt);
 	vars = new_program(cam->image_width, cam->image_height, "New Program");
 	if (!(vars->mlx) || !(vars->win))
-		return (1);
+		return (EXIT_FAILURE);
 	container = vars->container;
 	render();
 	mlx_run(vars, container);
-	return (0);
+	return (EXIT_SUCCESS);
 }

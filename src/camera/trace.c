@@ -6,7 +6,7 @@
 /*   By: sanghupa <sanghupa@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/28 18:34:37 by sanghupa          #+#    #+#             */
-/*   Updated: 2024/01/01 14:21:20 by sanghupa         ###   ########.fr       */
+/*   Updated: 2024/01/30 18:28:05 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,8 @@ static t_vec3	point_light_get(t_hit *rec, t_subrt *rt_l, t_obj *objs[])
 				rt_l->vector2.z * 0.1 * light_len + \
 				rt_l->vector2.z * 0.01 * light_len * light_len);
 	return (vscale(diffuse, rt_l->ratio));
+//	var specular;
+//	return (vscale(vadd(diffuse, specular), rt_l->ratio));
 }
 
 static t_vec3	phong_lighting(t_hit *rec, t_obj *objs[])
@@ -80,6 +82,7 @@ static t_vec3	phong_lighting(t_hit *rec, t_obj *objs[])
 	ambient = vscale(ambient, 0.001);
 	light_color = (t_vec3){0.0, 0.0, 0.0};
 	light_color = vadd(light_color, point_light_get(rec, rt_l, objs));
+//	light_color = vadd(light_color, specural_light_get(a, b, c));
 	light_color = vadd(light_color, ambient);
 	return (light_color);
 }
