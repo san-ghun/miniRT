@@ -6,7 +6,7 @@
 /*   By: sanghupa <sanghupa@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/15 15:26:36 by sanghupa          #+#    #+#             */
-/*   Updated: 2024/02/03 00:28:50 by minakim          ###   ########.fr       */
+/*   Updated: 2024/02/05 21:30:49 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,10 +89,4 @@ t_vec3		defocus_disk_sample(t_camera *camera);
 // trace.c
 t_vec3		ray_color(t_ray ray, int depth, t_obj *objs[]);
 
-// movement.c
-void		adjust_camera_position(int keycode);
-t_bool		is_camera_position(int keycode);
-
-void	adjust_camera_orientation(int keycode);
-t_bool	is_camera_orientation(int keycode);
 #endif

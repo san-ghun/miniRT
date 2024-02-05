@@ -6,7 +6,7 @@
 /*   By: sanghupa <sanghupa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 17:01:26 by sanghupa          #+#    #+#             */
-/*   Updated: 2024/02/03 00:16:50 by minakim          ###   ########.fr       */
+/*   Updated: 2024/02/05 20:42:11 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,17 +21,15 @@ int	key_hooks(int keycode, t_container *img)
 
 	vars = single_vars();
 	temp = single_temp();
+
 	if (keycode == K_ESC)
 		close_mlx(img);
-	else if (keycode == K_SP)
-		draw_square((t_square){0, 0, img->w, 0xFFFFFF}, img);
-	else if (keycode == K_R)
-		temp->color = get_color();
-	else if (is_camera_position(keycode))
+	else if (is_camera_position(keycode)) /// re-located: lookfrom
 		adjust_camera_position(keycode);
-	else if (is_camera_orientation(keycode))
+	else if (is_camera_orientation(keycode)) /// re-located: lookfrom, lookat
 		adjust_camera_orientation(keycode);
-		
+	else if (is_objects(keycode))
+		adjust_object(keycode);
 	mlx_put_image_to_window(vars->mlx, vars->win, img->img, 0, 0);
 	return (0);
 }

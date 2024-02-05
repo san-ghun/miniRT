@@ -6,7 +6,7 @@
 /*   By: sanghupa <sanghupa@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 14:23:17 by sanghupa          #+#    #+#             */
-/*   Updated: 2024/01/30 17:57:26 by minakim          ###   ########.fr       */
+/*   Updated: 2024/02/05 21:24:08 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@
 # include "interval.h"
 # include "camera.h"
 # include "ft_dotrt.h"
+# include "addend.h"
 
 /// key mapping
 # if __linux__
@@ -189,4 +190,5 @@ void		apply_dotrt(t_dotrt *rt);
 
 /// utils.c
 int			set_image_width(int width);
+
 #endif
