@@ -6,15 +6,17 @@
 /*   By: minakim <minakim@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 17:57:57 by minakim           #+#    #+#             */
-/*   Updated: 2024/02/05 21:29:32 by minakim          ###   ########.fr       */
+/*   Updated: 2024/02/05 21:43:02 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef	ADDEND_H
 #define ADDEND_H
 
+/// basic typedef
 typedef int		t_bool;
 
+/// source
 # include "vector.h"
 # include "macro.h"
 # include "camera.h"
@@ -33,6 +35,8 @@ typedef int		t_bool;
 /// printf
 # include <stdio.h>
 
+/// struct
+/// @name t_cam_added
 typedef struct s_cam_ae
 {
 	int		keycode;
@@ -40,28 +44,33 @@ typedef struct s_cam_ae
 	char	name[20];
 }			t_c_addend;
 
+/// @name t_aes objects
 typedef struct s_addend
 {
 	int		keycode;
 	int 	type;
 	t_vec3	position;
 	char	name[20];
-}			t_addends;
+}			t_aes;
 
-// addend/utils.c
+/// addend/utils.c
 t_bool		vecequ(t_vec3 a, t_vec3 b);
 t_vec3		non_set(void);
 
+///addend/
 void		debug_camera(void);
 t_bool		is_camera_position(int keycode);
+void		adjust_camera_position(int keycode);
 
-t_plane		*pl_add_position(t_plane *pl, t_addends addend);
-t_sphere	*sp_add_position(t_sphere *sp, t_addends addend);
-t_cylinder	*cy_add_position(t_cylinder *cy, t_addends addend);
+///addend/
+void	set_point_with_addend(t_obj *obj, t_aes addend);
 
+///addend/
 void		adjust_object(int keycode);
 t_bool		is_objects(int keycode);
 
+///addend/
 t_bool		is_camera_orientation(int keycode);
 void		adjust_camera_orientation(int keycode);
+
 #endif

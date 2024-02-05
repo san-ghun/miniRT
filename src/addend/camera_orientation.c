@@ -6,7 +6,7 @@
 /*   By: minakim <minakim@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 21:25:27 by minakim           #+#    #+#             */
-/*   Updated: 2024/02/05 21:28:11 by minakim          ###   ########.fr       */
+/*   Updated: 2024/02/05 21:48:49 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,10 @@ void	move_camera_all(t_vec3 add_to_both)
 	t_camera	*cam;
 	t_vec3		new_lookfrom;
 	t_vec3		new_lookat;
-	
+
 	cam = single_cam();
 	new_lookfrom = vadd(cam->lookfrom, add_to_both);
-	new_lookat = vadd(cam->lookat,add_to_both);
+	new_lookat = vadd(cam->lookat, add_to_both);
 	setup_camera(cam->vfov, new_lookfrom, new_lookat, (t_vec3){0, 1, 0});
 	debug_camera();
 	render();
@@ -29,27 +29,26 @@ void	move_camera_all(t_vec3 add_to_both)
 static t_c_addend	*linking_c_orientation(void)
 {
 	static t_c_addend	this[] = {
-			{K_I, {0, DISTANCE, 0}, "up"},
-			{K_K, {0, -DISTANCE, 0}, "down"},
-			{K_L, {DISTANCE, 0, 0}, "right"},
-			{K_J, {-DISTANCE, 0, 0}, "left"},
-			{K_SP, {0, 0, 0}, "reset"},
-			{'\0', {0, 0, 0}, "NULL"}
+	{K_I, {0, DISTANCE, 0}, "up"},
+	{K_K, {0, -DISTANCE, 0}, "down"},
+	{K_L, {DISTANCE, 0, 0}, "right"},
+	{K_J, {-DISTANCE, 0, 0}, "left"},
+	{K_SP, {0, 0, 0}, "reset"},
+	{'\0', {0, 0, 0}, "NULL"}
 	};
-	static int		is_init;
-	
+	static int			is_init;
+
 	if (is_init)
 		return (&(*this));
 	is_init = TRUE;
 	return (&(*this));
 }
 
-
 void	rollback_camera(void)
 {
 	t_camera	*cam;
 	t_dotrt		*rt;
-	
+
 	rt = single_rt();
 	cam = single_cam();
 	cam->samples_per_pixel = N_SAMPLE;
@@ -65,8 +64,8 @@ void	rollback_camera(void)
 void	adjust_camera_orientation(int keycode)
 {
 	t_c_addend	*table;
-	int		i;
-	
+	int			i;
+
 	table = linking_c_orientation();
 	i = -1;
 	while (table[++i].keycode)
@@ -86,8 +85,8 @@ void	adjust_camera_orientation(int keycode)
 t_bool	is_camera_orientation(int keycode)
 {
 	t_c_addend	*table;
-	int		i;
-	
+	int			i;
+
 	table = linking_c_orientation();
 	i = -1;
 	while (table[++i].keycode)

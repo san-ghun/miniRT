@@ -6,7 +6,7 @@
 /*   By: sanghupa <sanghupa@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 14:22:52 by sanghupa          #+#    #+#             */
-/*   Updated: 2024/02/01 17:42:01 by minakim          ###   ########.fr       */
+/*   Updated: 2024/02/05 22:11:52 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static void	mlx_run(t_vars *vars, t_container *container)
 	mlx_put_image_to_window(vars->mlx, vars->win, container->img, 0, 0);
 	mlx_hook(vars->win, 17, 0, close_mlx, container);
 	mlx_key_hook(vars->win, key_hooks, container);
-	mlx_mouse_hook(vars->win, mouse_hooks, container);
+//	mlx_mouse_hook(vars->win, mouse_hooks, container);
 	mlx_loop(vars->mlx);
 }
 
@@ -75,7 +75,7 @@ int	main(int argc, char *argv[])
 	apply_dotrt(rt);
 	cam = init_camera(16.0 / 9.0, set_image_width(1000));
 	cam = cam_ready(cam, rt);
-	vars = new_program(cam->image_width, cam->image_height, "New Program");
+	vars = new_program(cam->image_width, cam->image_height, "miniRT");
 	if (!(vars->mlx) || !(vars->win))
 		return (EXIT_FAILURE);
 	container = vars->container;
