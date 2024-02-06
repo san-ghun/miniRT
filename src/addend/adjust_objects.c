@@ -6,13 +6,13 @@
 /*   By: minakim <minakim@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 21:18:46 by minakim           #+#    #+#             */
-/*   Updated: 2024/02/05 21:45:38 by minakim          ###   ########.fr       */
+/*   Updated: 2024/02/06 16:44:44 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-static void	keycode_connect(t_aes *this)
+static void	init_keycode_connect(t_aes *this)
 {
 	this[0] = (t_aes){K_R, PLANE, {DISTANCE, 0, 0}, "pl: right"};
 	this[1] = (t_aes){K_Q, PLANE, {-DISTANCE, 0, 0}, "pl: left"};
@@ -42,7 +42,7 @@ static t_aes	*linking_objects(void)
 	if (is_init)
 		return (&(*this));
 	is_init = TRUE;
-	keycode_connect(this);
+	init_keycode_connect(this);
 	return (&(*this));
 }
 
@@ -76,7 +76,7 @@ void	adjust_object(int keycode)
 				|| table[i].type == CYLINDER)
 			{
 				find_obj_and_addend(table[i]);
-				printf("%s\n", table[i].name);
+				printf("> %s\n", table[i].name);
 			}
 			return ;
 		}

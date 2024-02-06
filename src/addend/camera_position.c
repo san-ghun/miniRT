@@ -6,7 +6,7 @@
 /*   By: minakim <minakim@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 21:01:50 by minakim           #+#    #+#             */
-/*   Updated: 2024/02/05 21:56:32 by minakim          ###   ########.fr       */
+/*   Updated: 2024/02/06 16:45:10 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	adjust_camera_position(int keycode)
 		if (keycode == table[i].keycode)
 		{
 			move_camera_lockfrom(table[i].addend);
-			printf("%s\n", table[i].name);
+			printf("> %s\n", table[i].name);
 			return ;
 		}
 	}
