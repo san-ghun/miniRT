@@ -6,12 +6,14 @@
 /*   By: minakim <minakim@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 21:01:50 by minakim           #+#    #+#             */
-/*   Updated: 2024/02/06 16:45:10 by minakim          ###   ########.fr       */
+/*   Updated: 2024/02/06 18:18:06 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
+/// TODO: camera movement direction check need!
+/// TODO: documentation of "./addend/*.c"
 static t_c_addend	*linking_c_position(void)
 {
 	static t_c_addend	this[] = {
