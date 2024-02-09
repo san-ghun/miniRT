@@ -6,7 +6,7 @@
 /*   By: minakim <minakim@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 21:20:11 by minakim           #+#    #+#             */
-/*   Updated: 2024/02/05 21:46:53 by minakim          ###   ########.fr       */
+/*   Updated: 2024/02/09 19:39:33 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ t_cylinder	*cy_add_position(t_cylinder *cy, t_aes addend)
 		cy->tc = vadd(cy->center, vscale(cy->normal, cy->height / 2));
 		cy->bc = vsubtract(cy->center, vscale(cy->normal, cy->height / 2));
 	}
-	printf("%s\n", addend.name);
 	return (cy);
 }
 

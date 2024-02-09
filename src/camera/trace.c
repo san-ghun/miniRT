@@ -6,7 +6,7 @@
 /*   By: sanghupa <sanghupa@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/28 18:34:37 by sanghupa          #+#    #+#             */
-/*   Updated: 2024/01/30 18:28:05 by minakim          ###   ########.fr       */
+/*   Updated: 2024/02/09 18:55:36 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,9 @@ static t_vec3	point_light_get(t_hit *rec, t_subrt *rt_l, t_obj *objs[])
 							light_dir);
 	if (in_shadow(light_ray, light_len, objs) || (rt_l->ratio == 0.0))
 		return ((t_vec3){0.0, 0.0, 0.0});
-	rt_l->vector2 = vscale((t_vec3){1.0, 1.0, 1.0}, rt_l->ratio);
+	// (t_vec3){1.0, 1.0, 1.0} << rt->l / rt_l->color
+//	rt_l->vector2 = vscale((t_vec3){1.0, 1.0, 1.0}, rt_l->ratio);
+	rt_l->vector2 = vscale(rt_l->color, rt_l->ratio);
 	diffuse = vscale(rt_l->vector2, fmax(0.0, vdot(rec->normal, light_dir)));
 	diffuse = vscale(vmult(diffuse, rec->mat->albedo), LUMEN);
 	diffuse.x = diffuse.x / (rt_l->vector2.x + \
