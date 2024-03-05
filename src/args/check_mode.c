@@ -6,7 +6,7 @@
 /*   By: minakim <minakim@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 17:28:53 by minakim           #+#    #+#             */
-/*   Updated: 2024/03/05 17:29:19 by minakim          ###   ########.fr       */
+/*   Updated: 2024/03/05 19:14:32 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	mode_fail(int *target)
 	return (FALSE);
 }
 
-int mode_success(char **argv, t_mode *mode, const char *flag)
+int	mode_success(char **argv, t_mode *mode, const char *flag)
 {
 	if (ft_strequ(flag, FLAG_DEBUG))
 		mode->debug_mode = TRUE;
@@ -36,7 +36,7 @@ int mode_success(char **argv, t_mode *mode, const char *flag)
 t_bool	try_debug_mode(int argc, char *argv[], t_mode *mode)
 {
 	int	i;
-	
+
 	i = 0;
 	if (argc < 3 || argc > 5)
 		return (FALSE);
@@ -58,7 +58,7 @@ t_bool	try_debug_mode(int argc, char *argv[], t_mode *mode)
 t_bool	try_image_mode(int argc, char *argv[], t_mode *mode)
 {
 	int	i;
-	
+
 	i = 0;
 	if (argc < 3 || argc > 5)
 		return (FALSE);
@@ -67,7 +67,8 @@ t_bool	try_image_mode(int argc, char *argv[], t_mode *mode)
 		if (ft_strequ(argv[i], FLAG_WIDTH))
 		{
 			if (ft_atoi(argv[i + 1]) <= 0 || ft_atoi(argv[i + 1]) > MAX_WIDTH)
-				return (printf("width: 1 >= && <= 1921\n"), mode_fail(&(mode->image_mode)));
+				return (printf("width: 1 >= && <= 1921\n"), \
+					mode_fail(&(mode->image_mode)));
 			if (mode->image_index == -1)
 				mode->image_index = i;
 			else

@@ -6,7 +6,7 @@
 /*   By: minakim <minakim@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 17:21:38 by minakim           #+#    #+#             */
-/*   Updated: 2024/03/05 17:29:38 by minakim          ###   ########.fr       */
+/*   Updated: 2024/03/05 19:10:06 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,14 +59,16 @@ int		error_wrong_range(int identifier, int index);
 int		error_invalid_element(int identifier, int index);
 int		error_args(int err_code);
 
-
 ///	single_mode.c
 t_mode	*single_mode(void);
 int		set_image_width(int width);
+void	init_array_6(int arr[]);
+t_bool	check_filename(char *filename);
 
 ///	args_check.c
 t_bool	args_check(int argc, char *argv[]);
 
+/// check_mode.c
 t_bool	try_debug_mode(int argc, char *argv[], t_mode *mode);
 t_bool	try_image_mode(int argc, char *argv[], t_mode *mode);
 

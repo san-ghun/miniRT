@@ -6,7 +6,7 @@
 /*   By: minakim <minakim@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 17:26:27 by minakim           #+#    #+#             */
-/*   Updated: 2024/03/05 17:26:27 by minakim          ###   ########.fr       */
+/*   Updated: 2024/03/05 18:54:31 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	error_invalid_element(int identifier, int index)
 	return (42);
 }
 
-int error_args(int err_code)
+int	error_args(int err_code)
 {
 	printf("args: ");
 	if (err_code == ERR_RT_FILE)
@@ -51,6 +51,9 @@ int error_args(int err_code)
 		printf("incorrect flag found.\n");
 	else if (err_code == ERR_SYNTAX)
 		printf("wrong syntax.\n");
-	printf("syntax: ./miniRT filename.rt (-d) (-w IMAGE_WIDTH)\n");
+	printf("syntax: ./miniRT filename.rt [OPTIONS] ...\n");
+	printf("Options:\n");
+	printf("  -d,\t\t--debug\tEnable debug mode\n");
+	printf("  -w NUMBERIC,\t--width\tChange image width to the specified value\n");
 	return (FALSE);
 }
