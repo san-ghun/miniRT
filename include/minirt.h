@@ -6,7 +6,7 @@
 /*   By: sanghupa <sanghupa@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 14:23:17 by sanghupa          #+#    #+#             */
-/*   Updated: 2024/02/05 21:59:24 by minakim          ###   ########.fr       */
+/*   Updated: 2024/03/05 17:32:55 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,8 +82,6 @@
 /// Prevent Heap mem leak: use addition to char or array (dev)
 # define DATA_SIZE	3072
 
-# define N_THREAD	8
-
 /*
 ** -----------------------------------------------------------------------------
 ** Result Macros
@@ -121,6 +119,7 @@ typedef struct s_resource {
 	int			len_mats;
 	t_thread	**pths;
 	t_mux		*lock;
+	t_mode		*mode;
 }				t_resource;
 
 typedef struct s_temp {
@@ -147,6 +146,7 @@ typedef struct s_vars {
 	t_container	*container;
 }				t_vars;
 
+
 /*
 ** =============================================================================
 ** Function
@@ -161,6 +161,8 @@ t_resource	*new_resource(void);
 /// singleton.c
 t_vars		*single_vars(void);
 t_resource	*single_rsc(void);
+t_mode		*single_mode(void);
+
 
 /// close.c
 void		ft_free_2d(void **targets);
@@ -187,8 +189,5 @@ void		append_obj(t_obj *target);
 void		append_mat(t_material *target, char *name);
 t_material	*find_mat(char *name);
 void		apply_dotrt(t_dotrt *rt);
-
-/// utils.c
-int			set_image_width(int width);
 
 #endif

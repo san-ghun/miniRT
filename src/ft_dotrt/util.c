@@ -6,7 +6,7 @@
 /*   By: minakim <minakim@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/07 16:07:14 by minakim           #+#    #+#             */
-/*   Updated: 2024/01/07 16:07:14 by minakim          ###   ########.fr       */
+/*   Updated: 2024/03/05 17:11:02 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,4 +48,9 @@ void	unify_spacekind(char *s)
 			*s = SPACE;
 		s++;
 	}
+}
+
+void	print_status_mode(void)
+{
+
 }

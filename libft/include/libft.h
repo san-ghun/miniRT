@@ -135,7 +135,7 @@ int		ft_atoi(const char *str);
 /// @brief duplicate string
 /// @param s1 pointer to the null-terminated byte string to duplicate.
 /// @return a pointer to the newly allocated string, 
-/// or a NULL pointer if an error occurred.
+/// or a NULL pointer if an args occurred.
 char	*ft_strdup(const char *s1);
 
 /* string (non-lib) functions */

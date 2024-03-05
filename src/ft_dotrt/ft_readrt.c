@@ -6,7 +6,7 @@
 /*   By: sanghupa <sanghupa@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 16:51:48 by sanghupa          #+#    #+#             */
-/*   Updated: 2024/01/08 22:24:58 by minakim          ###   ########.fr       */
+/*   Updated: 2024/03/05 17:31:55 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	execute_subrt(char **array)
 	func_to_run = classify_element_type(array[0]);
 	if (func_to_run == NULL)
 	{
-		ft_printf("error: invalid identifier\n");
+		printf("args: invalid identifier\n");
 		return (INVALID);
 	}
 	if (func_to_run(array) != VALID)
@@ -84,7 +84,6 @@ int	convert_dotrt_format(int fd)
 		free(trim);
 		line = get_next_line(fd);
 	}
-	/// FIXME: del later
 	print_rt();
 	return (VALID);
 }
@@ -97,18 +96,18 @@ t_dotrt	*read_rt(char *filename)
 	rt = single_rt();
 	if (access(filename, R_OK) != 0)
 	{
-		ft_printf("error: checking file access.\n");
+		printf("args: checking file access.\n");
 		return (NULL);
 	}
 	fd = open(filename, O_RDONLY);
 	if (fd <= 0)
 	{
-		ft_printf("error: can't open file.\n");
+		printf("args: can't open file.\n");
 		return (NULL);
 	}
 	if (convert_dotrt_format(fd) != VALID)
 	{
-		ft_printf("error: target .rt file valid fail.\n");
+		printf("args: target .rt file valid fail.\n");
 		close(fd);
 		return (NULL);
 	}

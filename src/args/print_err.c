@@ -6,15 +6,15 @@
 /*   By: minakim <minakim@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 23:02:10 by minakim           #+#    #+#             */
-/*   Updated: 2024/01/07 16:53:45 by minakim          ###   ########.fr       */
+/*   Updated: 2024/03/05 17:32:29 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_error.h"
+#include "args.h"
 
 /// @param indentifier
 /// Define each element present in the ".rt" file as an `indentifier` object.
-/// This param exists to print out the specific place where the error occurred.
+/// This param exists to print out the specific place where the args occurred.
 /// For `indentifier`, only `Identifier Macros`, in "macros.h" should be entered.
 t_bool	is_objunique(int indentifier)
 {
@@ -45,14 +45,14 @@ char	*print_objname(int identifier)
 
 void	print_correct_formatting(void)
 {
-	ft_printf("an invalid formatting form was found.\n");
-	ft_printf("all forms should be separated by spaces only.\n");
+	printf("an invalid formatting form was found.\n");
+	printf("all forms should be separated by spaces only.\n");
 }
 
 void	print_error_location(int indentifier, int index)
 {
-	ft_printf("Error location: %s\n", print_objname(indentifier));
-	ft_printf("corresponding object number: %d\n", index);
+	printf("Error location: %s\n", print_objname(indentifier));
+	printf("corresponding object number: %d\n", index);
 	if (index > 1 && is_objunique(indentifier))
-		ft_printf("!warning: only one of these objects can exist.\n");
+		printf("!warning: only one of these objects can exist.\n");
 }

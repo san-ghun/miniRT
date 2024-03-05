@@ -6,12 +6,12 @@
 /*   By: minakim <minakim@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/07 14:29:37 by minakim           #+#    #+#             */
-/*   Updated: 2024/01/07 17:44:46 by minakim          ###   ########.fr       */
+/*   Updated: 2024/03/05 17:31:24 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_dotrt.h"
-#include <stdio.h> /// FIXME: printf used
+#include "args.h"
 
 void	print_vec3(t_vec3 v)
 {
@@ -65,7 +65,11 @@ void	print_rt(void)
 {
 	t_dotrt	*rt;
 	t_subrt	*sub;
+	t_mode	*mode;
 	
+	mode = single_mode();
+	if (mode->debug_mode != TRUE)
+		return ;
 	rt = single_rt();
 	printf("**Please clear or command out this file before submitting.\n");
 	printf("ft_dotrt/debug_print.c\n");

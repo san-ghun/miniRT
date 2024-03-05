@@ -25,7 +25,7 @@
 /// @brief return a line read from a file descriptor `fd`.
 /// @param fd the file descriptor to read from.
 /// @return read line if correctly behave, 
-/// or a NULL if there is nothing else to read, or an error occurred.
+/// or a NULL if there is nothing else to read, or an args occurred.
 char	*get_next_line(int fd);
 
 char	*ft_add_bufs(int fd, char *bufs);
