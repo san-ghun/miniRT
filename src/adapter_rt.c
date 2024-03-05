@@ -6,7 +6,7 @@
 /*   By: sanghupa <sanghupa@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 21:53:32 by sanghupa          #+#    #+#             */
-/*   Updated: 2024/01/01 14:12:16 by sanghupa         ###   ########.fr       */
+/*   Updated: 2024/01/27 19:01:27 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static void	apply_sp(t_dotrt *rt)
 	while (rt->sp[++i])
 	{
 		subrt = rt->sp[i];
-		mat_default = init_material(subrt->mat_type, subrt->color, 0, 0);
+		mat_default = init_material(0, subrt->color, 0, 0);
 		if (subrt->mat_type == 1)
 			mat_default->fuzz = subrt->mat_value;
 		if (subrt->mat_type == 2)

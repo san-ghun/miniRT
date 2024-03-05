@@ -6,7 +6,7 @@
 /*   By: sanghupa <sanghupa@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 21:17:42 by sanghupa          #+#    #+#             */
-/*   Updated: 2024/01/20 21:29:08 by sanghupa         ###   ########.fr       */
+/*   Updated: 2024/02/01 16:47:12 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ int	close_mlx(t_container *img)
 
 	/// NOT available in MacOS
 	/// Un-comment following if you are compiling on Linux
-	// mlx_destroy_display(vars->mlx);
+	mlx_destroy_display(vars->mlx);
 
 	free_resource(rsc);
 	free(img);

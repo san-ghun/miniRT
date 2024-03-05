@@ -1,27 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ray.c                                              :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sanghupa <sanghupa@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: minakim <minakim@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/11 00:28:34 by sanghupa          #+#    #+#             */
-/*   Updated: 2024/01/27 19:26:42 by minakim          ###   ########.fr       */
+/*   Created: 2024/01/30 17:56:55 by minakim           #+#    #+#             */
+/*   Updated: 2024/01/30 18:00:50 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ray.h"
+#include "minirt.h"
 
-t_ray	init_ray(t_vec3 origin, t_vec3 direction)
+int	set_image_width(int width)
 {
-	t_ray	this;
-
-	this.origin = origin;
-	this.direction = direction;
-	return (this);
-}
-
-t_vec3	ray_at(t_ray r, double t)
-{
-	return (vadd(r.origin, vscale(r.direction, t)));
+	int remainder;
+	
+	remainder = width % N_THREAD;
+	if (remainder != 0)
+		width += (N_THREAD - remainder);
+	return (width);
 }

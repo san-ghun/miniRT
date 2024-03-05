@@ -6,7 +6,7 @@
 /*   By: sanghupa <sanghupa@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 14:23:17 by sanghupa          #+#    #+#             */
-/*   Updated: 2024/01/20 21:14:15 by sanghupa         ###   ########.fr       */
+/*   Updated: 2024/02/05 21:59:24 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@
 # include "interval.h"
 # include "camera.h"
 # include "ft_dotrt.h"
+# include "addend.h"
 
 /// key mapping
 # if __linux__
@@ -186,5 +187,8 @@ void		append_obj(t_obj *target);
 void		append_mat(t_material *target, char *name);
 t_material	*find_mat(char *name);
 void		apply_dotrt(t_dotrt *rt);
+
+/// utils.c
+int			set_image_width(int width);
 
 #endif
