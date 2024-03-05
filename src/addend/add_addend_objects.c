@@ -17,7 +17,7 @@ t_plane	*pl_add_position(t_plane *pl, t_aes addend)
 	t_vec3	n;
 	t_vec3	nomal;
 
-	if (!vecequ(addend.position, non_set()))
+	if (!vecequ(addend.position, nonset()))
 	{
 		nomal = pl->normal;
 		pl->point = vadd(pl->point, addend.position);
@@ -35,7 +35,7 @@ t_plane	*pl_add_position(t_plane *pl, t_aes addend)
 
 t_sphere	*sp_add_position(t_sphere *sp, t_aes addend)
 {
-	if (!vecequ(addend.position, non_set()))
+	if (!vecequ(addend.position, nonset()))
 	{
 		sp->center = vadd(sp->center, addend.position);
 	}
@@ -46,7 +46,7 @@ t_cylinder	*cy_add_position(t_cylinder *cy, t_aes addend)
 {
 	t_vec3	nomal;
 
-	if (!vecequ(addend.position, non_set()))
+	if (!vecequ(addend.position, nonset()))
 	{
 		nomal = cy->normal;
 		cy->center = vadd(cy->center, addend.position);

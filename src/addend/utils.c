@@ -6,7 +6,7 @@
 /*   By: minakim <minakim@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 18:15:09 by minakim           #+#    #+#             */
-/*   Updated: 2024/02/05 21:55:02 by minakim          ###   ########.fr       */
+/*   Updated: 2024/03/05 19:53:26 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ t_bool	vecequ(t_vec3 a, t_vec3 b)
 	return (FALSE);
 }
 
-t_vec3	non_set(void)
+t_vec3	nonset(void)
 {
 	return (init_vector(0, 0, 0));
 }
@@ -49,7 +49,11 @@ void	moremore(void)
 void	debug_camera(void)
 {
 	t_camera	*c;
-
+	t_mode		*mode;
+	
+	mode = single_mode();
+	if (mode->debug_mode != TRUE)
+		return ;
 	c = single_cam();
 	moremore();
 	printf("Center: (%f, %f, %f)\n", c->center.x, c->center.y, c->center.z);

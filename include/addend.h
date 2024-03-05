@@ -55,7 +55,7 @@ typedef struct s_addend
 
 /// addend/utils.c
 t_bool		vecequ(t_vec3 a, t_vec3 b);
-t_vec3		non_set(void);
+t_vec3		nonset(void);
 
 ///addend/
 void		debug_camera(void);
