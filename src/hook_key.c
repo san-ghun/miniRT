@@ -6,7 +6,7 @@
 /*   By: sanghupa <sanghupa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 17:01:26 by sanghupa          #+#    #+#             */
-/*   Updated: 2024/03/05 20:03:23 by minakim          ###   ########.fr       */
+/*   Updated: 2024/03/13 20:15:02 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,8 @@ int	get_color(void);
 int	key_hooks(int keycode, t_container *img)
 {
 	t_vars	*vars;
-	t_temp	*temp;
 
 	vars = single_vars();
-	temp = single_temp();
 
 	if (keycode == K_ESC)
 		close_mlx(img);
