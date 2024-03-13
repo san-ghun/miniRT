@@ -6,7 +6,7 @@
 /*   By: minakim <minakim@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/07 14:29:37 by minakim           #+#    #+#             */
-/*   Updated: 2024/03/05 17:31:24 by minakim          ###   ########.fr       */
+/*   Updated: 2024/03/13 18:39:37 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,11 +70,10 @@ void	print_rt(void)
 	mode = single_mode();
 	if (mode->debug_mode != TRUE)
 		return ;
+	printf("-----------------------------------------------------------\n");
+	printf("dot rt file\n");
+	printf("-----------------------------------------------------------\n");
 	rt = single_rt();
-	printf("**Please clear or command out this file before submitting.\n");
-	printf("ft_dotrt/debug_print.c\n");
-	printf("warning: This file uses printf (a prohibited function) to print double val.\n");
-	printf("\n\n");
 	sub = rt->a;
 	if (sub->type == AMBIENT)
 	{

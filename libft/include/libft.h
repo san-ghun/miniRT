@@ -6,7 +6,7 @@
 /*   By: sanghupa <sanghupa@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 16:00:38 by sanghupa          #+#    #+#             */
-/*   Updated: 2023/06/19 00:45:38 by sanghupa         ###   ########.fr       */
+/*   Updated: 2024/03/13 16:35:03 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,7 +135,7 @@ int		ft_atoi(const char *str);
 /// @brief duplicate string
 /// @param s1 pointer to the null-terminated byte string to duplicate.
 /// @return a pointer to the newly allocated string, 
-/// or a NULL pointer if an args occurred.
+/// or a NULL pointer if an error occurred.
 char	*ft_strdup(const char *s1);
 
 /* string (non-lib) functions */

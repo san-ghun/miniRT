@@ -6,7 +6,7 @@
 /*   By: minakim <minakim@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 17:28:53 by minakim           #+#    #+#             */
-/*   Updated: 2024/03/05 19:14:32 by minakim          ###   ########.fr       */
+/*   Updated: 2024/03/13 17:13:27 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,10 @@ int	mode_fail(int *target)
 int	mode_success(char **argv, t_mode *mode, const char *flag)
 {
 	if (ft_strequ(flag, FLAG_DEBUG))
+	{
 		mode->debug_mode = TRUE;
+		ft_strlcpy(mode->prompt, PROMPT_DEBUG, ft_strlen(PROMPT_DEBUG) + 1);
+	}
 	else if (ft_strequ(flag, FLAG_WIDTH))
 	{
 		mode->image_mode = TRUE;

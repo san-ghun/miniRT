@@ -6,7 +6,7 @@
 /*   By: minakim <minakim@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 17:17:47 by minakim           #+#    #+#             */
-/*   Updated: 2024/03/05 19:14:51 by minakim          ###   ########.fr       */
+/*   Updated: 2024/03/13 17:12:58 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,10 @@ t_mode	*single_mode(void)
 		.image_width = set_image_width(1000),
 		.ratio = 16.0 / 9.0,
 		.debug_mode = FALSE,
-		.debug_index = -1
+		.debug_index = -1,
 	};
-	is_init = 1;
+	ft_strlcpy(this.prompt, PROMPT_DEFAULT, ft_strlen(PROMPT_DEFAULT) + 1);
+	is_init = TRUE;
 	return (&this);
 }
 

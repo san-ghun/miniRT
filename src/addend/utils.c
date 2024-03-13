@@ -6,7 +6,7 @@
 /*   By: minakim <minakim@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 18:15:09 by minakim           #+#    #+#             */
-/*   Updated: 2024/03/05 19:53:26 by minakim          ###   ########.fr       */
+/*   Updated: 2024/03/13 18:41:57 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ void	moremore(void)
 	t_camera	*c;
 
 	c = single_cam();
-	printf("\n	[camera]\n");
 	printf("Aspect Ratio: %f\n", c->aspect_ratio);
 	printf("Image Width: %d\n", c->image_width);
 	printf("Image Height: %d\n", c->image_height);

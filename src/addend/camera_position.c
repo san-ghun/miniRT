@@ -6,13 +6,12 @@
 /*   By: minakim <minakim@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 21:01:50 by minakim           #+#    #+#             */
-/*   Updated: 2024/02/06 18:18:06 by minakim          ###   ########.fr       */
+/*   Updated: 2024/03/13 18:39:02 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-/// TODO: camera movement direction check need!
 /// TODO: documentation of "./addend/*.c"
 static t_c_addend	*linking_c_position(void)
 {
@@ -56,8 +55,8 @@ void	adjust_camera_position(int keycode)
 	{
 		if (keycode == table[i].keycode)
 		{
+			print_prompt_addend("camera", table[i].name);
 			move_camera_lockfrom(table[i].addend);
-			printf("> %s\n", table[i].name);
 			return ;
 		}
 	}
