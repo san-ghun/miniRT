@@ -22,7 +22,7 @@
 # include "vector.h"
 # include "hittable.h"
 
-# include "ft_error.h"
+# include "args.h"
 # include "macro.h"
 # include "get_next_line.h"
 # include "from_ms.h"

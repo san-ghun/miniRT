@@ -8,7 +8,8 @@ set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -Werror -Wextra -g")
 
 # libft
 file(GLOB_RECURSE LIBFT_SOURCES "libft/*/*.c")
-add_library(libft STATIC ${LIBFT_SOURCES})
+add_library(libft STATIC ${LIBFT_SOURCES}
+		src/args/single_mode.c)
 target_include_directories(libft PUBLIC libft/include)
 
 # mlx lib

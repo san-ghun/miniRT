@@ -6,7 +6,7 @@
 /*   By: minakim <minakim@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 17:57:57 by minakim           #+#    #+#             */
-/*   Updated: 2024/02/05 21:43:02 by minakim          ###   ########.fr       */
+/*   Updated: 2024/03/13 17:17:45 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,12 +50,12 @@ typedef struct s_addend
 	int		keycode;
 	int 	type;
 	t_vec3	position;
-	char	name[20];
+	char	name[30];
 }			t_aes;
 
 /// addend/utils.c
 t_bool		vecequ(t_vec3 a, t_vec3 b);
-t_vec3		non_set(void);
+t_vec3		nonset(void);
 
 ///addend/
 void		debug_camera(void);

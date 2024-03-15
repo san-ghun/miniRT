@@ -6,7 +6,7 @@
 /*   By: minakim <minakim@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 21:18:46 by minakim           #+#    #+#             */
-/*   Updated: 2024/02/06 16:44:44 by minakim          ###   ########.fr       */
+/*   Updated: 2024/03/13 18:42:18 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,8 @@ void	adjust_object(int keycode)
 			if (table[i].type == PLANE || table[i].type == SPHERE \
 				|| table[i].type == CYLINDER)
 			{
+				print_prompt_object(table[i].name);
 				find_obj_and_addend(table[i]);
-				printf("> %s\n", table[i].name);
 			}
 			return ;
 		}

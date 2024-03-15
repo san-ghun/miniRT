@@ -6,11 +6,11 @@
 /*   By: minakim <minakim@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 22:49:49 by minakim           #+#    #+#             */
-/*   Updated: 2024/01/07 16:54:29 by minakim          ###   ########.fr       */
+/*   Updated: 2024/03/13 16:35:53 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_error.h"
+#include "args.h"
 
 int	error_wrong_range(int identifier, int index)
 {
@@ -28,9 +28,20 @@ int	error_invalid_element(int identifier, int index)
 	return (42);
 }
 
-int error_no_input(void)
+int	error_args(int err_code)
 {
-	ft_printf("please include the .rt file.\n"
-			  "./miniRT filename.rt\n");
-	return (INVALID);
+	printf("args: ");
+	if (err_code == ERR_RT_FILE)
+		printf("please include one '.rt' file.\n");
+	else if (err_code == ERR_ARGS)
+		printf("too many/less arguments.\n");
+	else if (err_code == ERR_FLAG_FAIL)
+		printf("incorrect flag found.\n");
+	else if (err_code == ERR_SYNTAX)
+		printf("wrong syntax.\n");
+	printf("syntax: ./miniRT filename.rt [OPTIONS] ...\n");
+	printf("Options:\n");
+	printf("  -d,\t\t--debug\tEnable debug mode\n");
+	printf("  -w NUMBERIC,\t--width\tChange image width to the specified value\n");
+	return (FALSE);
 }

@@ -6,7 +6,7 @@
 /*   By: sanghupa <sanghupa@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 16:57:57 by sanghupa          #+#    #+#             */
-/*   Updated: 2023/12/27 22:37:51 by sanghupa         ###   ########.fr       */
+/*   Updated: 2024/03/05 14:44:59 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ t_resource	*new_resource(void)
 	i = -1;
 	while (++i < N_THREAD)
 		rsc->pths[i] = new_thread(i);
+	rsc->mode = single_mode();
 	return (rsc);
 }
 

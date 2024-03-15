@@ -6,7 +6,7 @@
 /*   By: minakim <minakim@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 21:25:27 by minakim           #+#    #+#             */
-/*   Updated: 2024/02/06 16:45:03 by minakim          ###   ########.fr       */
+/*   Updated: 2024/03/13 20:15:17 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,11 +72,11 @@ void	adjust_camera_orientation(int keycode)
 	{
 		if (keycode == table[i].keycode)
 		{
+			print_prompt_addend("camera", table[i].name);
 			if (keycode == K_SP)
 				rollback_camera();
 			else
 				move_camera_all(table[i].addend);
-			printf("> %s\n", table[i].name);
 			return ;
 		}
 	}
