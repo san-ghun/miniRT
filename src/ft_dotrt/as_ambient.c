@@ -6,7 +6,7 @@
 /*   By: minakim <minakim@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/07 16:16:29 by minakim           #+#    #+#             */
-/*   Updated: 2024/01/07 17:30:21 by minakim          ###   ########.fr       */
+/*   Updated: 2024/03/05 19:59:09 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,7 @@ int	as_ambient(char **array)
 {
 	char	**rgb;
 	static int	obj_n = 0;
-	
-	
+
 	rgb = NULL;
 	if (++obj_n > 1)
 		return (error_invalid_element(AMBIENT, obj_n));
