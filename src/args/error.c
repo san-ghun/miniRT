@@ -6,7 +6,7 @@
 /*   By: minakim <minakim@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 22:49:49 by minakim           #+#    #+#             */
-/*   Updated: 2024/03/13 16:35:53 by minakim          ###   ########.fr       */
+/*   Updated: 2024/05/07 17:06:02 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,5 +43,17 @@ int	error_args(int err_code)
 	printf("Options:\n");
 	printf("  -d,\t\t--debug\tEnable debug mode\n");
 	printf("  -w NUMBERIC,\t--width\tChange image width to the specified value\n");
+	return (FALSE);
+}
+
+/// @param indentifier
+/// Define each element present in the ".rt" file as an `indentifier` object.
+/// This param exists to print out the specific place where the args occurred.
+/// For `indentifier`,
+/// only `Identifier Macros`, in "macros.h" should be entered.
+t_bool	is_objunique(int indentifier)
+{
+	if (indentifier == AMBIENT || indentifier == CAMERA || indentifier == LIGHT)
+		return (TRUE);
 	return (FALSE);
 }

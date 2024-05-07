@@ -6,23 +6,21 @@
 /*   By: minakim <minakim@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 23:02:10 by minakim           #+#    #+#             */
-/*   Updated: 2024/03/13 18:53:57 by minakim          ###   ########.fr       */
+/*   Updated: 2024/05/07 20:37:01 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "args.h"
 
-// TODO: separates file (print functions)
-// TODO: feat: show subrt status in debug mode
 void	print_prompt(char *msg)
 {
 	t_mode	*mode;
 
 	mode = single_mode();
 	if (msg == NULL)
-		printf("%s: ", mode->prompt);
+		printf("%s", mode->prompt);
 	else
-		printf("%s: %s\n", mode->prompt, msg);
+		printf("%s%s\n", mode->prompt, msg);
 }
 
 void	print_prompt_addend(char *target, char *msg)
@@ -33,11 +31,11 @@ void	print_prompt_addend(char *target, char *msg)
 	if (mode->debug_mode == TRUE)
 	{
 		printf("--------------------------------------------------\n");
-		printf("%s %s: %s\n", mode->prompt, target, msg);
+		printf("%s%s: %s\n", mode->prompt, target, msg);
 		printf("--------------------------------------------------\n");
 	}
 	else
-		printf("%s %s: %s\n", mode->prompt, target, msg);
+		printf("%s%s: %s\n", mode->prompt, target, msg);
 }
 
 void	print_prompt_object(char *msg)
@@ -48,25 +46,12 @@ void	print_prompt_object(char *msg)
 	if (mode->debug_mode == TRUE)
 	{
 		printf("--------------------------------------------------\n");
-		printf("%s %s\n", mode->prompt, msg);
+		printf("%s    %s\n", mode->prompt, msg);
 		printf("--------------------------------------------------\n");
-//		show_subrt();
 		printf("\n\n");
 	}
 	else
-		printf("%s: %s\n", mode->prompt, msg);
-}
-
-/// @param indentifier
-/// Define each element present in the ".rt" file as an `indentifier` object.
-/// This param exists to print out the specific place where the args occurred.
-/// For `indentifier`,
-/// only `Identifier Macros`, in "macros.h" should be entered.
-t_bool	is_objunique(int indentifier)
-{
-	if (indentifier == AMBIENT || indentifier == CAMERA || indentifier == LIGHT)
-		return (TRUE);
-	return (FALSE);
+		printf("%s    %s\n", mode->prompt, msg);
 }
 
 /// @note In the concatenated function,

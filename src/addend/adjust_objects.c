@@ -6,7 +6,7 @@
 /*   By: minakim <minakim@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 21:18:46 by minakim           #+#    #+#             */
-/*   Updated: 2024/03/13 18:42:18 by minakim          ###   ########.fr       */
+/*   Updated: 2024/05/07 20:49:10 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,24 +14,24 @@
 
 static void	init_keycode_connect(t_aes *this)
 {
-	this[0] = (t_aes){K_R, PLANE, {DISTANCE, 0, 0}, "pl: right"};
-	this[1] = (t_aes){K_Q, PLANE, {-DISTANCE, 0, 0}, "pl: left"};
-	this[2] = (t_aes){K_W, PLANE, {0, DISTANCE, 0}, "pl: up"};
-	this[3] = (t_aes){K_E, PLANE, {0, -DISTANCE, 0}, "pl: down"};
-	this[4] = (t_aes){K_T, PLANE, {0, 0, DISTANCE}, "pl: adding depth"};
-	this[5] = (t_aes){K_Y, PLANE, {0, 0, -DISTANCE}, "pl: reducing depth"};
-	this[6] = (t_aes){K_F, SPHERE, {DISTANCE, 0, 0}, "sp: right"};
-	this[7] = (t_aes){K_A, SPHERE, {-DISTANCE, 0, 0}, "sp: left"};
-	this[8] = (t_aes){K_S, SPHERE, {0, DISTANCE, 0}, "sp: up"};
-	this[9] = (t_aes){K_D, SPHERE, {0, -DISTANCE, 0}, "sp: down"};
-	this[10] = (t_aes){K_G, SPHERE, {0, 0, DISTANCE}, "sp: adding depth"};
-	this[11] = (t_aes){K_H, SPHERE, {0, 0, -DISTANCE}, "sp: reducing depth"};
-	this[12] = (t_aes){K_V, CYLINDER, {DISTANCE, 0, 0}, "cy: right"};
-	this[13] = (t_aes){K_Z, CYLINDER, {-DISTANCE, 0, 0}, "cy: left"};
-	this[14] = (t_aes){K_X, CYLINDER, {0, DISTANCE, 0}, "cy: up"};
-	this[15] = (t_aes){K_C, CYLINDER, {0, -DISTANCE, 0}, "cy: down"};
-	this[16] = (t_aes){K_B, CYLINDER, {0, 0, DISTANCE}, "cy: adding depth"};
-	this[17] = (t_aes){K_N, CYLINDER, {0, 0, -DISTANCE}, "cy: reducing depth"};
+	this[0] = (t_aes){K_V, PLANE, {DISTANCE, 0, 0}, "pl: right"};
+	this[1] = (t_aes){K_Z, PLANE, {-DISTANCE, 0, 0}, "pl: left"};
+	this[2] = (t_aes){K_X, PLANE, {0, DISTANCE, 0}, "pl: up"};
+	this[3] = (t_aes){K_C, PLANE, {0, -DISTANCE, 0}, "pl: down"};
+	this[4] = (t_aes){K_B, PLANE, {0, 0, DISTANCE}, "pl: adding depth"};
+	this[5] = (t_aes){K_N, PLANE, {0, 0, -DISTANCE}, "pl: reducing depth"};
+	this[6] = (t_aes){K_R, SPHERE, {DISTANCE, 0, 0}, "sp: right"};
+	this[7] = (t_aes){K_Q, SPHERE, {-DISTANCE, 0, 0}, "sp: left"};
+	this[8] = (t_aes){K_W, SPHERE, {0, DISTANCE, 0}, "sp: up"};
+	this[9] = (t_aes){K_E, SPHERE, {0, -DISTANCE, 0}, "sp: down"};
+	this[10] = (t_aes){K_T, SPHERE, {0, 0, DISTANCE}, "sp: adding depth"};
+	this[11] = (t_aes){K_Y, SPHERE, {0, 0, -DISTANCE}, "sp: reducing depth"};
+	this[12] = (t_aes){K_F, CYLINDER, {DISTANCE, 0, 0}, "cy: right"};
+	this[13] = (t_aes){K_A, CYLINDER, {-DISTANCE, 0, 0}, "cy: left"};
+	this[14] = (t_aes){K_S, CYLINDER, {0, DISTANCE, 0}, "cy: up"};
+	this[15] = (t_aes){K_D, CYLINDER, {0, -DISTANCE, 0}, "cy: down"};
+	this[16] = (t_aes){K_G, CYLINDER, {0, 0, DISTANCE}, "cy: adding depth"};
+	this[17] = (t_aes){K_H, CYLINDER, {0, 0, -DISTANCE}, "cy: reducing depth"};
 }
 
 static t_aes	*linking_objects(void)
