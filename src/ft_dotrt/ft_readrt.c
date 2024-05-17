@@ -13,7 +13,7 @@
 #include "ft_dotrt.h"
 
 /// as_sphere, as_plaib, as_cylinder
-f_type	classify_element_type(char *input)
+t_type	classify_element_type(char *input)
 {
 	if (ft_strnequ(input, "A", 2))
 		return (as_ambient);
@@ -33,7 +33,7 @@ f_type	classify_element_type(char *input)
 
 int	execute_subrt(char **array)
 {
-	f_type		func_to_run;
+	t_type		func_to_run;
 	static int	msg_trigger = TRUE;
 
 	func_to_run = classify_element_type(array[0]);
@@ -56,7 +56,7 @@ int	process_subrt(char *line)
 	char	**array;
 
 	unify_spacekind(line);
-	array = ft_split(line, SPACE);
+	array = ft_split(line, C_SPACE);
 	if (!array)
 		return (INVALID);
 	if (execute_subrt(array) != VALID)

@@ -6,7 +6,7 @@
 /*   By: sanghupa <sanghupa@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/28 18:34:37 by sanghupa          #+#    #+#             */
-/*   Updated: 2024/05/17 15:52:16 by minakim          ###   ########.fr       */
+/*   Updated: 2024/05/17 17:41:40 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ static t_vec3	phong_lighting(t_hit *rec, t_obj *objs[])
 	rt_l = single_rt()->l;
 	ambient = vscale(rt_al->color, rt_al->ratio);
 	ambient = vmult(ambient, rec->mat->albedo);
-	ambient = vscale(ambient, 0.001);
+	ambient = vscale(ambient, 0.005);
 	light_color = (t_vec3){0.0, 0.0, 0.0};
 	light_color = vadd(light_color, point_light_get(rec, rt_l, objs));
 	light_color = vadd(light_color, ambient);

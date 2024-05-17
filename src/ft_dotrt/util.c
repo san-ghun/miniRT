@@ -45,7 +45,7 @@ void	unify_spacekind(char *s)
 	while (*s)
 	{
 		if (is_whitespace(*s))
-			*s = SPACE;
+			*s = C_SPACE;
 		s++;
 	}
 }

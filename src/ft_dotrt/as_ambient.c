@@ -17,7 +17,7 @@
 int		verify_ambient_element(char **array, char ***rgb, int obj_n);
 void	set_rt_ambient(char *ratio, char **rgb);
 
-/// \param	array This array is the result of ft_split args by SPACE.
+/// \param	array This array is the result of ft_split args by C_SPACE.
 ///	`free` this array at `process_subrt` function
 /// \return	to valid/invalid
 ///		@line_33: Determine how many elements target object needs

@@ -62,13 +62,7 @@
 # include "addend.h"
 
 /// key mapping
-# if __linux__
 # include "key_linux.h"
-# elif __APPLE__
-# include "key_macos.h"
-# else
-# error "Unknown OS"
-# endif
 
 /*
 ** =============================================================================
@@ -146,7 +140,6 @@ typedef struct s_vars {
 	t_container	*container;
 }				t_vars;
 
-
 /*
 ** =============================================================================
 ** Function
@@ -162,7 +155,6 @@ t_resource	*new_resource(void);
 t_vars		*single_vars(void);
 t_resource	*single_rsc(void);
 t_mode		*single_mode(void);
-
 
 /// close.c
 void		ft_free_2d(void **targets);
