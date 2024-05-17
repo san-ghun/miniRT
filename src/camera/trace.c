@@ -6,7 +6,7 @@
 /*   By: sanghupa <sanghupa@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/28 18:34:37 by sanghupa          #+#    #+#             */
-/*   Updated: 2024/02/09 18:55:36 by minakim          ###   ########.fr       */
+/*   Updated: 2024/05/17 15:52:16 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,6 @@ static t_bool	in_shadow(t_ray ray, double lim, t_obj *objs[])
 	return (0);
 }
 
-// static t_vec3	modify_light_color()
-// {}
-
 static t_vec3	point_light_get(t_hit *rec, t_subrt *rt_l, t_obj *objs[])
 {
 	t_vec3	diffuse;
@@ -51,8 +48,6 @@ static t_vec3	point_light_get(t_hit *rec, t_subrt *rt_l, t_obj *objs[])
 							light_dir);
 	if (in_shadow(light_ray, light_len, objs) || (rt_l->ratio == 0.0))
 		return ((t_vec3){0.0, 0.0, 0.0});
-	// (t_vec3){1.0, 1.0, 1.0} << rt->l / rt_l->color
-//	rt_l->vector2 = vscale((t_vec3){1.0, 1.0, 1.0}, rt_l->ratio);
 	rt_l->vector2 = vscale(rt_l->color, rt_l->ratio);
 	diffuse = vscale(rt_l->vector2, fmax(0.0, vdot(rec->normal, light_dir)));
 	diffuse = vscale(vmult(diffuse, rec->mat->albedo), LUMEN);
@@ -66,8 +61,6 @@ static t_vec3	point_light_get(t_hit *rec, t_subrt *rt_l, t_obj *objs[])
 				rt_l->vector2.z * 0.1 * light_len + \
 				rt_l->vector2.z * 0.01 * light_len * light_len);
 	return (vscale(diffuse, rt_l->ratio));
-//	var specular;
-//	return (vscale(vadd(diffuse, specular), rt_l->ratio));
 }
 
 static t_vec3	phong_lighting(t_hit *rec, t_obj *objs[])
@@ -84,7 +77,6 @@ static t_vec3	phong_lighting(t_hit *rec, t_obj *objs[])
 	ambient = vscale(ambient, 0.001);
 	light_color = (t_vec3){0.0, 0.0, 0.0};
 	light_color = vadd(light_color, point_light_get(rec, rt_l, objs));
-//	light_color = vadd(light_color, specural_light_get(a, b, c));
 	light_color = vadd(light_color, ambient);
 	return (light_color);
 }

@@ -27,7 +27,7 @@ int	valid_tuple(char **ele, int id, int i, f_range is_range)
 {
 	double	val;
 	int		j;
-	
+
 	j = -1;
 	if (!ele || !*ele)
 		return (INVALID);
@@ -52,7 +52,7 @@ int	valid_tuple(char **ele, int id, int i, f_range is_range)
 t_vec3	set_tuple(char **v)
 {
 	t_vec3	target;
-	
+
 	target = (t_vec3){ft_stod(v[0]), ft_stod(v[1]), ft_stod(v[2])};
 	ft_arr_free(v);
 	return (target);

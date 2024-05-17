@@ -6,7 +6,7 @@
 /*   By: sanghupa <sanghupa@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 14:22:52 by sanghupa          #+#    #+#             */
-/*   Updated: 2024/05/08 15:11:22 by minakim          ###   ########.fr       */
+/*   Updated: 2024/05/17 15:50:40 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,18 +33,23 @@ static void	mlx_run(t_vars *vars, t_container *container)
 	mlx_loop(vars->mlx);
 }
 
-void print_menu(void)
+void	print_menu(void)
 {
-	printf("|-------------------------------------------------------------------------------------------|\n");
+	printf("|--------------------------------------------------------" \
+		"-----------------------------------|\n");
 	printf("  Menu:\n");
-	printf("  1. Move sphere: Q[left], W[up], E[down], R[right], T[adding depth], Y[reducing depth]\n");
-	printf("  2. Move cylinder: A[left], S[up], D[down], F[right], G[adding depth], H[reducing depth]\n");
-	printf("  3. Move planer: Z[left], X[up], C[down], V[right], V[adding depth], B[reducing depth]\n");
+	printf("  1. Move sphere: Q[left], W[up], E[down], R[right]," \
+		" T[adding depth], Y[reducing depth]\n");
+	printf("  2. Move cylinder: A[left], S[up], D[down], F[right]," \
+		" G[adding depth], H[reducing depth]\n");
+	printf("  3. Move planer: Z[left], X[up], C[down], V[right]," \
+		" V[adding depth], B[reducing depth]\n");
 	printf("  4. Camera type 1 rotation: Up, Down, Left, Right\n");
-	printf("  5. Camera type 2 move camera: J[left], I[up], K[down], L[right]\n");
-	printf("|-------------------------------------------------------------------------------------------|\n");
+	printf("  5. Camera type 2 move camera: J[left], I[up], "
+		"K[down], L[right]\n");
+	printf("|-------------------------------------------------------" \
+		"------------------------------------|\n");
 }
-
 
 int	main(int argc, char *argv[])
 {

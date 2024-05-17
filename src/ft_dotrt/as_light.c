@@ -15,7 +15,7 @@
 int	verify_light_element(char **array, char ***point, char ***rgb, int obj_n)
 {
 	double	ratio;
-	
+
 	ratio = ft_stod(array[L_RATIO]);
 	if (isnan(ratio) || !is_ratio(ratio))
 		return (error_invalid_element(LIGHT, obj_n));
@@ -31,7 +31,7 @@ int	verify_light_element(char **array, char ***point, char ***rgb, int obj_n)
 void	set_rt_light(char **light_point, char *ratio, char **rgb)
 {
 	t_dotrt	*rt;
-	
+
 	rt = single_rt();
 	rt->l->type = LIGHT;
 	rt->l->point = set_tuple(light_point);
@@ -41,10 +41,10 @@ void	set_rt_light(char **light_point, char *ratio, char **rgb)
 
 int	as_light(char **array)
 {
-	char	**light_point;
-	char	**rgb;
+	char		**light_point;
+	char		**rgb;
 	static int	obj_n = 0;
-	
+
 	light_point = NULL;
 	rgb = NULL;
 	if (++obj_n > 1)

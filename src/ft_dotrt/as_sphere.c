@@ -15,8 +15,8 @@
 void	set_rt_sphere(char **point, char **rgb, char *diameter)
 {
 	t_dotrt	*rt;
-	t_subrt *sub;
-	
+	t_subrt	*sub;
+
 	rt = single_rt();
 	sub = init_subrt();
 	sub->type = SPHERE;
@@ -30,7 +30,7 @@ void	set_rt_sphere(char **point, char **rgb, char *diameter)
 int	verify_sphere_element(char **array, char ***point, char ***rgb, int index)
 {
 	double	diameter;
-	
+
 	diameter = ft_stod(array[SP_DIAMETER]);
 	if (isnan(diameter) || !is_unit(diameter))
 		return (error_invalid_element(SPHERE, index));
@@ -48,7 +48,7 @@ int	as_sphere(char **array)
 	t_dotrt	*rt;
 	char	**point;
 	char	**rgb;
-	
+
 	rt = single_rt();
 	if (array_len(array) != 4)
 		return (error_invalid_element(SPHERE, rt->cnt_sp));

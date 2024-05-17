@@ -14,7 +14,7 @@
 /// I document this function as a sample.
 #include "ft_dotrt.h"
 
-int		verify_ambient_element(char **array,char ***rgb, int obj_n);
+int		verify_ambient_element(char **array, char ***rgb, int obj_n);
 void	set_rt_ambient(char *ratio, char **rgb);
 
 /// \param	array This array is the result of ft_split args by SPACE.
@@ -28,7 +28,7 @@ void	set_rt_ambient(char *ratio, char **rgb);
 /// 	`free` that array at `set_rgb` or `set_tuple`.
 int	as_ambient(char **array)
 {
-	char	**rgb;
+	char		**rgb;
 	static int	obj_n = 0;
 
 	rgb = NULL;
@@ -53,10 +53,10 @@ int	as_ambient(char **array)
 /// 	`isnan` checks the result to validate result of ft_stod.
 ///		! "nan" dependency on <math.h>
 /// \return to valid/invalid
-int	verify_ambient_element(char **array,char ***rgb, int obj_n)
+int	verify_ambient_element(char **array, char ***rgb, int obj_n)
 {
 	double	ratio;
-	
+
 	if (obj_n > 1)
 		return (error_invalid_element(AMBIENT, obj_n));
 	ratio = ft_stod(array[A_RATIO]);
@@ -74,7 +74,7 @@ int	verify_ambient_element(char **array,char ***rgb, int obj_n)
 void	set_rt_ambient(char *ratio, char **rgb)
 {
 	t_dotrt		*rt;
-	
+
 	rt = single_rt();
 	rt->a->type = AMBIENT;
 	rt->a->ratio = ft_stod(ratio);

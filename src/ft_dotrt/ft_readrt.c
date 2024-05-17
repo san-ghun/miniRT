@@ -6,7 +6,7 @@
 /*   By: sanghupa <sanghupa@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 16:51:48 by sanghupa          #+#    #+#             */
-/*   Updated: 2024/05/07 20:36:13 by minakim          ###   ########.fr       */
+/*   Updated: 2024/05/17 17:04:25 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,17 @@ f_type	classify_element_type(char *input)
 
 int	execute_subrt(char **array)
 {
-	f_type	func_to_run;
+	f_type		func_to_run;
+	static int	msg_trigger = TRUE;
 
 	func_to_run = classify_element_type(array[0]);
 	if (func_to_run == NULL)
 	{
-		print_prompt("args: invalid identifier.");
+		if (msg_trigger == TRUE)
+		{
+			print_prompt("args: invalid identifier.");
+			msg_trigger = FALSE;
+		}
 		return (INVALID);
 	}
 	if (func_to_run(array) != VALID)
@@ -55,19 +60,18 @@ int	process_subrt(char *line)
 	if (!array)
 		return (INVALID);
 	if (execute_subrt(array) != VALID)
-			return (ft_arr_free(array), INVALID);
+		return (ft_arr_free(array), INVALID);
 	ft_arr_free(array);
 	return (VALID);
 }
 
-
 int	convert_dotrt_format(int fd)
 {
-	char 	*line;
+	char	*line;
 	char	*trim;
-	t_bool	is_correct_rt_file;
-	
-	is_correct_rt_file = TRUE;
+	int		validate_rt;
+
+	validate_rt = VALID;
 	line = get_next_line(fd);
 	if (!line)
 		return (INVALID);
@@ -82,20 +86,17 @@ int	convert_dotrt_format(int fd)
 		trim = ft_strtrim(line, "\n");
 		free(line);
 		if (process_subrt(trim) != VALID)
-			is_correct_rt_file = FALSE;
+			validate_rt = INVALID;
 		free(trim);
 		line = get_next_line(fd);
 	}
-	print_rt();
-	if (is_correct_rt_file != TRUE)
-		return (INVALID);
-	return (VALID);
+	return (print_rt(), validate_rt);
 }
 
 t_dotrt	*read_rt(char *filename)
 {
 	t_dotrt	*rt;
-	int 	fd;
+	int		fd;
 
 	rt = single_rt();
 	if (access(filename, R_OK) != 0)

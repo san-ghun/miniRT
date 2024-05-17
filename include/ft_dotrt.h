@@ -6,7 +6,7 @@
 /*   By: sanghupa <sanghupa@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 16:43:00 by sanghupa          #+#    #+#             */
-/*   Updated: 2024/01/07 17:00:38 by minakim          ###   ########.fr       */
+/*   Updated: 2024/05/17 16:49:48 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,9 +144,6 @@ t_subrt		*init_subrt(void);
 t_dotrt		*single_rt(void);
 t_dotrt		*read_rt(char *filename);
 
-/// ft_writert.c
-void		set_dotrt(t_dotrt *rt);
-
 /// is_format.c
 t_bool	is_rgb(double color);
 t_bool	is_ratio(double num);
@@ -172,6 +169,10 @@ int		array_len(char **array);
 void	ft_arr_free(char **array);
 void	unify_spacekind(char *s);
 
-/// temp : debug
+/// debug
+void	print_vec3(t_vec3 v);
+void	print_object_arr(
+		t_subrt **objects, int count, const char *object_type);
 void	print_rt(void);
+
 #endif
