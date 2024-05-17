@@ -6,7 +6,7 @@
 /*   By: minakim <minakim@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 17:21:38 by minakim           #+#    #+#             */
-/*   Updated: 2024/03/13 18:48:56 by minakim          ###   ########.fr       */
+/*   Updated: 2024/05/07 17:08:09 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,33 +50,30 @@ typedef struct s_mode {
 /// This param exists to print out the specific place where the error occurred.
 /// For `indentifier`, only `Identifier Macros`, in "macros.h" should be entered.
 
-/// print_error.c
-void	print_prompt(char *msg);
-void	print_prompt_addend(char *target, char *msg);
-void	print_prompt_object(char *msg);
-char	*print_objname(int identifier);
-void	print_correct_formatting(void);
-
-
-void	print_error_location(int indentifier, int index);
-
-/// bool.c
-t_bool	is_objunique(int indentifier);
-/// args.c
-int		error_wrong_range(int identifier, int index);
-int		error_invalid_element(int identifier, int index);
-int		error_args(int err_code);
-///	single_mode.c
-t_mode	*single_mode(void);
-int		set_image_width(int width);
-void	init_array_6(int arr[]);
-t_bool	check_filename(char *filename);
-
 ///	args_check.c
 t_bool	args_check(int argc, char *argv[]);
 
 /// check_mode.c
 t_bool	try_debug_mode(int argc, char *argv[], t_mode *mode);
 t_bool	try_image_mode(int argc, char *argv[], t_mode *mode);
+
+/// error.c
+int		error_wrong_range(int identifier, int index);
+int		error_invalid_element(int identifier, int index);
+int		error_args(int err_code);
+t_bool	is_objunique(int indentifier);
+
+/// print_error.c
+void	print_prompt(char *msg);
+void	print_prompt_addend(char *target, char *msg);
+void	print_prompt_object(char *msg);
+char	*print_objname(int identifier);
+void	print_error_location(int indentifier, int index);
+
+///	single_mode.c
+t_mode	*single_mode(void);
+int		set_image_width(int width);
+void	init_array_6(int arr[]);
+t_bool	check_filename(char *filename);
 
 #endif

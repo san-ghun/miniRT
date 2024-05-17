@@ -6,7 +6,7 @@
 /*   By: sanghupa <sanghupa@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 16:51:48 by sanghupa          #+#    #+#             */
-/*   Updated: 2024/03/13 16:58:13 by minakim          ###   ########.fr       */
+/*   Updated: 2024/05/07 20:36:13 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	execute_subrt(char **array)
 	func_to_run = classify_element_type(array[0]);
 	if (func_to_run == NULL)
 	{
-		print_prompt("args: invalid identifier.\n");
+		print_prompt("args: invalid identifier.");
 		return (INVALID);
 	}
 	if (func_to_run(array) != VALID)
@@ -60,11 +60,14 @@ int	process_subrt(char *line)
 	return (VALID);
 }
 
+
 int	convert_dotrt_format(int fd)
 {
 	char 	*line;
 	char	*trim;
+	t_bool	is_correct_rt_file;
 	
+	is_correct_rt_file = TRUE;
 	line = get_next_line(fd);
 	if (!line)
 		return (INVALID);
@@ -79,11 +82,13 @@ int	convert_dotrt_format(int fd)
 		trim = ft_strtrim(line, "\n");
 		free(line);
 		if (process_subrt(trim) != VALID)
-			return (free(trim), INVALID);
+			is_correct_rt_file = FALSE;
 		free(trim);
 		line = get_next_line(fd);
 	}
 	print_rt();
+	if (is_correct_rt_file != TRUE)
+		return (INVALID);
 	return (VALID);
 }
 
@@ -95,18 +100,18 @@ t_dotrt	*read_rt(char *filename)
 	rt = single_rt();
 	if (access(filename, R_OK) != 0)
 	{
-		print_prompt("args: checking file access.\n");
+		print_prompt("args: checking file access.");
 		return (NULL);
 	}
 	fd = open(filename, O_RDONLY);
 	if (fd <= 0)
 	{
-		print_prompt("args: can't open file.\n");
+		print_prompt("args: can't open file.");
 		return (NULL);
 	}
 	if (convert_dotrt_format(fd) != VALID)
 	{
-		print_prompt("args: target .rt file valid fail.\n");
+		print_prompt("args: target '.rt' file valid fail.");
 		return (close(fd), NULL);
 	}
 	return (close(fd), rt);

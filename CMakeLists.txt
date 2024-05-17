@@ -31,6 +31,7 @@ link_directories(/usr/lib)
 file(GLOB_RECURSE MINIRT_SOURCES
 		"src/*.c"
 		"src/*/*.c"
+		"include/*.h"
 		)
 
 # Add the executable
