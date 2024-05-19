@@ -26,7 +26,7 @@ void	print_prompt(char *msg)
 void	print_prompt_addend(char *target, char *msg)
 {
 	t_mode	*mode;
-	
+
 	mode = single_mode();
 	if (mode->debug_mode == TRUE)
 	{
@@ -41,7 +41,7 @@ void	print_prompt_addend(char *target, char *msg)
 void	print_prompt_object(char *msg)
 {
 	t_mode	*mode;
-	
+
 	mode = single_mode();
 	if (mode->debug_mode == TRUE)
 	{

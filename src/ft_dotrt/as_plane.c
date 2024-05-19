@@ -12,10 +12,11 @@
 
 #include "ft_dotrt.h"
 
-int verify_plane_element(char **array, char ***point, char ***vector, char ***rgb)
+int	verify_plane_element(
+	char **array, char ***point, char ***vector, char ***rgb)
 {
 	t_dotrt	*rt;
-	
+
 	rt = single_rt();
 	*point = ft_split(array[PL_POINT], ',');
 	if (valid_tuple(*point, PLANE, rt->cnt_pl, NULL) != VALID)
@@ -36,8 +37,8 @@ int verify_plane_element(char **array, char ***point, char ***vector, char ***rg
 void	set_rt_plane(char **point, char **vector, char **rgb)
 {
 	t_dotrt	*rt;
-	t_subrt *sub;
-	
+	t_subrt	*sub;
+
 	rt = single_rt();
 	sub = init_subrt();
 	sub->type = PLANE;
@@ -54,7 +55,7 @@ int	as_plane(char **array)
 	char	**point;
 	char	**vector;
 	char	**rgb;
-	
+
 	rt = single_rt();
 	if (array_len(array) != 4)
 		return (error_invalid_element(PLANE, rt->cnt_pl));

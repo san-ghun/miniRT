@@ -6,49 +6,51 @@
 /*   By: minakim <minakim@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 17:21:38 by minakim           #+#    #+#             */
-/*   Updated: 2024/05/07 17:08:09 by minakim          ###   ########.fr       */
+/*   Updated: 2024/05/17 17:08:48 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef ARGS_H
-#define ARGS_H
+# define ARGS_H
 
-#include "libft.h"
-#include "from_ms.h"
-#include "stdio.h"
-#include "macro.h"
+# include "libft.h"
+# include "from_ms.h"
+# include "stdio.h"
+# include "macro.h"
 
-typedef int t_bool;
+typedef int	t_bool;
 
 ///	@macro
-#define	ERR_RT_FILE		42
-#define ERR_FLAG_FAIL	43
-#define ERR_ARGS		44
-#define ERR_SYNTAX		45
-#define MAX_WIDTH		1920
+# define ERR_RT_FILE		42
+# define ERR_FLAG_FAIL	43
+# define ERR_ARGS		44
+# define ERR_SYNTAX		45
+# define MAX_WIDTH		1920
 
 /// @flag
-#define FLAG_DEBUG		"-d"
-#define FLAG_WIDTH		"-w"
-#define	MODE_FAIL		-1
+# define FLAG_DEBUG		"-d"
+# define FLAG_WIDTH		"-w"
+# define MODE_FAIL		-1
 
 # define PROMPT_DEBUG	"miniRT[debug] $"
 # define PROMPT_DEFAULT	"miniRT $"
 
 typedef struct s_mode {
 	t_bool	debug_mode;
-	int 	debug_index;
+	int		debug_index;
 	t_bool	image_mode;
-	int 	image_index;
-	int 	image_width;
+	int		image_index;
+	int		image_width;
 	double	ratio;
 	int		rt_index;
 	char	prompt[15];
 }		t_mode;
 
-/// @param indentifier Define each element present in the ".rt" file as an `indentifier` object.
+/// @param indentifier Define each element present in the ".rt" file
+/// as an `indentifier` object.
 /// This param exists to print out the specific place where the error occurred.
-/// For `indentifier`, only `Identifier Macros`, in "macros.h" should be entered.
+/// For `indentifier`, only `Identifier Macros`,
+/// in "macros.h" should be entered.
 
 ///	args_check.c
 t_bool	args_check(int argc, char *argv[]);

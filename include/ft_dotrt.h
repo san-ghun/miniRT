@@ -6,7 +6,7 @@
 /*   By: sanghupa <sanghupa@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 16:43:00 by sanghupa          #+#    #+#             */
-/*   Updated: 2024/01/07 17:00:38 by minakim          ###   ########.fr       */
+/*   Updated: 2024/05/17 17:26:00 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@
 */
 
 # define MAX_SUBRT	100
-# define SPACE		' '
+# define C_SPACE	32
 
 /*
 ** =============================================================================
@@ -50,11 +50,11 @@
 typedef int		t_bool;
 
 /// @brief This function pointer is used to classify as_object.
-typedef int		(*f_type)(char **);
+typedef int		(*t_type)(char **);
 
 /// @brief This function pointer is used to
 /// determine the range of each object's components.
-typedef t_bool	(*f_range)(double);
+typedef t_bool	(*t_range)(double);
 
 typedef struct s_subrt {
 	int			type;
@@ -90,13 +90,13 @@ typedef struct s_dotrt {
 /// give each element the index it requires to make sure it's safe to use
 /// even if it's modified in the future
 /// @enum ambient light
-typedef	enum e_a {
+typedef enum e_a {
 	A_RATIO = 1,
 	A_RGB
 }	t_a;
 
 /// @enum camera
-typedef	enum e_c {
+typedef enum e_c {
 	C_VIEWPOINT = 1,
 	C_VECTOR,
 	C_FOV
@@ -132,7 +132,6 @@ typedef enum e_cy {
 	CY_RGB
 }	t_cy;
 
-
 /*
 ** =============================================================================
 ** Function
@@ -144,34 +143,35 @@ t_subrt		*init_subrt(void);
 t_dotrt		*single_rt(void);
 t_dotrt		*read_rt(char *filename);
 
-/// ft_writert.c
-void		set_dotrt(t_dotrt *rt);
-
 /// is_format.c
-t_bool	is_rgb(double color);
-t_bool	is_ratio(double num);
-t_bool	is_vector(double vector);
-t_bool	is_hov(double hov);
-t_bool	is_unit(double unit);
+t_bool		is_rgb(double color);
+t_bool		is_ratio(double num);
+t_bool		is_vector(double vector);
+t_bool		is_hov(double hov);
+t_bool		is_unit(double unit);
 
 /// as_ambient, camera, light, sphere, plane, and cylinder.c
-int		as_ambient(char **array);
-int		as_camera(char **array);
-int		as_light(char **array);
-int		as_sphere(char **array);
-int		as_plane(char **array);
-int		as_cylinder(char **array);
+int			as_ambient(char **array);
+int			as_camera(char **array);
+int			as_light(char **array);
+int			as_sphere(char **array);
+int			as_plane(char **array);
+int			as_cylinder(char **array);
 
 /// set_tuple.c
-int		valid_tuple(char **ele, int id, int i, f_range is_range);
-t_vec3	set_tuple(char **v);
-t_vec3	set_rgb(char **rgb);
+int			valid_tuple(char **ele, int id, int i, t_range is_range);
+t_vec3		set_tuple(char **v);
+t_vec3		set_rgb(char **rgb);
 
 /// utils.c
-int		array_len(char **array);
-void	ft_arr_free(char **array);
-void	unify_spacekind(char *s);
+int			array_len(char **array);
+void		ft_arr_free(char **array);
+void		unify_spacekind(char *s);
 
-/// temp : debug
-void	print_rt(void);
+/// debug
+void		print_vec3(t_vec3 v);
+void		print_object_arr( \
+			t_subrt **objects, int count, const char *object_type);
+void		print_rt(void);
+
 #endif

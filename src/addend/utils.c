@@ -6,7 +6,7 @@
 /*   By: minakim <minakim@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 18:15:09 by minakim           #+#    #+#             */
-/*   Updated: 2024/03/13 18:41:57 by minakim          ###   ########.fr       */
+/*   Updated: 2024/05/17 15:51:35 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,21 +43,21 @@ void	moremore(void)
 	printf("Vup: (%f, %f, %f)\n", c->vup.x, c->vup.y, c->vup.z);
 	printf("Defocus Angle: %f\n", c->defocus_angle);
 	printf("Focus Distance: %f\n", c->focus_dist);
+	printf("Center: (%f, %f, %f)\n", c->center.x, c->center.y, c->center.z);
+	printf("U: (%f, %f, %f)\n", c->u.x, c->u.y, c->u.z);
+	printf("V: (%f, %f, %f)\n", c->v.x, c->v.y, c->v.z);
 }
 
 void	debug_camera(void)
 {
 	t_camera	*c;
 	t_mode		*mode;
-	
+
 	mode = single_mode();
 	if (mode->debug_mode != TRUE)
 		return ;
 	c = single_cam();
 	moremore();
-	printf("Center: (%f, %f, %f)\n", c->center.x, c->center.y, c->center.z);
-	printf("U: (%f, %f, %f)\n", c->u.x, c->u.y, c->u.z);
-	printf("V: (%f, %f, %f)\n", c->v.x, c->v.y, c->v.z);
 	printf("W: (%f, %f, %f)\n", c->w.x, c->w.y, c->w.z);
 	printf("Viewport U: (%f, %f, %f)\n", \
 		c->viewport_u.x, c->viewport_u.y, c->viewport_u.z);

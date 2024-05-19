@@ -12,10 +12,10 @@
 
 #include "ft_dotrt.h"
 
-int array_len(char **array)
+int	array_len(char **array)
 {
 	int	i;
-	
+
 	i = 0;
 	while (array[i])
 		i++;
@@ -25,7 +25,7 @@ int array_len(char **array)
 void	ft_arr_free(char **array)
 {
 	int	i;
-	
+
 	i = -1;
 	while (array[++i])
 		free(array[i]);
@@ -45,7 +45,7 @@ void	unify_spacekind(char *s)
 	while (*s)
 	{
 		if (is_whitespace(*s))
-			*s = SPACE;
+			*s = C_SPACE;
 		s++;
 	}
 }

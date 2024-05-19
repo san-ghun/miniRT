@@ -6,16 +6,16 @@
 /*   By: minakim <minakim@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/07 16:17:30 by minakim           #+#    #+#             */
-/*   Updated: 2024/01/07 17:45:02 by minakim          ###   ########.fr       */
+/*   Updated: 2024/05/17 16:14:31 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_dotrt.h"
 
-int	verify_camera_element(char **array, char ***point, char ***vector, int obj_n)
+int	verify_camera_elem(char **array, char ***point, char ***vector, int obj_n)
 {
 	double	fov;
-	
+
 	fov = ft_stod(array[C_FOV]);
 	if (isnan(fov) || !is_hov(fov))
 		return (error_invalid_element(CAMERA, obj_n));
@@ -31,7 +31,7 @@ int	verify_camera_element(char **array, char ***point, char ***vector, int obj_n
 void	set_rt_camera(char **view_point, char **vector, char *fov)
 {
 	t_dotrt		*rt;
-	
+
 	rt = single_rt();
 	rt->c->type = CAMERA;
 	rt->c->point = set_tuple(view_point);
@@ -41,17 +41,17 @@ void	set_rt_camera(char **view_point, char **vector, char *fov)
 
 int	as_camera(char **array)
 {
-	char	**view_point;
-	char	**vector;
+	char		**view_point;
+	char		**vector;
 	static int	obj_n = 0;
-	
+
 	view_point = NULL;
 	vector = NULL;
 	if (++obj_n > 1)
 		return (error_invalid_element(CAMERA, obj_n));
 	if (array_len(array) != 4)
 		return (error_invalid_element(CAMERA, obj_n));
-	if (verify_camera_element(array, &view_point, &vector, obj_n) != VALID)
+	if (verify_camera_elem(array, &view_point, &vector, obj_n) != VALID)
 		return (INVALID);
 	set_rt_camera(view_point, vector, array[C_FOV]);
 	return (VALID);

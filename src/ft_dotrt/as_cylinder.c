@@ -6,7 +6,7 @@
 /*   By: minakim <minakim@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/07 16:18:49 by minakim           #+#    #+#             */
-/*   Updated: 2024/01/07 16:41:00 by minakim          ###   ########.fr       */
+/*   Updated: 2024/05/17 16:15:53 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	verify_cylinder_element(char **array, int index)
 {
 	double	diameter;
 	double	height;
-	
+
 	diameter = ft_stod(array[CY_DIAMETER]);
 	if (isnan(diameter) || !is_unit(diameter))
 		return (error_invalid_element(CYLINDER, index));
@@ -26,10 +26,10 @@ int	verify_cylinder_element(char **array, int index)
 	return (VALID);
 }
 
-int	verify_cylinder_tuple(char **a, char ***point, char *** vector, char ***rgb)
+int	verify_cylinder_tuple(char **a, char ***point, char ***vector, char ***rgb)
 {
 	t_dotrt	*rt;
-	
+
 	rt = single_rt();
 	*point = ft_split(a[CY_POINT], ',');
 	if (valid_tuple(*point, CYLINDER, rt->cnt_cy, NULL) != VALID)
@@ -47,11 +47,11 @@ int	verify_cylinder_tuple(char **a, char ***point, char *** vector, char ***rgb)
 	return (VALID);
 }
 
-void	set_rt_cylinder(char **a, char **point, char ** vector, char **rgb)
+void	set_rt_cylinder(char **a, char **point, char **vector, char **rgb)
 {
 	t_dotrt	*rt;
-	t_subrt *sub;
-	
+	t_subrt	*sub;
+
 	rt = single_rt();
 	sub = init_subrt();
 	sub->type = CYLINDER;
@@ -70,7 +70,7 @@ int	as_cylinder(char **array)
 	char	**point;
 	char	**vector;
 	char	**rgb;
-	
+
 	rt = single_rt();
 	if (array_len(array) != 6)
 		return (error_invalid_element(CYLINDER, rt->cnt_cy));

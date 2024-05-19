@@ -21,13 +21,13 @@
 /// \param is_range is a function pointer,
 /// which takes in the is_format.c functions that verify the correct range
 /// for each element.
-/// If f_range is NULL, the range of the element is not checked.
+/// If t_range is NULL, the range of the element is not checked.
 /// \return valid/invalid
-int	valid_tuple(char **ele, int id, int i, f_range is_range)
+int	valid_tuple(char **ele, int id, int i, t_range is_range)
 {
 	double	val;
 	int		j;
-	
+
 	j = -1;
 	if (!ele || !*ele)
 		return (INVALID);
@@ -52,7 +52,7 @@ int	valid_tuple(char **ele, int id, int i, f_range is_range)
 t_vec3	set_tuple(char **v)
 {
 	t_vec3	target;
-	
+
 	target = (t_vec3){ft_stod(v[0]), ft_stod(v[1]), ft_stod(v[2])};
 	ft_arr_free(v);
 	return (target);

@@ -6,7 +6,7 @@
 /*   By: sanghupa <sanghupa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/19 17:40:13 by oouklich          #+#    #+#             */
-/*   Updated: 2024/02/05 20:30:12 by minakim          ###   ########.fr       */
+/*   Updated: 2024/05/17 17:08:07 by minakim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@
 # define K_NP_MUL 65450
 # define K_NP_MIN 65453
 # define K_NP_PLU 65451
-
 
 /*
 ** Keyboard NUMPAD
